@@ -1,0 +1,15 @@
+name: Kubernetes Services
+description: An abstract way to expose an application running on a set of Pods as
+  a network service in Kubernetes, providing stable networking endpoints and load
+  balancing across pod replicas.
+url: https://kubernetes.io/docs/concepts/services-networking/service/
+tags:
+- Kubernetes
+- Container Orchestration
+- Networking
+- Load Balancing
+- Service Discovery
+created: '2025'
+modified: '2025'
+apis: []
+common: []
