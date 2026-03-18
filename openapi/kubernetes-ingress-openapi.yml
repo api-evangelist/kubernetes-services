@@ -1,0 +1,770 @@
+openapi: 3.1.0
+info:
+  title: Kubernetes Ingress API
+  description: >-
+    The Kubernetes Ingress API manages external HTTP and HTTPS access to
+    services within a cluster, providing load balancing, SSL/TLS termination,
+    and name-based virtual hosting. Traffic routing is controlled by rules
+    defined on the Ingress resource and fulfilled by an Ingress controller
+    such as nginx-ingress, Traefik, or a cloud provider's ingress controller.
+  version: v1.32.0
+  contact:
+    name: Kubernetes Community
+    url: https://kubernetes.io/community/
+  termsOfService: https://www.apache.org/licenses/LICENSE-2.0
+externalDocs:
+  description: Kubernetes Ingress API Reference
+  url: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/ingress-v1/
+servers:
+  - url: https://kubernetes.default.svc
+    description: In-cluster Kubernetes API Server
+tags:
+  - name: Ingress
+    description: >-
+      Ingress resources defining HTTP and HTTPS routing rules from external
+      traffic to cluster services, with TLS termination support.
+  - name: IngressStatus
+    description: >-
+      Status subresource for Ingress objects, reporting load balancer
+      IP or hostname assignments from the ingress controller.
+  - name: IngressClass
+    description: >-
+      IngressClass resources identifying which ingress controller
+      should fulfill an Ingress resource.
+security:
+  - bearerAuth: []
+  - clientCertificate: []
+paths:
+  /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses:
+    get:
+      operationId: listNamespacedIngresses
+      summary: List Ingresses in a namespace
+      description: >-
+        Returns a list of all Ingress objects in the specified namespace.
+        Each Ingress defines HTTP/HTTPS routing rules that an ingress
+        controller translates into proxy configuration.
+      tags:
+        - Ingress
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/FieldSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Continue'
+        - $ref: '#/components/parameters/Watch'
+      responses:
+        '200':
+          description: List of Ingress objects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngressList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createNamespacedIngress
+      summary: Create an Ingress
+      description: >-
+        Creates a new Ingress in the specified namespace. The Ingress spec
+        defines host-based and path-based routing rules, optional TLS
+        configuration, and a default backend for unmatched requests.
+      tags:
+        - Ingress
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/DryRun'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingress'
+      responses:
+        '201':
+          description: Ingress created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingress'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+  /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}:
+    get:
+      operationId: getNamespacedIngress
+      summary: Get an Ingress
+      description: >-
+        Returns the specified Ingress including its routing rules, TLS
+        configuration, associated IngressClass, and load balancer status
+        from the ingress controller.
+      tags:
+        - Ingress
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: Ingress details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingress'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceNamespacedIngress
+      summary: Replace an Ingress
+      description: >-
+        Replaces the full specification of the specified Ingress. The ingress
+        controller will reconfigure its proxy rules to match the updated
+        routing configuration.
+      tags:
+        - Ingress
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/NameParam'
+        - $ref: '#/components/parameters/DryRun'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingress'
+      responses:
+        '200':
+          description: Ingress updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingress'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: patchNamespacedIngress
+      summary: Patch an Ingress
+      description: >-
+        Applies a partial update to the specified Ingress using strategic
+        merge patch or JSON merge patch semantics.
+      tags:
+        - Ingress
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/NameParam'
+      requestBody:
+        required: true
+        content:
+          application/merge-patch+json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Ingress patched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingress'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteNamespacedIngress
+      summary: Delete an Ingress
+      description: >-
+        Deletes the specified Ingress. The ingress controller will remove
+        the corresponding proxy rules and any associated TLS configuration.
+      tags:
+        - Ingress
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: Ingress deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingress'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status:
+    get:
+      operationId: getNamespacedIngressStatus
+      summary: Get Ingress status
+      description: >-
+        Returns the status subresource for the specified Ingress, including
+        the load balancer IP addresses or hostnames assigned by the ingress
+        controller.
+      tags:
+        - IngressStatus
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: Ingress status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingress'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceNamespacedIngressStatus
+      summary: Replace Ingress status
+      description: >-
+        Replaces the status subresource of the specified Ingress. Used by
+        ingress controllers to report assigned load balancer IPs and
+        hostnames.
+      tags:
+        - IngressStatus
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/NameParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingress'
+      responses:
+        '200':
+          description: Ingress status updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingress'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /apis/networking.k8s.io/v1/ingresses:
+    get:
+      operationId: listIngressesAllNamespaces
+      summary: List Ingresses across all namespaces
+      description: >-
+        Returns all Ingress objects cluster-wide. Useful for auditing ingress
+        rules, identifying conflicting host rules, and monitoring TLS
+        certificate coverage across namespaces.
+      tags:
+        - Ingress
+      parameters:
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/FieldSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Watch'
+      responses:
+        '200':
+          description: List of Ingresses across all namespaces
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngressList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /apis/networking.k8s.io/v1/ingressclasses:
+    get:
+      operationId: listIngressClasses
+      summary: List IngressClasses
+      description: >-
+        Returns a list of all IngressClass resources in the cluster. Each
+        IngressClass identifies an ingress controller implementation and its
+        parameters. Ingress objects reference an IngressClass to select their
+        controller.
+      tags:
+        - IngressClass
+      parameters:
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Watch'
+      responses:
+        '200':
+          description: List of IngressClass resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngressClassList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createIngressClass
+      summary: Create an IngressClass
+      description: >-
+        Creates a new IngressClass resource. IngressClasses are cluster-scoped
+        and define a mapping between Ingress resources and the controller
+        responsible for fulfilling them.
+      tags:
+        - IngressClass
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngressClass'
+      responses:
+        '201':
+          description: IngressClass created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngressClass'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /apis/networking.k8s.io/v1/ingressclasses/{name}:
+    get:
+      operationId: getIngressClass
+      summary: Get an IngressClass
+      description: >-
+        Returns the specified IngressClass including the controller name and
+        any controller-specific parameters reference.
+      tags:
+        - IngressClass
+      parameters:
+        - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: IngressClass details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngressClass'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteIngressClass
+      summary: Delete an IngressClass
+      description: >-
+        Deletes the specified IngressClass. Existing Ingress objects that
+        reference this IngressClass will no longer be fulfilled by any
+        controller unless another IngressClass is configured.
+      tags:
+        - IngressClass
+      parameters:
+        - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: IngressClass deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngressClass'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Kubernetes service account or user bearer token.
+    clientCertificate:
+      type: mutualTLS
+      description: Client TLS certificate signed by the cluster CA.
+  parameters:
+    NamespaceParam:
+      name: namespace
+      in: path
+      required: true
+      description: Namespace name to scope the request.
+      schema:
+        type: string
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource.
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    FieldSelector:
+      name: fieldSelector
+      in: query
+      description: Field selector to filter resources by field values.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
+    Continue:
+      name: continue
+      in: query
+      description: Pagination continuation token.
+      schema:
+        type: string
+    Watch:
+      name: watch
+      in: query
+      description: If true, stream watch events instead of returning a list.
+      schema:
+        type: boolean
+    DryRun:
+      name: dryRun
+      in: query
+      description: If 'All', validates without persisting the change.
+      schema:
+        type: string
+        enum:
+          - All
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  schemas:
+    IngressBackend:
+      type: object
+      description: >-
+        Reference to the backend service or resource that an Ingress routing
+        rule should forward traffic to.
+      properties:
+        service:
+          type: object
+          description: Service backend reference for routing.
+          required:
+            - name
+            - port
+          properties:
+            name:
+              type: string
+              description: Name of the referenced Service in the same namespace.
+            port:
+              type: object
+              description: Port on the referenced Service to forward traffic to.
+              properties:
+                number:
+                  type: integer
+                  minimum: 1
+                  maximum: 65535
+                  description: Numeric port number.
+                name:
+                  type: string
+                  description: Named port as defined in the Service spec.
+        resource:
+          type: object
+          description: >-
+            Reference to a custom resource backend in the same namespace.
+            Mutually exclusive with service.
+          properties:
+            apiGroup:
+              type: string
+              description: API group of the referenced resource.
+            kind:
+              type: string
+              description: Kind of the referenced resource.
+            name:
+              type: string
+              description: Name of the referenced resource.
+    HTTPIngressPath:
+      type: object
+      description: >-
+        A mapping of an HTTP path to a backend service. Used within Ingress
+        rules to route specific paths to different services.
+      required:
+        - pathType
+        - backend
+      properties:
+        path:
+          type: string
+          description: >-
+            URL path to match. Must begin with '/'. Required for Exact and
+            Prefix pathTypes.
+          pattern: '^/'
+        pathType:
+          type: string
+          enum:
+            - Exact
+            - Prefix
+            - ImplementationSpecific
+          description: >-
+            How the path is matched. Exact requires a case-sensitive exact
+            match; Prefix matches paths sharing a '/' delimited prefix;
+            ImplementationSpecific defers to the IngressClass controller.
+        backend:
+          $ref: '#/components/schemas/IngressBackend'
+    IngressRule:
+      type: object
+      description: >-
+        A host-based routing rule mapping HTTP requests to backend services
+        based on hostname and path prefix matching.
+      properties:
+        host:
+          type: string
+          description: >-
+            Fully-qualified domain name to match. Wildcard prefixes like
+            *.example.com are supported. If unspecified, all hosts match.
+        http:
+          type: object
+          description: HTTP-specific routing configuration for this rule.
+          required:
+            - paths
+          properties:
+            paths:
+              type: array
+              description: >-
+                List of path-to-backend mappings for this rule. At least one
+                path must be specified.
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/HTTPIngressPath'
+    IngressTLS:
+      type: object
+      description: >-
+        TLS configuration for an Ingress, specifying a Secret containing the
+        certificate and key for terminating HTTPS connections on port 443.
+      properties:
+        hosts:
+          type: array
+          description: >-
+            Hosts covered by the TLS certificate. Must match hosts defined
+            in the certificate's Subject Alternative Names.
+          items:
+            type: string
+        secretName:
+          type: string
+          description: >-
+            Name of the Secret in the same namespace containing the TLS
+            certificate (tls.crt) and key (tls.key).
+    IngressSpec:
+      type: object
+      description: >-
+        Specification of the desired behavior of an Ingress, including the
+        routing rules, TLS configuration, default backend, and reference to
+        the ingress controller via the IngressClass.
+      properties:
+        ingressClassName:
+          type: string
+          description: >-
+            Name of the IngressClass cluster resource that selects which
+            ingress controller handles this Ingress.
+        defaultBackend:
+          $ref: '#/components/schemas/IngressBackend'
+        tls:
+          type: array
+          description: TLS configuration for HTTPS termination.
+          items:
+            $ref: '#/components/schemas/IngressTLS'
+        rules:
+          type: array
+          description: >-
+            List of host rules for HTTP traffic routing. If no rules match
+            a request, the defaultBackend is used.
+          items:
+            $ref: '#/components/schemas/IngressRule'
+    IngressStatus:
+      type: object
+      description: >-
+        Most recently observed status of an Ingress, reporting the load
+        balancer IPs or hostnames assigned by the ingress controller.
+      properties:
+        loadBalancer:
+          type: object
+          description: LoadBalancer status for the ingress.
+          properties:
+            ingress:
+              type: array
+              description: List of load balancer ingress points.
+              items:
+                type: object
+                properties:
+                  ip:
+                    type: string
+                    description: IP address assigned to this ingress point.
+                  hostname:
+                    type: string
+                    description: Hostname assigned to this ingress point.
+                  ports:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        port:
+                          type: integer
+                        protocol:
+                          type: string
+                        error:
+                          type: string
+    Ingress:
+      type: object
+      description: >-
+        An Ingress manages external access to the services in a cluster,
+        typically HTTP/HTTPS. It provides load balancing, SSL termination,
+        and name-based virtual hosting based on routing rules.
+      properties:
+        apiVersion:
+          type: string
+          const: networking.k8s.io/v1
+        kind:
+          type: string
+          const: Ingress
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/IngressSpec'
+        status:
+          $ref: '#/components/schemas/IngressStatus'
+    IngressList:
+      type: object
+      description: A list of Ingress objects.
+      required:
+        - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          const: IngressList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ingress'
+    IngressClass:
+      type: object
+      description: >-
+        An IngressClass is a cluster-scoped resource that represents an
+        ingress controller implementation. Ingress objects reference an
+        IngressClass by name to select which controller fulfills them.
+      properties:
+        apiVersion:
+          type: string
+          const: networking.k8s.io/v1
+        kind:
+          type: string
+          const: IngressClass
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: IngressClass specification.
+          properties:
+            controller:
+              type: string
+              description: >-
+                Name of the controller that handles Ingresses of this class.
+                Example: ingress.controller.example.com/nginx
+            parameters:
+              type: object
+              description: >-
+                Reference to a custom resource containing controller-specific
+                parameters for this IngressClass.
+    IngressClassList:
+      type: object
+      description: A list of IngressClass resources.
+      required:
+        - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          const: IngressClassList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/IngressClass'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the object.
+        namespace:
+          type: string
+          description: Namespace of the object.
+        uid:
+          type: string
+          description: Unique server-assigned identifier.
+        resourceVersion:
+          type: string
+          description: Internal version for optimistic concurrency.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Key-value label pairs.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata.
+    ListMeta:
+      type: object
+      description: Metadata for list responses.
+      properties:
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
+          type: integer
+    Status:
+      type: object
+      description: Error or result status returned by the API.
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+            - Success
+            - Failure

@@ -1,0 +1,244 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "k8s": "https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#",
+    "k8snet": "https://kubernetes.io/docs/concepts/services-networking/",
+    "gwapi": "https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+
+    "Service": {
+      "@id": "k8s:service-v1-core",
+      "@context": {
+        "spec": "k8s:servicespec-v1-core",
+        "status": "k8s:servicestatus-v1-core",
+        "type": {
+          "@id": "k8s:servicespec-type-v1-core",
+          "@type": "xsd:string"
+        },
+        "clusterIP": {
+          "@id": "k8s:servicespec-clusterIP-v1-core",
+          "@type": "xsd:string"
+        },
+        "selector": "k8s:servicespec-selector-v1-core",
+        "ports": {
+          "@id": "k8s:servicespec-ports-v1-core",
+          "@container": "@set"
+        },
+        "externalName": {
+          "@id": "k8s:servicespec-externalName-v1-core",
+          "@type": "xsd:string"
+        },
+        "loadBalancerIP": {
+          "@id": "k8s:servicespec-loadBalancerIP-v1-core",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "Endpoints": {
+      "@id": "k8s:endpoints-v1-core",
+      "@context": {
+        "subsets": {
+          "@id": "k8s:endpoints-subsets-v1-core",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "EndpointSlice": {
+      "@id": "k8s:endpointslice-v1-discovery.k8s.io",
+      "@context": {
+        "addressType": {
+          "@id": "k8s:endpointslice-addressType-v1-discovery.k8s.io",
+          "@type": "xsd:string"
+        },
+        "endpoints": {
+          "@id": "k8s:endpointslice-endpoints-v1-discovery.k8s.io",
+          "@container": "@set"
+        },
+        "ports": {
+          "@id": "k8s:endpointslice-ports-v1-discovery.k8s.io",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Ingress": {
+      "@id": "k8s:ingress-v1-networking.k8s.io",
+      "@context": {
+        "spec": "k8s:ingressspec-v1-networking.k8s.io",
+        "status": "k8s:ingressstatus-v1-networking.k8s.io",
+        "ingressClassName": {
+          "@id": "k8s:ingressspec-ingressClassName-v1-networking.k8s.io",
+          "@type": "xsd:string"
+        },
+        "rules": {
+          "@id": "k8s:ingressspec-rules-v1-networking.k8s.io",
+          "@container": "@set"
+        },
+        "tls": {
+          "@id": "k8s:ingressspec-tls-v1-networking.k8s.io",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "IngressClass": {
+      "@id": "k8s:ingressclass-v1-networking.k8s.io",
+      "@context": {
+        "controller": {
+          "@id": "k8s:ingressclassspec-controller-v1-networking.k8s.io",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "NetworkPolicy": {
+      "@id": "k8s:networkpolicy-v1-networking.k8s.io",
+      "@context": {
+        "spec": "k8s:networkpolicyspec-v1-networking.k8s.io",
+        "podSelector": "k8s:networkpolicyspec-podSelector-v1-networking.k8s.io",
+        "policyTypes": {
+          "@id": "k8s:networkpolicyspec-policyTypes-v1-networking.k8s.io",
+          "@container": "@set"
+        },
+        "ingress": {
+          "@id": "k8s:networkpolicyspec-ingress-v1-networking.k8s.io",
+          "@container": "@set"
+        },
+        "egress": {
+          "@id": "k8s:networkpolicyspec-egress-v1-networking.k8s.io",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "GatewayClass": {
+      "@id": "gwapi:GatewayClass",
+      "@context": {
+        "controllerName": {
+          "@id": "gwapi:GatewayClassSpec.controllerName",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "Gateway": {
+      "@id": "gwapi:Gateway",
+      "@context": {
+        "gatewayClassName": {
+          "@id": "gwapi:GatewaySpec.gatewayClassName",
+          "@type": "xsd:string"
+        },
+        "listeners": {
+          "@id": "gwapi:GatewaySpec.listeners",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "HTTPRoute": {
+      "@id": "gwapi:HTTPRoute",
+      "@context": {
+        "parentRefs": {
+          "@id": "gwapi:HTTPRouteSpec.parentRefs",
+          "@container": "@set"
+        },
+        "hostnames": {
+          "@id": "gwapi:HTTPRouteSpec.hostnames",
+          "@container": "@set"
+        },
+        "rules": {
+          "@id": "gwapi:HTTPRouteSpec.rules",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "GRPCRoute": {
+      "@id": "gwapi:GRPCRoute",
+      "@context": {
+        "parentRefs": {
+          "@id": "gwapi:GRPCRouteSpec.parentRefs",
+          "@container": "@set"
+        },
+        "rules": {
+          "@id": "gwapi:GRPCRouteSpec.rules",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "apiVersion": {
+      "@id": "k8s:apiversion",
+      "@type": "xsd:string"
+    },
+    "kind": {
+      "@id": "k8s:kind",
+      "@type": "xsd:string"
+    },
+    "metadata": {
+      "@id": "k8s:objectmeta-v1-meta"
+    },
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "namespace": {
+      "@id": "k8s:namespace",
+      "@type": "xsd:string"
+    },
+    "uid": {
+      "@id": "dcterms:identifier",
+      "@type": "xsd:string"
+    },
+    "creationTimestamp": {
+      "@id": "dcterms:created",
+      "@type": "xsd:dateTime"
+    },
+    "deletionTimestamp": {
+      "@id": "k8s:deletionTimestamp",
+      "@type": "xsd:dateTime"
+    },
+    "labels": {
+      "@id": "k8s:labels",
+      "@container": "@index"
+    },
+    "annotations": {
+      "@id": "k8s:annotations",
+      "@container": "@index"
+    },
+    "resourceVersion": {
+      "@id": "k8s:resourceVersion",
+      "@type": "xsd:string"
+    },
+    "generation": {
+      "@id": "k8s:generation",
+      "@type": "xsd:integer"
+    },
+    "spec": {
+      "@id": "k8s:spec"
+    },
+    "status": {
+      "@id": "k8s:status"
+    },
+    "selector": {
+      "@id": "k8s:selector"
+    },
+    "ports": {
+      "@id": "k8s:ports",
+      "@container": "@set"
+    },
+    "rules": {
+      "@id": "k8s:rules",
+      "@container": "@set"
+    },
+    "conditions": {
+      "@id": "k8s:conditions",
+      "@container": "@set"
+    }
+  }
+}

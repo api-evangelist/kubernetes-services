@@ -1,0 +1,293 @@
+asyncapi: 2.6.0
+info:
+  title: Kubernetes Services Watch Events
+  description: >-
+    The Kubernetes Services watch API provides streaming event notifications
+    for networking resources including Services, Ingresses, EndpointSlices,
+    NetworkPolicies, and Gateway API resources. Clients subscribe to resource
+    watch streams and receive ADDED, MODIFIED, DELETED, and BOOKMARK events
+    as networking configuration changes in the cluster. These streams are
+    used by ingress controllers, load balancer operators, service mesh
+    components, and observability tools to maintain synchronized state.
+  version: v1.32.0
+  contact:
+    name: Kubernetes Community
+    url: https://kubernetes.io/community/
+externalDocs:
+  description: Kubernetes API Concepts - Watch
+  url: https://kubernetes.io/docs/reference/using-api/api-concepts/
+servers:
+  kubernetesApiServer:
+    url: 'https://kubernetes.default.svc'
+    protocol: https
+    description: In-cluster Kubernetes API server for watch streaming.
+    security:
+      - bearerAuth: []
+      - clientCertificate: []
+channels:
+  /api/v1/namespaces/{namespace}/services:
+    description: >-
+      Watch stream for Service objects in a namespace. Service changes include
+      creation of new services, updates to port mappings or selectors, type
+      changes (e.g. ClusterIP to LoadBalancer), and deletions.
+    parameters:
+      namespace:
+        $ref: '#/components/parameters/Namespace'
+    subscribe:
+      operationId: watchNamespacedServices
+      summary: Watch Services in a namespace
+      description: >-
+        Streams WatchEvent messages for all Service changes in the specified
+        namespace. Used by load balancer controllers to track service creation
+        and updates, and by kube-proxy to sync iptables/ipvs rules.
+      message:
+        $ref: '#/components/messages/ServiceWatchEvent'
+  /api/v1/services:
+    description: >-
+      Watch stream for all Service objects across all namespaces in the
+      cluster. Used for cluster-wide service discovery and monitoring.
+    subscribe:
+      operationId: watchAllServices
+      summary: Watch all Services cluster-wide
+      description: >-
+        Streams WatchEvent messages for Service changes across all namespaces.
+        Useful for external DNS controllers and global load balancer
+        controllers that manage cluster-wide service exposure.
+      message:
+        $ref: '#/components/messages/ServiceWatchEvent'
+  /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses:
+    description: >-
+      Watch stream for Ingress objects in a namespace. Ingress changes include
+      new routing rules, TLS configuration updates, and load balancer
+      status updates from the ingress controller.
+    parameters:
+      namespace:
+        $ref: '#/components/parameters/Namespace'
+    subscribe:
+      operationId: watchNamespacedIngresses
+      summary: Watch Ingresses in a namespace
+      description: >-
+        Streams WatchEvent messages for Ingress changes in the specified
+        namespace. Ingress controllers watch this stream to reconfigure
+        their proxies when routing rules are added or modified.
+      message:
+        $ref: '#/components/messages/IngressWatchEvent'
+  /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices:
+    description: >-
+      Watch stream for EndpointSlice objects in a namespace. EndpointSlice
+      changes reflect pod readiness transitions, pod scheduling, and pod
+      termination as pods backing a Service change state.
+    parameters:
+      namespace:
+        $ref: '#/components/parameters/Namespace'
+    subscribe:
+      operationId: watchNamespacedEndpointSlices
+      summary: Watch EndpointSlices in a namespace
+      description: >-
+        Streams WatchEvent messages for EndpointSlice changes. kube-proxy
+        and service mesh sidecars watch this stream to keep their endpoint
+        routing tables synchronized with the current set of ready pods.
+      message:
+        $ref: '#/components/messages/EndpointSliceWatchEvent'
+  /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies:
+    description: >-
+      Watch stream for NetworkPolicy objects in a namespace. Network policy
+      changes are monitored by CNI plugins to update their eBPF or iptables
+      rules enforcing pod-level traffic restrictions.
+    parameters:
+      namespace:
+        $ref: '#/components/parameters/Namespace'
+    subscribe:
+      operationId: watchNamespacedNetworkPolicies
+      summary: Watch NetworkPolicies in a namespace
+      description: >-
+        Streams WatchEvent messages for NetworkPolicy changes in the specified
+        namespace. CNI plugin agents watch this stream to enforce the latest
+        traffic rules for pods without requiring restarts.
+      message:
+        $ref: '#/components/messages/NetworkPolicyWatchEvent'
+  /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways:
+    description: >-
+      Watch stream for Gateway objects in a namespace. Gateway changes include
+      new listener configurations, TLS certificate updates, and status
+      updates from the gateway controller.
+    parameters:
+      namespace:
+        $ref: '#/components/parameters/Namespace'
+    subscribe:
+      operationId: watchNamespacedGateways
+      summary: Watch Gateways in a namespace
+      description: >-
+        Streams WatchEvent messages for Gateway resources. Gateway controllers
+        watch this stream to provision or update the underlying load balancer
+        or proxy infrastructure.
+      message:
+        $ref: '#/components/messages/GatewayWatchEvent'
+  /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes:
+    description: >-
+      Watch stream for HTTPRoute objects in a namespace. HTTPRoute changes
+      reflect updates to routing rules, backend weights, and match conditions
+      used by gateway controllers.
+    parameters:
+      namespace:
+        $ref: '#/components/parameters/Namespace'
+    subscribe:
+      operationId: watchNamespacedHTTPRoutes
+      summary: Watch HTTPRoutes in a namespace
+      description: >-
+        Streams WatchEvent messages for HTTPRoute resources. Gateway controllers
+        watch this stream to update proxy routing configuration whenever
+        application teams modify traffic routing rules.
+      message:
+        $ref: '#/components/messages/HTTPRouteWatchEvent'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: httpApiKey
+      name: Authorization
+      in: header
+      description: Kubernetes service account or user bearer token.
+    clientCertificate:
+      type: X509
+      description: Client TLS certificate signed by the cluster CA.
+  parameters:
+    Namespace:
+      description: Namespace name to scope the watch stream.
+      schema:
+        type: string
+  messages:
+    ServiceWatchEvent:
+      name: ServiceWatchEvent
+      title: Service Watch Event
+      summary: Change event for a Kubernetes Service resource
+      description: >-
+        A watch event delivered when a Service is created, modified, or deleted
+        in the cluster. The object field contains the current state of the
+        Service, including its type, port mappings, selector, and load balancer
+        status.
+      payload:
+        $ref: '#/components/schemas/WatchEvent'
+    IngressWatchEvent:
+      name: IngressWatchEvent
+      title: Ingress Watch Event
+      summary: Change event for a Kubernetes Ingress resource
+      description: >-
+        A watch event delivered when an Ingress is created, its routing rules
+        are modified, or the ingress controller updates its load balancer
+        status.
+      payload:
+        $ref: '#/components/schemas/WatchEvent'
+    EndpointSliceWatchEvent:
+      name: EndpointSliceWatchEvent
+      title: EndpointSlice Watch Event
+      summary: Change event for a Kubernetes EndpointSlice resource
+      description: >-
+        A watch event delivered when an EndpointSlice is created, when pod
+        readiness changes, when pods are added or removed from a Service's
+        selector, or when topology hints are updated.
+      payload:
+        $ref: '#/components/schemas/WatchEvent'
+    NetworkPolicyWatchEvent:
+      name: NetworkPolicyWatchEvent
+      title: NetworkPolicy Watch Event
+      summary: Change event for a Kubernetes NetworkPolicy resource
+      description: >-
+        A watch event delivered when a NetworkPolicy is created, its ingress
+        or egress rules are modified, or the policy is deleted. CNI plugins
+        consume these events to enforce the current network segmentation rules.
+      payload:
+        $ref: '#/components/schemas/WatchEvent'
+    GatewayWatchEvent:
+      name: GatewayWatchEvent
+      title: Gateway Watch Event
+      summary: Change event for a Gateway API Gateway resource
+      description: >-
+        A watch event delivered when a Gateway is created, listener
+        configurations change, TLS certificates are updated, or the gateway
+        controller updates the assigned addresses in the status.
+      payload:
+        $ref: '#/components/schemas/WatchEvent'
+    HTTPRouteWatchEvent:
+      name: HTTPRouteWatchEvent
+      title: HTTPRoute Watch Event
+      summary: Change event for a Gateway API HTTPRoute resource
+      description: >-
+        A watch event delivered when an HTTPRoute is created, routing rules
+        are modified, backend references change, or the gateway controller
+        updates the route's accepted status.
+      payload:
+        $ref: '#/components/schemas/WatchEvent'
+  schemas:
+    WatchEvent:
+      type: object
+      required:
+        - type
+        - object
+      description: >-
+        A watch event representing a state change to a Kubernetes networking
+        resource. The type indicates the change nature and the object contains
+        the full resource state after the change.
+      properties:
+        type:
+          type: string
+          enum:
+            - ADDED
+            - MODIFIED
+            - DELETED
+            - BOOKMARK
+            - ERROR
+          description: >-
+            Type of change. ADDED on resource creation, MODIFIED on any
+            spec/status/metadata update, DELETED on removal. BOOKMARK
+            provides a resourceVersion checkpoint for resuming watches.
+            ERROR indicates a problem with the watch stream.
+        object:
+          type: object
+          description: >-
+            The Kubernetes resource at the time of the event. For BOOKMARK
+            events only metadata.resourceVersion is populated. For ERROR
+            events this is a Status object.
+          properties:
+            apiVersion:
+              type: string
+              description: API version of the resource.
+            kind:
+              type: string
+              description: Kind of the resource (e.g. Service, Ingress, EndpointSlice).
+            metadata:
+              type: object
+              description: Object metadata including name, namespace, and resourceVersion.
+              properties:
+                name:
+                  type: string
+                  description: Name of the resource.
+                namespace:
+                  type: string
+                  description: Namespace of the resource.
+                uid:
+                  type: string
+                  description: Unique identifier of the resource.
+                resourceVersion:
+                  type: string
+                  description: Resource version for resuming watch streams.
+                generation:
+                  type: integer
+                  description: Generation of the resource spec.
+                creationTimestamp:
+                  type: string
+                  format: date-time
+                  description: Creation timestamp.
+                deletionTimestamp:
+                  type: string
+                  format: date-time
+                  description: Deletion timestamp when graceful deletion is pending.
+                labels:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  description: Resource labels.
+                annotations:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  description: Resource annotations.
