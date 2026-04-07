@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Kubernetes Ingress API
+  title: Kubernetes Services Kubernetes Ingress API
   description: >-
     The Kubernetes Ingress API manages external HTTP and HTTPS access to
     services within a cluster, providing load balancing, SSL/TLS termination,
@@ -38,7 +38,7 @@ paths:
   /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses:
     get:
       operationId: listNamespacedIngresses
-      summary: List Ingresses in a namespace
+      summary: Kubernetes Services List Ingresses in a namespace
       description: >-
         Returns a list of all Ingress objects in the specified namespace.
         Each Ingress defines HTTP/HTTPS routing rules that an ingress
@@ -63,7 +63,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createNamespacedIngress
-      summary: Create an Ingress
+      summary: Kubernetes Services Create an Ingress
       description: >-
         Creates a new Ingress in the specified namespace. The Ingress spec
         defines host-based and path-based routing rules, optional TLS
@@ -95,7 +95,7 @@ paths:
   /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}:
     get:
       operationId: getNamespacedIngress
-      summary: Get an Ingress
+      summary: Kubernetes Services Get an Ingress
       description: >-
         Returns the specified Ingress including its routing rules, TLS
         configuration, associated IngressClass, and load balancer status
@@ -118,7 +118,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: replaceNamespacedIngress
-      summary: Replace an Ingress
+      summary: Kubernetes Services Replace an Ingress
       description: >-
         Replaces the full specification of the specified Ingress. The ingress
         controller will reconfigure its proxy rules to match the updated
@@ -150,7 +150,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       operationId: patchNamespacedIngress
-      summary: Patch an Ingress
+      summary: Kubernetes Services Patch an Ingress
       description: >-
         Applies a partial update to the specified Ingress using strategic
         merge patch or JSON merge patch semantics.
@@ -178,7 +178,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteNamespacedIngress
-      summary: Delete an Ingress
+      summary: Kubernetes Services Delete an Ingress
       description: >-
         Deletes the specified Ingress. The ingress controller will remove
         the corresponding proxy rules and any associated TLS configuration.
@@ -201,7 +201,7 @@ paths:
   /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status:
     get:
       operationId: getNamespacedIngressStatus
-      summary: Get Ingress status
+      summary: Kubernetes Services Get Ingress status
       description: >-
         Returns the status subresource for the specified Ingress, including
         the load balancer IP addresses or hostnames assigned by the ingress
@@ -224,7 +224,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: replaceNamespacedIngressStatus
-      summary: Replace Ingress status
+      summary: Kubernetes Services Replace Ingress status
       description: >-
         Replaces the status subresource of the specified Ingress. Used by
         ingress controllers to report assigned load balancer IPs and
@@ -254,7 +254,7 @@ paths:
   /apis/networking.k8s.io/v1/ingresses:
     get:
       operationId: listIngressesAllNamespaces
-      summary: List Ingresses across all namespaces
+      summary: Kubernetes Services List Ingresses across all namespaces
       description: >-
         Returns all Ingress objects cluster-wide. Useful for auditing ingress
         rules, identifying conflicting host rules, and monitoring TLS
@@ -278,7 +278,7 @@ paths:
   /apis/networking.k8s.io/v1/ingressclasses:
     get:
       operationId: listIngressClasses
-      summary: List IngressClasses
+      summary: Kubernetes Services List IngressClasses
       description: >-
         Returns a list of all IngressClass resources in the cluster. Each
         IngressClass identifies an ingress controller implementation and its
@@ -301,7 +301,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createIngressClass
-      summary: Create an IngressClass
+      summary: Kubernetes Services Create an IngressClass
       description: >-
         Creates a new IngressClass resource. IngressClasses are cluster-scoped
         and define a mapping between Ingress resources and the controller
@@ -328,7 +328,7 @@ paths:
   /apis/networking.k8s.io/v1/ingressclasses/{name}:
     get:
       operationId: getIngressClass
-      summary: Get an IngressClass
+      summary: Kubernetes Services Get an IngressClass
       description: >-
         Returns the specified IngressClass including the controller name and
         any controller-specific parameters reference.
@@ -349,7 +349,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteIngressClass
-      summary: Delete an IngressClass
+      summary: Kubernetes Services Delete an IngressClass
       description: >-
         Deletes the specified IngressClass. Existing Ingress objects that
         reference this IngressClass will no longer be fulfilled by any

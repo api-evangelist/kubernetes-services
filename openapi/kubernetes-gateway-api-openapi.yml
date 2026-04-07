@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Kubernetes Gateway API
+  title: Kubernetes Services Kubernetes Gateway API
   description: >-
     The Kubernetes Gateway API is a role-oriented, extensible API for managing
     ingress and mesh traffic routing in Kubernetes clusters. It introduces the
@@ -44,7 +44,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/gatewayclasses:
     get:
       operationId: listGatewayClasses
-      summary: List GatewayClasses
+      summary: Kubernetes Services List GatewayClasses
       description: >-
         Returns a list of all GatewayClass resources in the cluster.
         GatewayClasses are cluster-scoped and identify gateway controller
@@ -66,7 +66,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createGatewayClass
-      summary: Create a GatewayClass
+      summary: Kubernetes Services Create a GatewayClass
       description: >-
         Creates a new GatewayClass resource. GatewayClasses are typically
         managed by infrastructure providers and installed when a gateway
@@ -93,7 +93,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/gatewayclasses/{name}:
     get:
       operationId: getGatewayClass
-      summary: Get a GatewayClass
+      summary: Kubernetes Services Get a GatewayClass
       description: >-
         Returns the specified GatewayClass including the controller name,
         parameters reference, and the current Accepted condition.
@@ -114,7 +114,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteGatewayClass
-      summary: Delete a GatewayClass
+      summary: Kubernetes Services Delete a GatewayClass
       description: >-
         Deletes the specified GatewayClass. Gateways referencing this class
         will lose their controller association.
@@ -136,7 +136,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways:
     get:
       operationId: listNamespacedGateways
-      summary: List Gateways in a namespace
+      summary: Kubernetes Services List Gateways in a namespace
       description: >-
         Returns a list of all Gateway resources in the specified namespace.
         Each Gateway represents an instance of traffic-handling infrastructure
@@ -159,7 +159,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createNamespacedGateway
-      summary: Create a Gateway
+      summary: Kubernetes Services Create a Gateway
       description: >-
         Creates a new Gateway in the specified namespace. The Gateway references
         a GatewayClass and defines one or more listeners with their protocol,
@@ -189,7 +189,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}:
     get:
       operationId: getNamespacedGateway
-      summary: Get a Gateway
+      summary: Kubernetes Services Get a Gateway
       description: >-
         Returns the specified Gateway including its GatewayClass reference,
         listener configurations, and current conditions reported by the
@@ -212,7 +212,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: replaceNamespacedGateway
-      summary: Replace a Gateway
+      summary: Kubernetes Services Replace a Gateway
       description: >-
         Replaces the full specification of the specified Gateway, triggering
         the gateway controller to reconcile listeners and attached routes.
@@ -240,7 +240,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteNamespacedGateway
-      summary: Delete a Gateway
+      summary: Kubernetes Services Delete a Gateway
       description: >-
         Deletes the specified Gateway and triggers the controller to
         deprovision the associated traffic-handling infrastructure.
@@ -263,7 +263,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes:
     get:
       operationId: listNamespacedHTTPRoutes
-      summary: List HTTPRoutes in a namespace
+      summary: Kubernetes Services List HTTPRoutes in a namespace
       description: >-
         Returns a list of all HTTPRoute resources in the specified namespace.
         HTTPRoutes define HTTP request routing rules from Gateway listeners to
@@ -287,7 +287,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createNamespacedHTTPRoute
-      summary: Create an HTTPRoute
+      summary: Kubernetes Services Create an HTTPRoute
       description: >-
         Creates a new HTTPRoute in the specified namespace. The HTTPRoute
         attaches to a Gateway listener and defines how matched HTTP requests
@@ -318,7 +318,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}:
     get:
       operationId: getNamespacedHTTPRoute
-      summary: Get an HTTPRoute
+      summary: Kubernetes Services Get an HTTPRoute
       description: >-
         Returns the specified HTTPRoute including its Gateway parent references,
         hostname matchers, routing rules, and backend references.
@@ -340,7 +340,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: replaceNamespacedHTTPRoute
-      summary: Replace an HTTPRoute
+      summary: Kubernetes Services Replace an HTTPRoute
       description: >-
         Replaces the full specification of the specified HTTPRoute, updating
         all routing rules and backend references.
@@ -368,7 +368,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteNamespacedHTTPRoute
-      summary: Delete an HTTPRoute
+      summary: Kubernetes Services Delete an HTTPRoute
       description: >-
         Deletes the specified HTTPRoute. The gateway controller removes the
         corresponding routing rules from the gateway's proxy configuration.
@@ -391,7 +391,7 @@ paths:
   /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/grpcroutes:
     get:
       operationId: listNamespacedGRPCRoutes
-      summary: List GRPCRoutes in a namespace
+      summary: Kubernetes Services List GRPCRoutes in a namespace
       description: >-
         Returns a list of all GRPCRoute resources in the specified namespace.
         GRPCRoutes define gRPC routing rules matching on service and method
@@ -414,7 +414,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createNamespacedGRPCRoute
-      summary: Create a GRPCRoute
+      summary: Kubernetes Services Create a GRPCRoute
       description: >-
         Creates a new GRPCRoute in the specified namespace for routing gRPC
         traffic from a Gateway listener to backend services based on gRPC

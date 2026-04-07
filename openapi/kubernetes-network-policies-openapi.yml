@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Kubernetes Network Policies API
+  title: Kubernetes Services Kubernetes Network Policies API
   description: >-
     The Kubernetes NetworkPolicy API controls how groups of Pods communicate
     with each other and with external network endpoints. Policies define
@@ -30,7 +30,7 @@ paths:
   /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies:
     get:
       operationId: listNamespacedNetworkPolicies
-      summary: List NetworkPolicies in a namespace
+      summary: Kubernetes Services List NetworkPolicies in a namespace
       description: >-
         Returns a list of all NetworkPolicy objects in the specified namespace.
         Network policies are enforced by the CNI plugin and define which pods
@@ -55,7 +55,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createNamespacedNetworkPolicy
-      summary: Create a NetworkPolicy
+      summary: Kubernetes Services Create a NetworkPolicy
       description: >-
         Creates a new NetworkPolicy in the specified namespace. Once created,
         the CNI plugin enforces the policy by allowing only the traffic
@@ -85,7 +85,7 @@ paths:
   /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}:
     get:
       operationId: getNamespacedNetworkPolicy
-      summary: Get a NetworkPolicy
+      summary: Kubernetes Services Get a NetworkPolicy
       description: >-
         Returns the specified NetworkPolicy including its pod selector, ingress
         rules, egress rules, and policy types (Ingress, Egress, or both).
@@ -107,7 +107,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: replaceNamespacedNetworkPolicy
-      summary: Replace a NetworkPolicy
+      summary: Kubernetes Services Replace a NetworkPolicy
       description: >-
         Replaces the full specification of the specified NetworkPolicy. The CNI
         plugin re-evaluates the updated rules immediately for all pods selected
@@ -139,7 +139,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       operationId: patchNamespacedNetworkPolicy
-      summary: Patch a NetworkPolicy
+      summary: Kubernetes Services Patch a NetworkPolicy
       description: >-
         Applies a partial update to the specified NetworkPolicy using strategic
         merge patch. Useful for adding or removing individual ingress or egress
@@ -168,7 +168,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteNamespacedNetworkPolicy
-      summary: Delete a NetworkPolicy
+      summary: Kubernetes Services Delete a NetworkPolicy
       description: >-
         Deletes the specified NetworkPolicy. Traffic previously restricted by
         this policy will no longer be affected once the policy is removed.
@@ -191,7 +191,7 @@ paths:
   /apis/networking.k8s.io/v1/networkpolicies:
     get:
       operationId: listNetworkPoliciesAllNamespaces
-      summary: List NetworkPolicies across all namespaces
+      summary: Kubernetes Services List NetworkPolicies across all namespaces
       description: >-
         Returns all NetworkPolicy objects across every namespace in the cluster.
         Useful for auditing network segmentation, identifying gaps in policy

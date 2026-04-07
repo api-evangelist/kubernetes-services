@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Kubernetes EndpointSlices API
+  title: Kubernetes Services Kubernetes EndpointSlices API
   description: >-
     The Kubernetes EndpointSlices API tracks the IP addresses, ports, readiness,
     and topology information for Pods backing a Service. EndpointSlices replaced
@@ -31,7 +31,7 @@ paths:
   /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices:
     get:
       operationId: listNamespacedEndpointSlices
-      summary: List EndpointSlices in a namespace
+      summary: Kubernetes Services List EndpointSlices in a namespace
       description: >-
         Returns a list of all EndpointSlices in the specified namespace.
         Each EndpointSlice contains up to 1000 endpoints. Use the
@@ -57,7 +57,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createNamespacedEndpointSlice
-      summary: Create an EndpointSlice
+      summary: Kubernetes Services Create an EndpointSlice
       description: >-
         Creates a new EndpointSlice in the specified namespace. EndpointSlices
         are typically managed by the EndpointSlice controller; manual creation
@@ -89,7 +89,7 @@ paths:
   /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}:
     get:
       operationId: getNamespacedEndpointSlice
-      summary: Get an EndpointSlice
+      summary: Kubernetes Services Get an EndpointSlice
       description: >-
         Returns the specified EndpointSlice including its address type,
         endpoints with IP addresses and readiness conditions, and port
@@ -112,7 +112,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: replaceNamespacedEndpointSlice
-      summary: Replace an EndpointSlice
+      summary: Kubernetes Services Replace an EndpointSlice
       description: >-
         Replaces the full specification of the specified EndpointSlice.
         Used by custom endpoint controllers to update endpoint addresses
@@ -144,7 +144,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       operationId: patchNamespacedEndpointSlice
-      summary: Patch an EndpointSlice
+      summary: Kubernetes Services Patch an EndpointSlice
       description: >-
         Applies a partial update to the specified EndpointSlice. Used to
         update individual endpoint readiness conditions or topology hints
@@ -173,7 +173,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteNamespacedEndpointSlice
-      summary: Delete an EndpointSlice
+      summary: Kubernetes Services Delete an EndpointSlice
       description: >-
         Deletes the specified EndpointSlice. The EndpointSlice controller
         will recreate a replacement slice if the Service still has backing
@@ -197,7 +197,7 @@ paths:
   /apis/discovery.k8s.io/v1/endpointslices:
     get:
       operationId: listEndpointSlicesAllNamespaces
-      summary: List EndpointSlices across all namespaces
+      summary: Kubernetes Services List EndpointSlices across all namespaces
       description: >-
         Returns all EndpointSlice objects cluster-wide. Useful for network
         visibility tools and load balancer implementations that need to

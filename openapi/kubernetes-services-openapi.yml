@@ -35,7 +35,7 @@ paths:
   /api/v1/namespaces/{namespace}/services:
     get:
       operationId: listNamespacedServices
-      summary: List Services in a namespace
+      summary: Kubernetes Services List Services in a namespace
       description: >-
         Returns a list of all Services in the specified namespace. Services
         provide stable virtual IPs and DNS names for pod groups. Supports
@@ -61,7 +61,7 @@ paths:
           $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createNamespacedService
-      summary: Create a Service
+      summary: Kubernetes Services Create a Service
       description: >-
         Creates a new Service in the specified namespace. The Service type
         determines how the service is exposed: ClusterIP for internal access,
@@ -94,7 +94,7 @@ paths:
   /api/v1/namespaces/{namespace}/services/{name}:
     get:
       operationId: getNamespacedService
-      summary: Get a Service
+      summary: Kubernetes Services Get a Service
       description: >-
         Returns the specified Service including its cluster IP, type, port
         mappings, selector, session affinity configuration, and load balancer
@@ -117,7 +117,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: replaceNamespacedService
-      summary: Replace a Service
+      summary: Kubernetes Services Replace a Service
       description: >-
         Replaces the full specification of the specified Service. Updates to
         selector take effect immediately; changing the type between ClusterIP,
@@ -149,7 +149,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     patch:
       operationId: patchNamespacedService
-      summary: Patch a Service
+      summary: Kubernetes Services Patch a Service
       description: >-
         Applies a partial update to the specified Service. Supports
         strategic-merge-patch, merge-patch, and apply-patch content types for
@@ -181,7 +181,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     delete:
       operationId: deleteNamespacedService
-      summary: Delete a Service
+      summary: Kubernetes Services Delete a Service
       description: >-
         Deletes the specified Service. For LoadBalancer-type services, the
         associated external load balancer will be deprovisioned. ClusterIP
@@ -207,7 +207,7 @@ paths:
   /api/v1/namespaces/{namespace}/services/{name}/status:
     get:
       operationId: getNamespacedServiceStatus
-      summary: Get Service status
+      summary: Kubernetes Services Get Service status
       description: >-
         Returns the status subresource of the specified Service, including
         load balancer ingress IPs or hostnames and any provisioning conditions.
@@ -229,7 +229,7 @@ paths:
           $ref: '#/components/responses/NotFound'
     put:
       operationId: replaceNamespacedServiceStatus
-      summary: Replace Service status
+      summary: Kubernetes Services Replace Service status
       description: >-
         Replaces the status subresource of the specified Service. Used by
         load balancer controllers to report the provisioned external IP or
@@ -259,7 +259,7 @@ paths:
   /api/v1/services:
     get:
       operationId: listServicesAllNamespaces
-      summary: List Services across all namespaces
+      summary: Kubernetes Services List Services across all namespaces
       description: >-
         Returns a list of all Services across every namespace in the cluster.
         Useful for cluster-wide service discovery and auditing. Supports
