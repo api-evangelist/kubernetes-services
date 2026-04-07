@@ -20,23 +20,23 @@ servers:
   - url: https://kubernetes.default.svc
     description: In-cluster Kubernetes API Server
 tags:
-  - name: GatewayClass
-    description: >-
-      GatewayClass resources defining a class of gateway implementations.
-      Cluster-scoped resources that link to a specific ingress or mesh controller.
   - name: Gateway
     description: >-
       Gateway resources instantiating traffic-handling infrastructure such as
       cloud load balancers or in-cluster proxies, with listeners for each protocol.
+  - name: GatewayClass
+    description: >-
+      GatewayClass resources defining a class of gateway implementations.
+      Cluster-scoped resources that link to a specific ingress or mesh controller.
+  - name: GRPCRoute
+    description: >-
+      GRPCRoute resources defining gRPC routing rules from Gateway listeners
+      to backend services with service and method name matching.
   - name: HTTPRoute
     description: >-
       HTTPRoute resources defining HTTP and HTTPS routing rules from Gateway
       listeners to backend services with support for path, header, and query
       parameter matching.
-  - name: GRPCRoute
-    description: >-
-      GRPCRoute resources defining gRPC routing rules from Gateway listeners
-      to backend services with service and method name matching.
 security:
   - bearerAuth: []
   - clientCertificate: []

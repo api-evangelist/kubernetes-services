@@ -23,14 +23,14 @@ tags:
     description: >-
       Ingress resources defining HTTP and HTTPS routing rules from external
       traffic to cluster services, with TLS termination support.
-  - name: IngressStatus
-    description: >-
-      Status subresource for Ingress objects, reporting load balancer
-      IP or hostname assignments from the ingress controller.
   - name: IngressClass
     description: >-
       IngressClass resources identifying which ingress controller
       should fulfill an Ingress resource.
+  - name: IngressStatus
+    description: >-
+      Status subresource for Ingress objects, reporting load balancer
+      IP or hostname assignments from the ingress controller.
 security:
   - bearerAuth: []
   - clientCertificate: []

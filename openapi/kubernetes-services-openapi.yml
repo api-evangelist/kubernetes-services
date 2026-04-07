@@ -20,10 +20,6 @@ servers:
   - url: https://kubernetes.default.svc
     description: In-cluster Kubernetes API Server
 tags:
-  - name: Services
-    description: >-
-      Core Service resources providing stable networking endpoints for pods,
-      with support for ClusterIP, NodePort, LoadBalancer, and ExternalName types.
   - name: ServiceStatus
     description: >-
       Status subresource operations for Services, used to update load balancer
@@ -40,8 +36,7 @@ paths:
         Returns a list of all Services in the specified namespace. Services
         provide stable virtual IPs and DNS names for pod groups. Supports
         label and field filtering, and streaming via the watch parameter.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/NamespaceParam'
         - $ref: '#/components/parameters/LabelSelector'
@@ -67,8 +62,7 @@ paths:
         determines how the service is exposed: ClusterIP for internal access,
         NodePort to add a node-level port, LoadBalancer to provision a cloud
         load balancer, or ExternalName to alias an external DNS name.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/NamespaceParam'
         - $ref: '#/components/parameters/DryRun'
@@ -99,8 +93,7 @@ paths:
         Returns the specified Service including its cluster IP, type, port
         mappings, selector, session affinity configuration, and load balancer
         status.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/NamespaceParam'
         - $ref: '#/components/parameters/NameParam'
@@ -122,8 +115,7 @@ paths:
         Replaces the full specification of the specified Service. Updates to
         selector take effect immediately; changing the type between ClusterIP,
         NodePort, and LoadBalancer may trigger infrastructure changes.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/NamespaceParam'
         - $ref: '#/components/parameters/NameParam'
@@ -154,8 +146,7 @@ paths:
         Applies a partial update to the specified Service. Supports
         strategic-merge-patch, merge-patch, and apply-patch content types for
         targeted field updates without replacing the full resource.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/NamespaceParam'
         - $ref: '#/components/parameters/NameParam'
@@ -186,8 +177,7 @@ paths:
         Deletes the specified Service. For LoadBalancer-type services, the
         associated external load balancer will be deprovisioned. ClusterIP
         is released back to the IP pool.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/NamespaceParam'
         - $ref: '#/components/parameters/NameParam'
@@ -264,8 +254,7 @@ paths:
         Returns a list of all Services across every namespace in the cluster.
         Useful for cluster-wide service discovery and auditing. Supports
         label and field filtering.
-      tags:
-        - Services
+      tags: []
       parameters:
         - $ref: '#/components/parameters/LabelSelector'
         - $ref: '#/components/parameters/FieldSelector'

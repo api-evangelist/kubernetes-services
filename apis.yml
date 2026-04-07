@@ -7,10 +7,10 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Kubernetes
   - Container Orchestration
-  - Networking
+  - Kubernetes
   - Load Balancing
+  - Networking
   - Service Discovery
 url: https://raw.githubusercontent.com/api-evangelist/kubernetes-services/refs/heads/main/apis.yml
 created: '2025-01-01'
@@ -27,8 +27,8 @@ apis:
     humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
     tags:
       - Kubernetes
-      - Networking
       - Load Balancing
+      - Networking
       - Service Discovery
     properties:
       - type: Documentation
@@ -50,10 +50,10 @@ apis:
       on the Ingress resource and fulfilled by an Ingress controller.
     humanURL: https://kubernetes.io/docs/concepts/services-networking/ingress/
     tags:
-      - Kubernetes
-      - Networking
       - HTTP
+      - Kubernetes
       - Load Balancing
+      - Networking
     properties:
       - type: Documentation
         url: https://kubernetes.io/docs/concepts/services-networking/ingress/
@@ -70,9 +70,9 @@ apis:
       multi-protocol routing as a successor to the Ingress API.
     humanURL: https://kubernetes.io/docs/concepts/services-networking/gateway/
     tags:
+      - Gateway
       - Kubernetes
       - Networking
-      - Gateway
       - Traffic Management
     properties:
       - type: Documentation
@@ -110,8 +110,8 @@ apis:
     tags:
       - Kubernetes
       - Networking
-      - Security
       - Policy
+      - Security
     properties:
       - type: Documentation
         url: https://kubernetes.io/docs/concepts/services-networking/network-policies/
@@ -127,9 +127,9 @@ apis:
       allowing workloads to locate services by name rather than by IP address.
     humanURL: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/
     tags:
+      - DNS
       - Kubernetes
       - Networking
-      - DNS
       - Service Discovery
     properties:
       - type: Documentation
