@@ -4,111 +4,47 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Kubernetes Services
 providerId: kubernetes-services
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Container Orchestration
-  - Kubernetes
-  - Load Balancing
-  - Networking
-  - Service Discovery
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Kubernetes Services API surface. Captures
-  per-tier quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values
-  to be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  - Kubernetes
+  - Networking
+  - Open Source
+description: The Kubernetes Services API itself does not impose request-per-second limits on data-plane
+  traffic to a Service. Control-plane operations (creating, updating, listing Services through the kube-apiserver)
+  are subject to the API server's API Priority and Fairness (APF) just like any other Kubernetes API
+  resource. Data-plane throughput depends on the chosen Service type and the underlying cloud-provider
+  load balancer.
+sources:
+  - https://kubernetes.io/docs/concepts/cluster-administration/flow-control/
+  - https://kubernetes.io/docs/concepts/services-networking/service/
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Kubernetes Services
-      - Kubernetes Ingress
-      - Kubernetes Gateway API
-      - Kubernetes EndpointSlices
-      - Kubernetes Network Policies
-      - Kubernetes DNS for Services and Pods
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Kubernetes Services
-      - Kubernetes Ingress
-      - Kubernetes Gateway API
-      - Kubernetes EndpointSlices
-      - Kubernetes Network Policies
-      - Kubernetes DNS for Services and Pods
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Kubernetes Services
-      - Kubernetes Ingress
-      - Kubernetes Gateway API
-      - Kubernetes EndpointSlices
-      - Kubernetes Network Policies
-      - Kubernetes DNS for Services and Pods
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Kubernetes Services
-      - Kubernetes Ingress
-      - Kubernetes Gateway API
-      - Kubernetes EndpointSlices
-      - Kubernetes Network Policies
-      - Kubernetes DNS for Services and Pods
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Kubernetes Services
-      - Kubernetes Ingress
-      - Kubernetes Gateway API
-      - Kubernetes EndpointSlices
-      - Kubernetes Network Policies
-      - Kubernetes DNS for Services and Pods
+  - name: kube-apiserver Service CRUD (control plane)
+    scope: priority-level
+    metric: concurrent_requests
+    limit: 'governed by API Priority and Fairness PriorityLevelConfiguration'
+  - name: Service data-plane throughput
+    scope: load-balancer
+    metric: varies
+    limit: 'depends on cloud-provider LB type / instance class — see provider quotas'
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: APF on control plane
+    description: Service create/update/delete/list operations against kube-apiserver are subject to API
+      Priority and Fairness; high-frequency reconciliation should use watches and informers rather than
+      polling.
+  - name: kube-proxy / iptables / IPVS scaling
+    description: ClusterIP and NodePort throughput depends on the kube-proxy mode (iptables, IPVS, nftables)
+      and node kernel networking; not a documented numeric limit.
+  - name: External LB quotas
+    description: Type=LoadBalancer Services provision a cloud-provider LB; per-LB and per-account quotas
+      (NLB connection limits, ALB rule limits, GCLB forwarding-rule limits) apply.
+  - name: Endpoint slice fan-out
+    description: Very large Services (thousands of endpoints) should rely on EndpointSlice (default in
+      modern Kubernetes) rather than the legacy Endpoints object to avoid kube-apiserver load.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
