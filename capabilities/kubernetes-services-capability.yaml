@@ -1,0 +1,244 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Kubernetes Services Kubernetes EndpointSlices API
+  description: The Kubernetes EndpointSlices API tracks the IP addresses, ports, readiness, and topology information for Pods
+    backing a Service. EndpointSlices replaced the older Endpoints API to improve scalability for large clusters with thousands
+    of pods. A single Service may be backed by multiple EndpointSlices, and the EndpointSlice controller automatically manages
+    their lifecycle in response to pod and Service changes.
+  tags:
+  - Kubernetes
+  - Services
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-services
+    baseUri: https://kubernetes.default.svc
+    description: Kubernetes Services Kubernetes EndpointSlices API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{KUBERNETES_SERVICES_TOKEN}}'
+    resources:
+    - name: apis-discovery-k8s-io-v1-namespaces-namespace-en
+      path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
+      operations:
+      - name: listnamespacedendpointslices
+        method: GET
+        description: Kubernetes Services List EndpointSlices in a namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnamespacedendpointslice
+        method: POST
+        description: Kubernetes Services Create an EndpointSlice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: apis-discovery-k8s-io-v1-namespaces-namespace-en
+      path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
+      operations:
+      - name: getnamespacedendpointslice
+        method: GET
+        description: Kubernetes Services Get an EndpointSlice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacenamespacedendpointslice
+        method: PUT
+        description: Kubernetes Services Replace an EndpointSlice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: patchnamespacedendpointslice
+        method: PATCH
+        description: Kubernetes Services Patch an EndpointSlice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletenamespacedendpointslice
+        method: DELETE
+        description: Kubernetes Services Delete an EndpointSlice
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: apis-discovery-k8s-io-v1-endpointslices
+      path: /apis/discovery.k8s.io/v1/endpointslices
+      operations:
+      - name: listendpointslicesallnamespaces
+        method: GET
+        description: Kubernetes Services List EndpointSlices across all namespaces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: kubernetes-services-rest
+    description: REST adapter for Kubernetes Services Kubernetes EndpointSlices API.
+    resources:
+    - path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
+      name: listnamespacedendpointslices
+      operations:
+      - method: GET
+        name: listnamespacedendpointslices
+        description: Kubernetes Services List EndpointSlices in a namespace
+        call: kubernetes-services.listnamespacedendpointslices
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
+      name: createnamespacedendpointslice
+      operations:
+      - method: POST
+        name: createnamespacedendpointslice
+        description: Kubernetes Services Create an EndpointSlice
+        call: kubernetes-services.createnamespacedendpointslice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
+      name: getnamespacedendpointslice
+      operations:
+      - method: GET
+        name: getnamespacedendpointslice
+        description: Kubernetes Services Get an EndpointSlice
+        call: kubernetes-services.getnamespacedendpointslice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
+      name: replacenamespacedendpointslice
+      operations:
+      - method: PUT
+        name: replacenamespacedendpointslice
+        description: Kubernetes Services Replace an EndpointSlice
+        call: kubernetes-services.replacenamespacedendpointslice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
+      name: patchnamespacedendpointslice
+      operations:
+      - method: PATCH
+        name: patchnamespacedendpointslice
+        description: Kubernetes Services Patch an EndpointSlice
+        call: kubernetes-services.patchnamespacedendpointslice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
+      name: deletenamespacedendpointslice
+      operations:
+      - method: DELETE
+        name: deletenamespacedendpointslice
+        description: Kubernetes Services Delete an EndpointSlice
+        call: kubernetes-services.deletenamespacedendpointslice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /apis/discovery.k8s.io/v1/endpointslices
+      name: listendpointslicesallnamespaces
+      operations:
+      - method: GET
+        name: listendpointslicesallnamespaces
+        description: Kubernetes Services List EndpointSlices across all namespaces
+        call: kubernetes-services.listendpointslicesallnamespaces
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: kubernetes-services-mcp
+    transport: http
+    description: MCP adapter for Kubernetes Services Kubernetes EndpointSlices API for AI agent use.
+    tools:
+    - name: listnamespacedendpointslices
+      description: Kubernetes Services List EndpointSlices in a namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-services.listnamespacedendpointslices
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createnamespacedendpointslice
+      description: Kubernetes Services Create an EndpointSlice
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-services.createnamespacedendpointslice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getnamespacedendpointslice
+      description: Kubernetes Services Get an EndpointSlice
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-services.getnamespacedendpointslice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replacenamespacedendpointslice
+      description: Kubernetes Services Replace an EndpointSlice
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-services.replacenamespacedendpointslice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: patchnamespacedendpointslice
+      description: Kubernetes Services Patch an EndpointSlice
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-services.patchnamespacedendpointslice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletenamespacedendpointslice
+      description: Kubernetes Services Delete an EndpointSlice
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kubernetes-services.deletenamespacedendpointslice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listendpointslicesallnamespaces
+      description: Kubernetes Services List EndpointSlices across all namespaces
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-services.listendpointslicesallnamespaces
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    KUBERNETES_SERVICES_TOKEN: KUBERNETES_SERVICES_TOKEN
