@@ -139,11 +139,11 @@ common:
     url: https://kubernetes.io
   - type: Documentation
     url: https://kubernetes.io/docs/concepts/services-networking/
-  - type: Getting Started
+  - type: GettingStarted
     url: https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
   - type: Reference
     url: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/kubernetes
   - type: GitHubRepository
     url: https://github.com/kubernetes/kubernetes
@@ -151,11 +151,11 @@ common:
     url: https://kubernetes.io/blog/
   - type: Community
     url: https://kubernetes.io/community/
-  - type: Change Log
+  - type: ChangeLog
     url: https://kubernetes.io/releases/
   - type: JSONSchema
     url: json-schema/kubernetes-services-schema.json
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/kubernetes-services-context.jsonld
 maintainers:
   - FN: Kin Lane
