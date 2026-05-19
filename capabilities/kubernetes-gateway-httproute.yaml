@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Kubernetes Services Kubernetes Gateway API — HTTPRoute
+  description: 'Kubernetes Services Kubernetes Gateway API — HTTPRoute. 5 operations. Lead operation: Kubernetes Services
+    List HTTPRoutes in a namespace. Self-contained Naftiko capability covering one Kubernetes Services business surface.'
+  tags:
+  - Kubernetes Services
+  - HTTPRoute
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KUBERNETES_SERVICES_API_KEY: KUBERNETES_SERVICES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-gateway-httproute
+    baseUri: https://kubernetes.default.svc
+    description: Kubernetes Services Kubernetes Gateway API — HTTPRoute business capability. Self-contained, no shared references.
+    resources:
+    - name: apis-gateway.networking.k8s.io-v1-namespaces-namespace-httproutes
+      path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes
+      operations:
+      - name: listnamespacedhttproutes
+        method: GET
+        description: Kubernetes Services List HTTPRoutes in a namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnamespacedhttproute
+        method: POST
+        description: Kubernetes Services Create an HTTPRoute
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: apis-gateway.networking.k8s.io-v1-namespaces-namespace-httproutes-name
+      path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}
+      operations:
+      - name: getnamespacedhttproute
+        method: GET
+        description: Kubernetes Services Get an HTTPRoute
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacenamespacedhttproute
+        method: PUT
+        description: Kubernetes Services Replace an HTTPRoute
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletenamespacedhttproute
+        method: DELETE
+        description: Kubernetes Services Delete an HTTPRoute
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.KUBERNETES_SERVICES_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-gateway-httproute-rest
+    port: 8080
+    description: REST adapter for Kubernetes Services Kubernetes Gateway API — HTTPRoute. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/apis/gateway-networking-k8s-io/v1/namespaces/{namespace}/httproutes
+      name: apis-gateway-networking-k8s-io-v1-namespaces-namespace-httproutes
+      description: REST surface for apis-gateway.networking.k8s.io-v1-namespaces-namespace-httproutes.
+      operations:
+      - method: GET
+        name: listnamespacedhttproutes
+        description: Kubernetes Services List HTTPRoutes in a namespace
+        call: kubernetes-gateway-httproute.listnamespacedhttproutes
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnamespacedhttproute
+        description: Kubernetes Services Create an HTTPRoute
+        call: kubernetes-gateway-httproute.createnamespacedhttproute
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apis/gateway-networking-k8s-io/v1/namespaces/{namespace}/httproutes/{name}
+      name: apis-gateway-networking-k8s-io-v1-namespaces-namespace-httproutes-name
+      description: REST surface for apis-gateway.networking.k8s.io-v1-namespaces-namespace-httproutes-name.
+      operations:
+      - method: GET
+        name: getnamespacedhttproute
+        description: Kubernetes Services Get an HTTPRoute
+        call: kubernetes-gateway-httproute.getnamespacedhttproute
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacenamespacedhttproute
+        description: Kubernetes Services Replace an HTTPRoute
+        call: kubernetes-gateway-httproute.replacenamespacedhttproute
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletenamespacedhttproute
+        description: Kubernetes Services Delete an HTTPRoute
+        call: kubernetes-gateway-httproute.deletenamespacedhttproute
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-gateway-httproute-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Kubernetes Services Kubernetes Gateway API — HTTPRoute. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: kubernetes-services-list-httproutes-namespace
+      description: Kubernetes Services List HTTPRoutes in a namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-httproute.listnamespacedhttproutes
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-create-httproute
+      description: Kubernetes Services Create an HTTPRoute
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-gateway-httproute.createnamespacedhttproute
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-get-httproute
+      description: Kubernetes Services Get an HTTPRoute
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-httproute.getnamespacedhttproute
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-replace-httproute
+      description: Kubernetes Services Replace an HTTPRoute
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-httproute.replacenamespacedhttproute
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-delete-httproute
+      description: Kubernetes Services Delete an HTTPRoute
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kubernetes-gateway-httproute.deletenamespacedhttproute
+      outputParameters:
+      - type: object
+        mapping: $.

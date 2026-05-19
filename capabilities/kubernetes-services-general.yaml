@@ -1,0 +1,263 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Kubernetes Services API
+  description: 'Kubernetes Services API. 7 operations. Lead operation: Kubernetes Services List Services in a namespace. Self-contained
+    Naftiko capability covering one Kubernetes Services business surface.'
+  tags:
+  - Kubernetes Services
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KUBERNETES_SERVICES_API_KEY: KUBERNETES_SERVICES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-services-general
+    baseUri: https://kubernetes.default.svc
+    description: Kubernetes Services API business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-namespaces-namespace-services
+      path: /api/v1/namespaces/{namespace}/services
+      operations:
+      - name: listnamespacedservices
+        method: GET
+        description: Kubernetes Services List Services in a namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnamespacedservice
+        method: POST
+        description: Kubernetes Services Create a Service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-namespaces-namespace-services-name
+      path: /api/v1/namespaces/{namespace}/services/{name}
+      operations:
+      - name: getnamespacedservice
+        method: GET
+        description: Kubernetes Services Get a Service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacenamespacedservice
+        method: PUT
+        description: Kubernetes Services Replace a Service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: patchnamespacedservice
+        method: PATCH
+        description: Kubernetes Services Patch a Service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletenamespacedservice
+        method: DELETE
+        description: Kubernetes Services Delete a Service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-services
+      path: /api/v1/services
+      operations:
+      - name: listservicesallnamespaces
+        method: GET
+        description: Kubernetes Services List Services across all namespaces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.KUBERNETES_SERVICES_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-services-general-rest
+    port: 8080
+    description: REST adapter for Kubernetes Services API. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v1/namespaces/{namespace}/services
+      name: api-v1-namespaces-namespace-services
+      description: REST surface for api-v1-namespaces-namespace-services.
+      operations:
+      - method: GET
+        name: listnamespacedservices
+        description: Kubernetes Services List Services in a namespace
+        call: kubernetes-services-general.listnamespacedservices
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnamespacedservice
+        description: Kubernetes Services Create a Service
+        call: kubernetes-services-general.createnamespacedservice
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/namespaces/{namespace}/services/{name}
+      name: api-v1-namespaces-namespace-services-name
+      description: REST surface for api-v1-namespaces-namespace-services-name.
+      operations:
+      - method: GET
+        name: getnamespacedservice
+        description: Kubernetes Services Get a Service
+        call: kubernetes-services-general.getnamespacedservice
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacenamespacedservice
+        description: Kubernetes Services Replace a Service
+        call: kubernetes-services-general.replacenamespacedservice
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchnamespacedservice
+        description: Kubernetes Services Patch a Service
+        call: kubernetes-services-general.patchnamespacedservice
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletenamespacedservice
+        description: Kubernetes Services Delete a Service
+        call: kubernetes-services-general.deletenamespacedservice
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/services
+      name: api-v1-services
+      description: REST surface for api-v1-services.
+      operations:
+      - method: GET
+        name: listservicesallnamespaces
+        description: Kubernetes Services List Services across all namespaces
+        call: kubernetes-services-general.listservicesallnamespaces
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-services-general-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Kubernetes Services API. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: kubernetes-services-list-services-namespace
+      description: Kubernetes Services List Services in a namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-services-general.listnamespacedservices
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-create-service
+      description: Kubernetes Services Create a Service
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-services-general.createnamespacedservice
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-get-service
+      description: Kubernetes Services Get a Service
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-services-general.getnamespacedservice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-replace-service
+      description: Kubernetes Services Replace a Service
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-services-general.replacenamespacedservice
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-patch-service
+      description: Kubernetes Services Patch a Service
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-services-general.patchnamespacedservice
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-delete-service
+      description: Kubernetes Services Delete a Service
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kubernetes-services-general.deletenamespacedservice
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-list-services-across
+      description: Kubernetes Services List Services across all namespaces
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-services-general.listservicesallnamespaces
+      outputParameters:
+      - type: object
+        mapping: $.

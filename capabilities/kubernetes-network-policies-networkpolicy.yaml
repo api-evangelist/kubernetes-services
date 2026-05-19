@@ -1,0 +1,266 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Kubernetes Services Kubernetes Network Policies API — NetworkPolicy
+  description: 'Kubernetes Services Kubernetes Network Policies API — NetworkPolicy. 7 operations. Lead operation: Kubernetes
+    Services List NetworkPolicies in a namespace. Self-contained Naftiko capability covering one Kubernetes Services business
+    surface.'
+  tags:
+  - Kubernetes Services
+  - NetworkPolicy
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KUBERNETES_SERVICES_API_KEY: KUBERNETES_SERVICES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-network-policies-networkpolicy
+    baseUri: https://kubernetes.default.svc
+    description: Kubernetes Services Kubernetes Network Policies API — NetworkPolicy business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: apis-networking.k8s.io-v1-namespaces-namespace-networkpolicies
+      path: /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
+      operations:
+      - name: listnamespacednetworkpolicies
+        method: GET
+        description: Kubernetes Services List NetworkPolicies in a namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnamespacednetworkpolicy
+        method: POST
+        description: Kubernetes Services Create a NetworkPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: apis-networking.k8s.io-v1-namespaces-namespace-networkpolicies-name
+      path: /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
+      operations:
+      - name: getnamespacednetworkpolicy
+        method: GET
+        description: Kubernetes Services Get a NetworkPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacenamespacednetworkpolicy
+        method: PUT
+        description: Kubernetes Services Replace a NetworkPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: patchnamespacednetworkpolicy
+        method: PATCH
+        description: Kubernetes Services Patch a NetworkPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletenamespacednetworkpolicy
+        method: DELETE
+        description: Kubernetes Services Delete a NetworkPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: apis-networking.k8s.io-v1-networkpolicies
+      path: /apis/networking.k8s.io/v1/networkpolicies
+      operations:
+      - name: listnetworkpoliciesallnamespaces
+        method: GET
+        description: Kubernetes Services List NetworkPolicies across all namespaces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.KUBERNETES_SERVICES_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-network-policies-networkpolicy-rest
+    port: 8080
+    description: REST adapter for Kubernetes Services Kubernetes Network Policies API — NetworkPolicy. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/apis/networking-k8s-io/v1/namespaces/{namespace}/networkpolicies
+      name: apis-networking-k8s-io-v1-namespaces-namespace-networkpolicies
+      description: REST surface for apis-networking.k8s.io-v1-namespaces-namespace-networkpolicies.
+      operations:
+      - method: GET
+        name: listnamespacednetworkpolicies
+        description: Kubernetes Services List NetworkPolicies in a namespace
+        call: kubernetes-network-policies-networkpolicy.listnamespacednetworkpolicies
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnamespacednetworkpolicy
+        description: Kubernetes Services Create a NetworkPolicy
+        call: kubernetes-network-policies-networkpolicy.createnamespacednetworkpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apis/networking-k8s-io/v1/namespaces/{namespace}/networkpolicies/{name}
+      name: apis-networking-k8s-io-v1-namespaces-namespace-networkpolicies-name
+      description: REST surface for apis-networking.k8s.io-v1-namespaces-namespace-networkpolicies-name.
+      operations:
+      - method: GET
+        name: getnamespacednetworkpolicy
+        description: Kubernetes Services Get a NetworkPolicy
+        call: kubernetes-network-policies-networkpolicy.getnamespacednetworkpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacenamespacednetworkpolicy
+        description: Kubernetes Services Replace a NetworkPolicy
+        call: kubernetes-network-policies-networkpolicy.replacenamespacednetworkpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchnamespacednetworkpolicy
+        description: Kubernetes Services Patch a NetworkPolicy
+        call: kubernetes-network-policies-networkpolicy.patchnamespacednetworkpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletenamespacednetworkpolicy
+        description: Kubernetes Services Delete a NetworkPolicy
+        call: kubernetes-network-policies-networkpolicy.deletenamespacednetworkpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apis/networking-k8s-io/v1/networkpolicies
+      name: apis-networking-k8s-io-v1-networkpolicies
+      description: REST surface for apis-networking.k8s.io-v1-networkpolicies.
+      operations:
+      - method: GET
+        name: listnetworkpoliciesallnamespaces
+        description: Kubernetes Services List NetworkPolicies across all namespaces
+        call: kubernetes-network-policies-networkpolicy.listnetworkpoliciesallnamespaces
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-network-policies-networkpolicy-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Kubernetes Services Kubernetes Network Policies API — NetworkPolicy. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: kubernetes-services-list-networkpolicies-namespace
+      description: Kubernetes Services List NetworkPolicies in a namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-network-policies-networkpolicy.listnamespacednetworkpolicies
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-create-networkpolicy
+      description: Kubernetes Services Create a NetworkPolicy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-network-policies-networkpolicy.createnamespacednetworkpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-get-networkpolicy
+      description: Kubernetes Services Get a NetworkPolicy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-network-policies-networkpolicy.getnamespacednetworkpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-replace-networkpolicy
+      description: Kubernetes Services Replace a NetworkPolicy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-network-policies-networkpolicy.replacenamespacednetworkpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-patch-networkpolicy
+      description: Kubernetes Services Patch a NetworkPolicy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-network-policies-networkpolicy.patchnamespacednetworkpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-delete-networkpolicy
+      description: Kubernetes Services Delete a NetworkPolicy
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kubernetes-network-policies-networkpolicy.deletenamespacednetworkpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-list-networkpolicies-across
+      description: Kubernetes Services List NetworkPolicies across all namespaces
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-network-policies-networkpolicy.listnetworkpoliciesallnamespaces
+      outputParameters:
+      - type: object
+        mapping: $.

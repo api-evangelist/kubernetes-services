@@ -1,0 +1,106 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Kubernetes Services Kubernetes Ingress API — IngressStatus
+  description: 'Kubernetes Services Kubernetes Ingress API — IngressStatus. 2 operations. Lead operation: Kubernetes Services
+    Get Ingress status. Self-contained Naftiko capability covering one Kubernetes Services business surface.'
+  tags:
+  - Kubernetes Services
+  - IngressStatus
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KUBERNETES_SERVICES_API_KEY: KUBERNETES_SERVICES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-ingress-ingressstatus
+    baseUri: https://kubernetes.default.svc
+    description: Kubernetes Services Kubernetes Ingress API — IngressStatus business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: apis-networking.k8s.io-v1-namespaces-namespace-ingresses-name-status
+      path: /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
+      operations:
+      - name: getnamespacedingressstatus
+        method: GET
+        description: Kubernetes Services Get Ingress status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacenamespacedingressstatus
+        method: PUT
+        description: Kubernetes Services Replace Ingress status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.KUBERNETES_SERVICES_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-ingress-ingressstatus-rest
+    port: 8080
+    description: REST adapter for Kubernetes Services Kubernetes Ingress API — IngressStatus. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/apis/networking-k8s-io/v1/namespaces/{namespace}/ingresses/{name}/status
+      name: apis-networking-k8s-io-v1-namespaces-namespace-ingresses-name-status
+      description: REST surface for apis-networking.k8s.io-v1-namespaces-namespace-ingresses-name-status.
+      operations:
+      - method: GET
+        name: getnamespacedingressstatus
+        description: Kubernetes Services Get Ingress status
+        call: kubernetes-ingress-ingressstatus.getnamespacedingressstatus
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacenamespacedingressstatus
+        description: Kubernetes Services Replace Ingress status
+        call: kubernetes-ingress-ingressstatus.replacenamespacedingressstatus
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-ingress-ingressstatus-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Kubernetes Services Kubernetes Ingress API — IngressStatus. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: kubernetes-services-get-ingress-status
+      description: Kubernetes Services Get Ingress status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-ingress-ingressstatus.getnamespacedingressstatus
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-replace-ingress-status
+      description: Kubernetes Services Replace Ingress status
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-ingress-ingressstatus.replacenamespacedingressstatus
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,264 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Kubernetes Services Kubernetes Ingress API — Ingress
+  description: 'Kubernetes Services Kubernetes Ingress API — Ingress. 7 operations. Lead operation: Kubernetes Services List
+    Ingresses across all namespaces. Self-contained Naftiko capability covering one Kubernetes Services business surface.'
+  tags:
+  - Kubernetes Services
+  - Ingress
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KUBERNETES_SERVICES_API_KEY: KUBERNETES_SERVICES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-ingress-ingress
+    baseUri: https://kubernetes.default.svc
+    description: Kubernetes Services Kubernetes Ingress API — Ingress business capability. Self-contained, no shared references.
+    resources:
+    - name: apis-networking.k8s.io-v1-ingresses
+      path: /apis/networking.k8s.io/v1/ingresses
+      operations:
+      - name: listingressesallnamespaces
+        method: GET
+        description: Kubernetes Services List Ingresses across all namespaces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: apis-networking.k8s.io-v1-namespaces-namespace-ingresses
+      path: /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses
+      operations:
+      - name: listnamespacedingresses
+        method: GET
+        description: Kubernetes Services List Ingresses in a namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnamespacedingress
+        method: POST
+        description: Kubernetes Services Create an Ingress
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: apis-networking.k8s.io-v1-namespaces-namespace-ingresses-name
+      path: /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
+      operations:
+      - name: getnamespacedingress
+        method: GET
+        description: Kubernetes Services Get an Ingress
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacenamespacedingress
+        method: PUT
+        description: Kubernetes Services Replace an Ingress
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: patchnamespacedingress
+        method: PATCH
+        description: Kubernetes Services Patch an Ingress
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletenamespacedingress
+        method: DELETE
+        description: Kubernetes Services Delete an Ingress
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.KUBERNETES_SERVICES_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-ingress-ingress-rest
+    port: 8080
+    description: REST adapter for Kubernetes Services Kubernetes Ingress API — Ingress. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/apis/networking-k8s-io/v1/ingresses
+      name: apis-networking-k8s-io-v1-ingresses
+      description: REST surface for apis-networking.k8s.io-v1-ingresses.
+      operations:
+      - method: GET
+        name: listingressesallnamespaces
+        description: Kubernetes Services List Ingresses across all namespaces
+        call: kubernetes-ingress-ingress.listingressesallnamespaces
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apis/networking-k8s-io/v1/namespaces/{namespace}/ingresses
+      name: apis-networking-k8s-io-v1-namespaces-namespace-ingresses
+      description: REST surface for apis-networking.k8s.io-v1-namespaces-namespace-ingresses.
+      operations:
+      - method: GET
+        name: listnamespacedingresses
+        description: Kubernetes Services List Ingresses in a namespace
+        call: kubernetes-ingress-ingress.listnamespacedingresses
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnamespacedingress
+        description: Kubernetes Services Create an Ingress
+        call: kubernetes-ingress-ingress.createnamespacedingress
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apis/networking-k8s-io/v1/namespaces/{namespace}/ingresses/{name}
+      name: apis-networking-k8s-io-v1-namespaces-namespace-ingresses-name
+      description: REST surface for apis-networking.k8s.io-v1-namespaces-namespace-ingresses-name.
+      operations:
+      - method: GET
+        name: getnamespacedingress
+        description: Kubernetes Services Get an Ingress
+        call: kubernetes-ingress-ingress.getnamespacedingress
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacenamespacedingress
+        description: Kubernetes Services Replace an Ingress
+        call: kubernetes-ingress-ingress.replacenamespacedingress
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchnamespacedingress
+        description: Kubernetes Services Patch an Ingress
+        call: kubernetes-ingress-ingress.patchnamespacedingress
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletenamespacedingress
+        description: Kubernetes Services Delete an Ingress
+        call: kubernetes-ingress-ingress.deletenamespacedingress
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-ingress-ingress-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Kubernetes Services Kubernetes Ingress API — Ingress. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: kubernetes-services-list-ingresses-across
+      description: Kubernetes Services List Ingresses across all namespaces
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-ingress-ingress.listingressesallnamespaces
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-list-ingresses-namespace
+      description: Kubernetes Services List Ingresses in a namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-ingress-ingress.listnamespacedingresses
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-create-ingress
+      description: Kubernetes Services Create an Ingress
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-ingress-ingress.createnamespacedingress
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-get-ingress
+      description: Kubernetes Services Get an Ingress
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-ingress-ingress.getnamespacedingress
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-replace-ingress
+      description: Kubernetes Services Replace an Ingress
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-ingress-ingress.replacenamespacedingress
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-patch-ingress
+      description: Kubernetes Services Patch an Ingress
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-ingress-ingress.patchnamespacedingress
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-delete-ingress
+      description: Kubernetes Services Delete an Ingress
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kubernetes-ingress-ingress.deletenamespacedingress
+      outputParameters:
+      - type: object
+        mapping: $.

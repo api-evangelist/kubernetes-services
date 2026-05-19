@@ -1,0 +1,105 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Kubernetes Services Kubernetes Gateway API — GRPCRoute
+  description: 'Kubernetes Services Kubernetes Gateway API — GRPCRoute. 2 operations. Lead operation: Kubernetes Services
+    List GRPCRoutes in a namespace. Self-contained Naftiko capability covering one Kubernetes Services business surface.'
+  tags:
+  - Kubernetes Services
+  - GRPCRoute
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KUBERNETES_SERVICES_API_KEY: KUBERNETES_SERVICES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-gateway-grpcroute
+    baseUri: https://kubernetes.default.svc
+    description: Kubernetes Services Kubernetes Gateway API — GRPCRoute business capability. Self-contained, no shared references.
+    resources:
+    - name: apis-gateway.networking.k8s.io-v1-namespaces-namespace-grpcroutes
+      path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/grpcroutes
+      operations:
+      - name: listnamespacedgrpcroutes
+        method: GET
+        description: Kubernetes Services List GRPCRoutes in a namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnamespacedgrpcroute
+        method: POST
+        description: Kubernetes Services Create a GRPCRoute
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.KUBERNETES_SERVICES_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-gateway-grpcroute-rest
+    port: 8080
+    description: REST adapter for Kubernetes Services Kubernetes Gateway API — GRPCRoute. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/apis/gateway-networking-k8s-io/v1/namespaces/{namespace}/grpcroutes
+      name: apis-gateway-networking-k8s-io-v1-namespaces-namespace-grpcroutes
+      description: REST surface for apis-gateway.networking.k8s.io-v1-namespaces-namespace-grpcroutes.
+      operations:
+      - method: GET
+        name: listnamespacedgrpcroutes
+        description: Kubernetes Services List GRPCRoutes in a namespace
+        call: kubernetes-gateway-grpcroute.listnamespacedgrpcroutes
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnamespacedgrpcroute
+        description: Kubernetes Services Create a GRPCRoute
+        call: kubernetes-gateway-grpcroute.createnamespacedgrpcroute
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-gateway-grpcroute-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Kubernetes Services Kubernetes Gateway API — GRPCRoute. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: kubernetes-services-list-grpcroutes-namespace
+      description: Kubernetes Services List GRPCRoutes in a namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-grpcroute.listnamespacedgrpcroutes
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-create-grpcroute
+      description: Kubernetes Services Create a GRPCRoute
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-gateway-grpcroute.createnamespacedgrpcroute
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Kubernetes Services Kubernetes Gateway API — Gateway
+  description: 'Kubernetes Services Kubernetes Gateway API — Gateway. 5 operations. Lead operation: Kubernetes Services List
+    Gateways in a namespace. Self-contained Naftiko capability covering one Kubernetes Services business surface.'
+  tags:
+  - Kubernetes Services
+  - Gateway
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KUBERNETES_SERVICES_API_KEY: KUBERNETES_SERVICES_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-gateway-gateway
+    baseUri: https://kubernetes.default.svc
+    description: Kubernetes Services Kubernetes Gateway API — Gateway business capability. Self-contained, no shared references.
+    resources:
+    - name: apis-gateway.networking.k8s.io-v1-namespaces-namespace-gateways
+      path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways
+      operations:
+      - name: listnamespacedgateways
+        method: GET
+        description: Kubernetes Services List Gateways in a namespace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createnamespacedgateway
+        method: POST
+        description: Kubernetes Services Create a Gateway
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: apis-gateway.networking.k8s.io-v1-namespaces-namespace-gateways-name
+      path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}
+      operations:
+      - name: getnamespacedgateway
+        method: GET
+        description: Kubernetes Services Get a Gateway
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacenamespacedgateway
+        method: PUT
+        description: Kubernetes Services Replace a Gateway
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletenamespacedgateway
+        method: DELETE
+        description: Kubernetes Services Delete a Gateway
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.KUBERNETES_SERVICES_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-gateway-gateway-rest
+    port: 8080
+    description: REST adapter for Kubernetes Services Kubernetes Gateway API — Gateway. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/apis/gateway-networking-k8s-io/v1/namespaces/{namespace}/gateways
+      name: apis-gateway-networking-k8s-io-v1-namespaces-namespace-gateways
+      description: REST surface for apis-gateway.networking.k8s.io-v1-namespaces-namespace-gateways.
+      operations:
+      - method: GET
+        name: listnamespacedgateways
+        description: Kubernetes Services List Gateways in a namespace
+        call: kubernetes-gateway-gateway.listnamespacedgateways
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnamespacedgateway
+        description: Kubernetes Services Create a Gateway
+        call: kubernetes-gateway-gateway.createnamespacedgateway
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/apis/gateway-networking-k8s-io/v1/namespaces/{namespace}/gateways/{name}
+      name: apis-gateway-networking-k8s-io-v1-namespaces-namespace-gateways-name
+      description: REST surface for apis-gateway.networking.k8s.io-v1-namespaces-namespace-gateways-name.
+      operations:
+      - method: GET
+        name: getnamespacedgateway
+        description: Kubernetes Services Get a Gateway
+        call: kubernetes-gateway-gateway.getnamespacedgateway
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacenamespacedgateway
+        description: Kubernetes Services Replace a Gateway
+        call: kubernetes-gateway-gateway.replacenamespacedgateway
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletenamespacedgateway
+        description: Kubernetes Services Delete a Gateway
+        call: kubernetes-gateway-gateway.deletenamespacedgateway
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-gateway-gateway-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Kubernetes Services Kubernetes Gateway API — Gateway. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: kubernetes-services-list-gateways-namespace
+      description: Kubernetes Services List Gateways in a namespace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-gateway.listnamespacedgateways
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-create-gateway
+      description: Kubernetes Services Create a Gateway
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-gateway-gateway.createnamespacedgateway
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-get-gateway
+      description: Kubernetes Services Get a Gateway
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-gateway.getnamespacedgateway
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-replace-gateway
+      description: Kubernetes Services Replace a Gateway
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-gateway.replacenamespacedgateway
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kubernetes-services-delete-gateway
+      description: Kubernetes Services Delete a Gateway
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kubernetes-gateway-gateway.deletenamespacedgateway
+      outputParameters:
+      - type: object
+        mapping: $.
