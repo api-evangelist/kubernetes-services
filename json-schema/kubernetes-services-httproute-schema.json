@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HTTPRoute",
+  "title": "HTTPRoute",
+  "type": "object",
+  "description": "An HTTPRoute defines HTTP routing rules from one or more Gateway listeners to backend services. Rules support rich matching on path, headers, query parameters, and HTTP method, and can apply request and response filters.",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "gateway.networking.k8s.io/v1"
+    },
+    "kind": {
+      "type": "string",
+      "const": "HTTPRoute"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "type": "object",
+      "description": "HTTPRoute specification.",
+      "properties": {
+        "parentRefs": {
+          "type": "array",
+          "description": "Gateway listeners this route attaches to. Routes must be accepted by the Gateway to receive traffic.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the parent Gateway."
+              },
+              "namespace": {
+                "type": "string",
+                "description": "Namespace of the parent Gateway."
+              },
+              "sectionName": {
+                "type": "string",
+                "description": "Listener name on the Gateway to attach to."
+              }
+            }
+          }
+        },
+        "hostnames": {
+          "type": "array",
+          "description": "Hostnames that should match to route traffic to this route. Supports wildcard prefixes.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rules": {
+          "type": "array",
+          "description": "Routing rules. Each rule consists of match conditions and backend references. Rules are evaluated in order.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "matches": {
+                "type": "array",
+                "description": "Match conditions for this rule. Rules are OR'd.",
+                "items": {
+                  "$ref": "#/components/schemas/HTTPRouteMatch"
+                }
+              },
+              "backendRefs": {
+                "type": "array",
+                "description": "Backends to forward matched requests to.",
+                "items": {
+                  "$ref": "#/components/schemas/HTTPBackendRef"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "properties": {
+        "parents": {
+          "type": "array",
+          "description": "Status per parent Gateway this route is attached to.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "parentRef": {
+                "type": "object"
+              },
+              "conditions": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Condition"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

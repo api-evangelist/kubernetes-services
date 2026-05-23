@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GRPCRoute",
+  "title": "GRPCRoute",
+  "type": "object",
+  "description": "A GRPCRoute defines gRPC routing rules from Gateway listeners to backend services, matching on gRPC service and method names for targeted traffic distribution.",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "gateway.networking.k8s.io/v1"
+    },
+    "kind": {
+      "type": "string",
+      "const": "GRPCRoute"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "type": "object",
+      "properties": {
+        "parentRefs": {
+          "type": "array",
+          "description": "Gateway listeners this route attaches to.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "namespace": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "hostnames": {
+          "type": "array",
+          "description": "Hostnames that should match for this route.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rules": {
+          "type": "array",
+          "description": "gRPC routing rules.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "matches": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "method": {
+                      "type": "object",
+                      "properties": {
+                        "service": {
+                          "type": "string",
+                          "description": "gRPC service name to match."
+                        },
+                        "method": {
+                          "type": "string",
+                          "description": "gRPC method name to match."
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": [
+                            "Exact",
+                            "RegularExpression"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "backendRefs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "namespace": {
+                      "type": "string"
+                    },
+                    "port": {
+                      "type": "integer"
+                    },
+                    "weight": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LabelSelector",
+  "title": "LabelSelector",
+  "type": "object",
+  "description": "A label selector filtering pods or namespaces by their labels. Combines matchLabels equality requirements with matchExpressions set-based requirements using AND logic.",
+  "properties": {
+    "matchLabels": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Key-value pairs that must all match on the target resource labels."
+    },
+    "matchExpressions": {
+      "type": "array",
+      "description": "Set-based requirements combined with AND logic.",
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "operator"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Label key the selector applies to."
+          },
+          "operator": {
+            "type": "string",
+            "enum": [
+              "In",
+              "NotIn",
+              "Exists",
+              "DoesNotExist"
+            ],
+            "description": "Relationship between the key and values."
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Values for In/NotIn operators."
+          }
+        }
+      }
+    }
+  }
+}

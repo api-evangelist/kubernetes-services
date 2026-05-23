@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NetworkPolicySpec",
+  "title": "NetworkPolicySpec",
+  "type": "object",
+  "description": "Specification of a NetworkPolicy defining which pods are selected, what policy types apply, and the ingress and egress rules.",
+  "required": [
+    "podSelector"
+  ],
+  "properties": {
+    "podSelector": {
+      "$ref": "#/components/schemas/LabelSelector"
+    },
+    "policyTypes": {
+      "type": "array",
+      "description": "Policy types that apply to this NetworkPolicy. If Ingress is specified, only explicitly allowed ingress traffic is permitted. If Egress is specified, only explicitly allowed egress traffic is permitted. Defaults based on presence of ingress/egress fields.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Ingress",
+          "Egress"
+        ]
+      }
+    },
+    "ingress": {
+      "type": "array",
+      "description": "Ingress rules. Each rule allows traffic matching all of its conditions. An empty ingress list denies all ingress traffic.",
+      "items": {
+        "$ref": "#/components/schemas/NetworkPolicyIngressRule"
+      }
+    },
+    "egress": {
+      "type": "array",
+      "description": "Egress rules. Each rule allows traffic matching all of its conditions. An empty egress list denies all egress traffic.",
+      "items": {
+        "$ref": "#/components/schemas/NetworkPolicyEgressRule"
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServiceStatus",
+  "title": "ServiceStatus",
+  "type": "object",
+  "description": "Most recently observed status of a Service, including load balancer provisioning state and ingress IP/hostname assignments.",
+  "properties": {
+    "loadBalancer": {
+      "type": "object",
+      "description": "Status of the load balancer for LoadBalancer-type services.",
+      "properties": {
+        "ingress": {
+          "type": "array",
+          "description": "List of ingress points for the load balancer. May be IP addresses or hostnames depending on the cloud provider.",
+          "items": {
+            "$ref": "#/components/schemas/LoadBalancerIngress"
+          }
+        }
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "description": "Current service conditions.",
+      "items": {
+        "$ref": "#/components/schemas/Condition"
+      }
+    }
+  }
+}

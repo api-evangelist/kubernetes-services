@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GatewayListener",
+  "title": "GatewayListener",
+  "type": "object",
+  "description": "A listener on a Gateway defining the protocol, port, optional hostname, and which routes are allowed to attach.",
+  "required": [
+    "name",
+    "protocol",
+    "port"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique name for this listener within the Gateway."
+    },
+    "protocol": {
+      "type": "string",
+      "enum": [
+        "HTTP",
+        "HTTPS",
+        "TLS",
+        "TCP",
+        "UDP"
+      ],
+      "description": "Network protocol this listener accepts."
+    },
+    "port": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535,
+      "description": "Port number the listener accepts traffic on."
+    },
+    "hostname": {
+      "type": "string",
+      "description": "Hostname this listener matches. Supports wildcard prefix like *.example.com. Empty matches all hostnames."
+    },
+    "tls": {
+      "type": "object",
+      "description": "TLS configuration for HTTPS and TLS listeners.",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "Terminate",
+            "Passthrough"
+          ],
+          "description": "TLS mode. Terminate decrypts traffic at the gateway; Passthrough forwards encrypted traffic to the backend."
+        },
+        "certificateRefs": {
+          "type": "array",
+          "description": "References to TLS certificate Secrets.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "namespace": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "allowedRoutes": {
+      "type": "object",
+      "description": "Defines which routes can attach to this listener.",
+      "properties": {
+        "namespaces": {
+          "type": "object",
+          "properties": {
+            "from": {
+              "type": "string",
+              "enum": [
+                "All",
+                "Same",
+                "Selector"
+              ],
+              "description": "Namespaces from which routes may attach. Same means only the Gateway's namespace; All means any namespace."
+            }
+          }
+        }
+      }
+    }
+  }
+}

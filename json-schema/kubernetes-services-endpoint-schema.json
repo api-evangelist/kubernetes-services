@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Endpoint",
+  "title": "Endpoint",
+  "type": "object",
+  "description": "A single network endpoint representing a pod IP address, its readiness conditions, and optional topology information for advanced routing.",
+  "required": [
+    "addresses"
+  ],
+  "properties": {
+    "addresses": {
+      "type": "array",
+      "description": "Canonical IP addresses of this endpoint, in IPv4 or IPv6 format. Between 1 and 100 addresses per endpoint.",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "string"
+      }
+    },
+    "conditions": {
+      "$ref": "#/components/schemas/EndpointConditions"
+    },
+    "hostname": {
+      "type": "string",
+      "description": "DNS hostname for this endpoint. Used by headless services to generate per-pod DNS records."
+    },
+    "nodeName": {
+      "type": "string",
+      "description": "Node on which this endpoint resides."
+    },
+    "zone": {
+      "type": "string",
+      "description": "Availability zone where the endpoint is located, used for topology-aware routing."
+    },
+    "targetRef": {
+      "type": "object",
+      "description": "Reference to the Kubernetes object backing this endpoint.",
+      "properties": {
+        "apiVersion": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uid": {
+          "type": "string"
+        }
+      }
+    },
+    "hints": {
+      "$ref": "#/components/schemas/EndpointHints"
+    }
+  }
+}

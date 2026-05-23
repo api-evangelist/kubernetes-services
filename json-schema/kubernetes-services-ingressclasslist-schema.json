@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/IngressClassList",
+  "title": "IngressClassList",
+  "type": "object",
+  "description": "A list of IngressClass resources.",
+  "required": [
+    "items"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string",
+      "const": "IngressClassList"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ListMeta"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/IngressClass"
+      }
+    }
+  }
+}

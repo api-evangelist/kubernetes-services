@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EndpointPort",
+  "title": "EndpointPort",
+  "type": "object",
+  "description": "A network port definition shared by all endpoints in the slice. An EndpointSlice may have up to 100 ports.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Port name. Must match a port name in the parent Service. Must be unique within the ports list.",
+      "maxLength": 15
+    },
+    "port": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535,
+      "description": "Port number."
+    },
+    "protocol": {
+      "type": "string",
+      "enum": [
+        "TCP",
+        "UDP",
+        "SCTP"
+      ],
+      "description": "Network protocol. Defaults to TCP.",
+      "default": "TCP"
+    },
+    "appProtocol": {
+      "type": "string",
+      "description": "Application-layer protocol hint for this port."
+    }
+  }
+}

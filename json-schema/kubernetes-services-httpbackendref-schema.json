@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HTTPBackendRef",
+  "title": "HTTPBackendRef",
+  "type": "object",
+  "description": "Reference to a backend service in an HTTPRoute rule, with an optional traffic weight for proportional routing.",
+  "required": [
+    "name",
+    "port"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the referenced Service."
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Namespace of the Service. Defaults to the HTTPRoute's namespace."
+    },
+    "port": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535,
+      "description": "Port number on the referenced Service."
+    },
+    "weight": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000,
+      "description": "Relative weight for traffic distribution. Requests are proportioned by weight across backendRefs in the same rule."
+    }
+  }
+}

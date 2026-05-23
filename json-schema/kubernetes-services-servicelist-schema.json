@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServiceList",
+  "title": "ServiceList",
+  "type": "object",
+  "description": "A list of Services returned by list operations.",
+  "required": [
+    "items"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string",
+      "const": "ServiceList"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ListMeta"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Service"
+      }
+    }
+  }
+}

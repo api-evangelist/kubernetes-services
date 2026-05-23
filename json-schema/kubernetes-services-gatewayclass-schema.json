@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GatewayClass",
+  "title": "GatewayClass",
+  "type": "object",
+  "description": "A GatewayClass is a cluster-scoped resource that defines a class of gateway implementations, linking to a specific gateway controller via the controllerName field. Infrastructure providers create GatewayClasses when deploying their gateway controller.",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "gateway.networking.k8s.io/v1"
+    },
+    "kind": {
+      "type": "string",
+      "const": "GatewayClass"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "type": "object",
+      "description": "GatewayClass specification.",
+      "required": [
+        "controllerName"
+      ],
+      "properties": {
+        "controllerName": {
+          "type": "string",
+          "description": "Domain-prefixed path identifying the gateway controller implementing this class. Example: gateway.nginx.org/nginx-gateway."
+        },
+        "parametersRef": {
+          "type": "object",
+          "description": "Reference to a provider-specific resource containing controller configuration parameters.",
+          "properties": {
+            "group": {
+              "type": "string"
+            },
+            "kind": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "namespace": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Current status of the GatewayClass.",
+      "properties": {
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Condition"
+          }
+        }
+      }
+    }
+  }
+}

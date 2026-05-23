@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NetworkPolicyEgressRule",
+  "title": "NetworkPolicyEgressRule",
+  "type": "object",
+  "description": "An egress rule allowing outbound traffic from selected pods to specified destinations on specified ports. An empty to list allows traffic to all destinations.",
+  "properties": {
+    "to": {
+      "type": "array",
+      "description": "Allowed traffic destinations.",
+      "items": {
+        "$ref": "#/components/schemas/NetworkPolicyPeer"
+      }
+    },
+    "ports": {
+      "type": "array",
+      "description": "Ports to which the egress traffic is allowed.",
+      "items": {
+        "$ref": "#/components/schemas/NetworkPolicyPort"
+      }
+    }
+  }
+}

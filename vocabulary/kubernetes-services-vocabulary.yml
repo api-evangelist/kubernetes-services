@@ -1,0 +1,17 @@
+name: Kubernetes Services Domain Vocabulary
+provider: Kubernetes Services
+providerId: kubernetes-services
+description: Tag-derived vocabulary for the Kubernetes Services API surface; sourced from openapi/ tags.
+terms:
+- term: Gateway
+  description: Gateway resources instantiating traffic-handling infrastructure such as cloud load balancers or in-cluster
+    proxies, with listeners for each protocol.
+- term: GatewayClass
+  description: GatewayClass resources defining a class of gateway implementations. Cluster-scoped resources that link to a
+    specific ingress or mesh controller.
+- term: GRPCRoute
+  description: GRPCRoute resources defining gRPC routing rules from Gateway listeners to backend services with service and
+    method name matching.
+- term: HTTPRoute
+  description: HTTPRoute resources defining HTTP and HTTPS routing rules from Gateway listeners to backend services with support
+    for path, header, and query parameter matching.

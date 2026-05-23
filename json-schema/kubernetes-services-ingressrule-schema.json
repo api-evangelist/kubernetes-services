@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/IngressRule",
+  "title": "IngressRule",
+  "type": "object",
+  "description": "A host-based routing rule mapping HTTP requests to backend services based on hostname and path prefix matching.",
+  "properties": {
+    "host": {
+      "type": "string",
+      "description": "Fully-qualified domain name to match. Wildcard prefixes like *.example.com are supported. If unspecified, all hosts match."
+    },
+    "http": {
+      "type": "object",
+      "description": "HTTP-specific routing configuration for this rule.",
+      "required": [
+        "paths"
+      ],
+      "properties": {
+        "paths": {
+          "type": "array",
+          "description": "List of path-to-backend mappings for this rule. At least one path must be specified.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/components/schemas/HTTPIngressPath"
+          }
+        }
+      }
+    }
+  }
+}

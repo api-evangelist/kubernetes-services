@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NetworkPolicy",
+  "title": "NetworkPolicy",
+  "type": "object",
+  "description": "A NetworkPolicy describes how groups of pods are allowed to communicate with each other and other network endpoints. Policies are additive \u2014 if multiple policies select a pod, all rules are combined. Requires a CNI plugin that supports NetworkPolicy enforcement.",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "networking.k8s.io/v1"
+    },
+    "kind": {
+      "type": "string",
+      "const": "NetworkPolicy"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "$ref": "#/components/schemas/NetworkPolicySpec"
+    }
+  }
+}

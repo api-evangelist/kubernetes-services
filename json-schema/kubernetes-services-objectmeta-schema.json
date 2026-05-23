@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ObjectMeta",
+  "title": "ObjectMeta",
+  "type": "object",
+  "description": "Standard Kubernetes object metadata.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the object."
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Namespace of the object."
+    },
+    "uid": {
+      "type": "string",
+      "description": "Unique server-assigned identifier."
+    },
+    "resourceVersion": {
+      "type": "string",
+      "description": "Internal version string."
+    },
+    "creationTimestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp."
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Label key-value pairs. The kubernetes.io/service-name label identifies the Service this slice belongs to."
+    },
+    "annotations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Non-identifying metadata."
+    }
+  }
+}

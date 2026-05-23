@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServiceSpec",
+  "title": "ServiceSpec",
+  "type": "object",
+  "description": "Specification of the desired behavior of a Service, defining port mappings, pod selection, service type, IP configuration, and traffic policy.",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "ClusterIP",
+        "NodePort",
+        "LoadBalancer",
+        "ExternalName"
+      ],
+      "description": "How the Service is exposed. ClusterIP (default) creates an internal IP; NodePort adds a node-level port; LoadBalancer provisions a cloud load balancer; ExternalName maps to an external DNS name.",
+      "default": "ClusterIP"
+    },
+    "selector": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Label selector identifying the Pods this Service routes traffic to. Not used for ExternalName services."
+    },
+    "ports": {
+      "type": "array",
+      "description": "List of port mappings for this Service.",
+      "items": {
+        "$ref": "#/components/schemas/ServicePort"
+      }
+    },
+    "clusterIP": {
+      "type": "string",
+      "description": "Cluster-internal IP address for the Service. Assigned automatically unless explicitly set. Set to 'None' for headless services."
+    },
+    "clusterIPs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of cluster IPs for dual-stack services. The first value is the primary clusterIP."
+    },
+    "ipFamilies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "IPv4",
+          "IPv6"
+        ]
+      },
+      "description": "IP families used by this Service for dual-stack configuration."
+    },
+    "ipFamilyPolicy": {
+      "type": "string",
+      "enum": [
+        "SingleStack",
+        "PreferDualStack",
+        "RequireDualStack"
+      ],
+      "description": "IP family policy for dual-stack configuration."
+    },
+    "externalName": {
+      "type": "string",
+      "description": "External DNS name this Service resolves to. Only used when type is ExternalName. No proxying or load balancing is performed."
+    },
+    "externalIPs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Additional IPs for which nodes will also accept traffic for this Service. Not managed by Kubernetes."
+    },
+    "externalTrafficPolicy": {
+      "type": "string",
+      "enum": [
+        "Cluster",
+        "Local"
+      ],
+      "description": "How external traffic is routed. Local preserves client source IP but may be unbalanced; Cluster routes to any ready pod."
+    },
+    "sessionAffinity": {
+      "type": "string",
+      "enum": [
+        "None",
+        "ClientIP"
+      ],
+      "description": "Session affinity type. ClientIP routes repeated requests from the same IP to the same pod. Defaults to None.",
+      "default": "None"
+    },
+    "sessionAffinityConfig": {
+      "type": "object",
+      "description": "Configuration of session affinity.",
+      "properties": {
+        "clientIP": {
+          "type": "object",
+          "properties": {
+            "timeoutSeconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 86400,
+              "description": "Seconds of idle time before the session affinity timeout elapses."
+            }
+          }
+        }
+      }
+    },
+    "loadBalancerIP": {
+      "type": "string",
+      "description": "Specific IP to request for the load balancer when supported by the cloud provider."
+    },
+    "loadBalancerSourceRanges": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "CIDR ranges allowed to access the load balancer. Traffic outside these ranges is dropped by the load balancer."
+    },
+    "healthCheckNodePort": {
+      "type": "integer",
+      "description": "Health check node port when externalTrafficPolicy is Local and type is LoadBalancer."
+    },
+    "publishNotReadyAddresses": {
+      "type": "boolean",
+      "description": "If true, the DNS will provide the addresses of not-ready endpoints for this service. Defaults to false.",
+      "default": false
+    },
+    "allocateLoadBalancerNodePorts": {
+      "type": "boolean",
+      "description": "Whether NodePorts are allocated for LoadBalancer services. Set to false to disable NodePort allocation. Defaults to true.",
+      "default": true
+    }
+  }
+}

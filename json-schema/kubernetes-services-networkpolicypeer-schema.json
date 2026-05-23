@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NetworkPolicyPeer",
+  "title": "NetworkPolicyPeer",
+  "type": "object",
+  "description": "A network policy peer specifying a traffic source (in ingress rules) or destination (in egress rules). Uses AND logic when multiple selector types are combined.",
+  "properties": {
+    "podSelector": {
+      "$ref": "#/components/schemas/LabelSelector"
+    },
+    "namespaceSelector": {
+      "$ref": "#/components/schemas/LabelSelector"
+    },
+    "ipBlock": {
+      "$ref": "#/components/schemas/IPBlock"
+    }
+  }
+}

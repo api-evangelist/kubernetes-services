@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServicePort",
+  "title": "ServicePort",
+  "type": "object",
+  "description": "A port mapping within a Service, defining the protocol, service-facing port, and the target pod port.",
+  "required": [
+    "port"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Port name. Must be unique within the ports list and conform to DNS_LABEL format. Required for multi-port Services.",
+      "maxLength": 15
+    },
+    "port": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535,
+      "description": "Port number the Service listens on."
+    },
+    "targetPort": {
+      "description": "Port number or named port on the Pod to forward traffic to. Defaults to the value of port.",
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "protocol": {
+      "type": "string",
+      "enum": [
+        "TCP",
+        "UDP",
+        "SCTP"
+      ],
+      "description": "Network protocol for this port. Defaults to TCP.",
+      "default": "TCP"
+    },
+    "nodePort": {
+      "type": "integer",
+      "minimum": 30000,
+      "maximum": 32767,
+      "description": "Port exposed on each node for NodePort and LoadBalancer service types. Allocated automatically if not specified."
+    },
+    "appProtocol": {
+      "type": "string",
+      "description": "Application-layer protocol hint for the port. Examples: h2c, ws, wss, kubernetes.io/h2c."
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ListMeta",
+  "title": "ListMeta",
+  "type": "object",
+  "description": "Metadata for list responses.",
+  "properties": {
+    "resourceVersion": {
+      "type": "string"
+    },
+    "continue": {
+      "type": "string"
+    },
+    "remainingItemCount": {
+      "type": "integer"
+    }
+  }
+}

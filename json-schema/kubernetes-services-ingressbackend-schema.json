@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/IngressBackend",
+  "title": "IngressBackend",
+  "type": "object",
+  "description": "Reference to the backend service or resource that an Ingress routing rule should forward traffic to.",
+  "properties": {
+    "service": {
+      "type": "object",
+      "description": "Service backend reference for routing.",
+      "required": [
+        "name",
+        "port"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the referenced Service in the same namespace."
+        },
+        "port": {
+          "type": "object",
+          "description": "Port on the referenced Service to forward traffic to.",
+          "properties": {
+            "number": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535,
+              "description": "Numeric port number."
+            },
+            "name": {
+              "type": "string",
+              "description": "Named port as defined in the Service spec."
+            }
+          }
+        }
+      }
+    },
+    "resource": {
+      "type": "object",
+      "description": "Reference to a custom resource backend in the same namespace. Mutually exclusive with service.",
+      "properties": {
+        "apiGroup": {
+          "type": "string",
+          "description": "API group of the referenced resource."
+        },
+        "kind": {
+          "type": "string",
+          "description": "Kind of the referenced resource."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the referenced resource."
+        }
+      }
+    }
+  }
+}

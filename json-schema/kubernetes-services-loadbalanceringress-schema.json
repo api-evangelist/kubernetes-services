@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LoadBalancerIngress",
+  "title": "LoadBalancerIngress",
+  "type": "object",
+  "description": "An ingress point for a load balancer, representing a provisioned IP address or DNS hostname assigned by the cloud provider.",
+  "properties": {
+    "ip": {
+      "type": "string",
+      "description": "IP address of the load balancer ingress point."
+    },
+    "hostname": {
+      "type": "string",
+      "description": "Hostname of the load balancer ingress point."
+    },
+    "ports": {
+      "type": "array",
+      "description": "Port status for each exposed port.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "port": {
+            "type": "integer"
+          },
+          "protocol": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string",
+            "description": "Error message if the port could not be provisioned."
+          }
+        }
+      }
+    }
+  }
+}

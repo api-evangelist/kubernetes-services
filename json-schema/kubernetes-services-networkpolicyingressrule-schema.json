@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NetworkPolicyIngressRule",
+  "title": "NetworkPolicyIngressRule",
+  "type": "object",
+  "description": "An ingress rule allowing inbound traffic to selected pods from specified sources on specified ports. An empty from list allows traffic from all sources. An empty ports list allows all ports.",
+  "properties": {
+    "from": {
+      "type": "array",
+      "description": "Allowed traffic sources. Items are OR'd together; within an item, podSelector and namespaceSelector are AND'd.",
+      "items": {
+        "$ref": "#/components/schemas/NetworkPolicyPeer"
+      }
+    },
+    "ports": {
+      "type": "array",
+      "description": "Ports on which the ingress traffic is allowed.",
+      "items": {
+        "$ref": "#/components/schemas/NetworkPolicyPort"
+      }
+    }
+  }
+}

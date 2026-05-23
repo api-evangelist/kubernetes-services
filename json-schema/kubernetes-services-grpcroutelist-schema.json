@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GRPCRouteList",
+  "title": "GRPCRouteList",
+  "type": "object",
+  "description": "A list of GRPCRoute resources.",
+  "required": [
+    "items"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string",
+      "const": "GRPCRouteList"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ListMeta"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/GRPCRoute"
+      }
+    }
+  }
+}

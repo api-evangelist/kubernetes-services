@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/IngressSpec",
+  "title": "IngressSpec",
+  "type": "object",
+  "description": "Specification of the desired behavior of an Ingress, including the routing rules, TLS configuration, default backend, and reference to the ingress controller via the IngressClass.",
+  "properties": {
+    "ingressClassName": {
+      "type": "string",
+      "description": "Name of the IngressClass cluster resource that selects which ingress controller handles this Ingress."
+    },
+    "defaultBackend": {
+      "$ref": "#/components/schemas/IngressBackend"
+    },
+    "tls": {
+      "type": "array",
+      "description": "TLS configuration for HTTPS termination.",
+      "items": {
+        "$ref": "#/components/schemas/IngressTLS"
+      }
+    },
+    "rules": {
+      "type": "array",
+      "description": "List of host rules for HTTP traffic routing. If no rules match a request, the defaultBackend is used.",
+      "items": {
+        "$ref": "#/components/schemas/IngressRule"
+      }
+    }
+  }
+}

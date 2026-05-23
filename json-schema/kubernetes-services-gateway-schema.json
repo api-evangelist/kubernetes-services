@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Gateway",
+  "title": "Gateway",
+  "type": "object",
+  "description": "A Gateway represents an instance of traffic-handling infrastructure, such as a cloud load balancer or in-cluster proxy. It listens on one or more ports and delegates routing decisions to attached Route resources.",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "gateway.networking.k8s.io/v1"
+    },
+    "kind": {
+      "type": "string",
+      "const": "Gateway"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "type": "object",
+      "description": "Gateway specification.",
+      "required": [
+        "gatewayClassName",
+        "listeners"
+      ],
+      "properties": {
+        "gatewayClassName": {
+          "type": "string",
+          "description": "Name of the GatewayClass this Gateway implements."
+        },
+        "listeners": {
+          "type": "array",
+          "description": "List of listeners for this Gateway.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/components/schemas/GatewayListener"
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Current status of the Gateway.",
+      "properties": {
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Condition"
+          }
+        },
+        "addresses": {
+          "type": "array",
+          "description": "Addresses assigned to this Gateway by the controller.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "IPAddress",
+                  "Hostname"
+                ]
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

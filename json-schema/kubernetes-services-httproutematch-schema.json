@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HTTPRouteMatch",
+  "title": "HTTPRouteMatch",
+  "type": "object",
+  "description": "Conditions for matching an incoming HTTP request. Multiple matches within a rule are OR'd; conditions within a match are AND'd.",
+  "properties": {
+    "path": {
+      "type": "object",
+      "description": "Path match conditions.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Exact",
+            "PathPrefix",
+            "RegularExpression"
+          ],
+          "description": "Path match type."
+        },
+        "value": {
+          "type": "string",
+          "description": "Path value to match."
+        }
+      }
+    },
+    "headers": {
+      "type": "array",
+      "description": "Header match conditions. All conditions must match.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Header name to match."
+          },
+          "value": {
+            "type": "string",
+            "description": "Header value to match."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Exact",
+              "RegularExpression"
+            ]
+          }
+        }
+      }
+    },
+    "queryParams": {
+      "type": "array",
+      "description": "Query parameter match conditions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Exact",
+              "RegularExpression"
+            ]
+          }
+        }
+      }
+    },
+    "method": {
+      "type": "string",
+      "enum": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD",
+        "OPTIONS",
+        "CONNECT",
+        "TRACE"
+      ],
+      "description": "HTTP method to match."
+    }
+  }
+}

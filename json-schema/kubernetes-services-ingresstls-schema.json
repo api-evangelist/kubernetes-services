@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/IngressTLS",
+  "title": "IngressTLS",
+  "type": "object",
+  "description": "TLS configuration for an Ingress, specifying a Secret containing the certificate and key for terminating HTTPS connections on port 443.",
+  "properties": {
+    "hosts": {
+      "type": "array",
+      "description": "Hosts covered by the TLS certificate. Must match hosts defined in the certificate's Subject Alternative Names.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "secretName": {
+      "type": "string",
+      "description": "Name of the Secret in the same namespace containing the TLS certificate (tls.crt) and key (tls.key)."
+    }
+  }
+}

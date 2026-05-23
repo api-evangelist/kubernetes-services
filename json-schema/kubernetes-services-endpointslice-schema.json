@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EndpointSlice",
+  "title": "EndpointSlice",
+  "type": "object",
+  "description": "An EndpointSlice represents a subset of the endpoints that implement a Service. For a given Service, multiple EndpointSlices may exist, and together they represent all the pods selected by the Service. The kubernetes.io/service-name label links slices to their Service.",
+  "required": [
+    "addressType",
+    "endpoints"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "discovery.k8s.io/v1"
+    },
+    "kind": {
+      "type": "string",
+      "const": "EndpointSlice"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "addressType": {
+      "type": "string",
+      "enum": [
+        "IPv4",
+        "IPv6"
+      ],
+      "description": "Address type of endpoints in this slice. All endpoints in a single slice must share the same address type."
+    },
+    "endpoints": {
+      "type": "array",
+      "description": "List of unique endpoints in this slice. Up to 1000 endpoints per slice.",
+      "maxItems": 1000,
+      "items": {
+        "$ref": "#/components/schemas/Endpoint"
+      }
+    },
+    "ports": {
+      "type": "array",
+      "description": "Network ports exposed by each endpoint in the slice.",
+      "maxItems": 100,
+      "items": {
+        "$ref": "#/components/schemas/EndpointPort"
+      }
+    }
+  }
+}

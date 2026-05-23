@@ -1,0 +1,264 @@
+{
+  "provider": "Kubernetes Services",
+  "providerId": "kubernetes-services",
+  "kind": "json-structure",
+  "description": "Structural overview of the Kubernetes Services API surface; extracted from openapi/.",
+  "schemaCount": 15,
+  "operationCount": 16,
+  "schemas": [
+    {
+      "name": "GatewayClass",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "GatewayClassList",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "items"
+      ]
+    },
+    {
+      "name": "GatewayListener",
+      "type": "object",
+      "propertyCount": 6,
+      "required": [
+        "name",
+        "protocol",
+        "port"
+      ]
+    },
+    {
+      "name": "Gateway",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "GatewayList",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "items"
+      ]
+    },
+    {
+      "name": "HTTPRouteMatch",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "HTTPBackendRef",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "name",
+        "port"
+      ]
+    },
+    {
+      "name": "HTTPRoute",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "HTTPRouteList",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "items"
+      ]
+    },
+    {
+      "name": "GRPCRoute",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "GRPCRouteList",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "items"
+      ]
+    },
+    {
+      "name": "ObjectMeta",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "ListMeta",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Condition",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "type",
+        "status"
+      ]
+    },
+    {
+      "name": "Status",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/gatewayclasses",
+      "operationId": "listGatewayClasses",
+      "summary": "Kubernetes Services List GatewayClasses",
+      "tags": [
+        "GatewayClass"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/apis/gateway.networking.k8s.io/v1/gatewayclasses",
+      "operationId": "createGatewayClass",
+      "summary": "Kubernetes Services Create a GatewayClass",
+      "tags": [
+        "GatewayClass"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/gatewayclasses/{name}",
+      "operationId": "getGatewayClass",
+      "summary": "Kubernetes Services Get a GatewayClass",
+      "tags": [
+        "GatewayClass"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/apis/gateway.networking.k8s.io/v1/gatewayclasses/{name}",
+      "operationId": "deleteGatewayClass",
+      "summary": "Kubernetes Services Delete a GatewayClass",
+      "tags": [
+        "GatewayClass"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways",
+      "operationId": "listNamespacedGateways",
+      "summary": "Kubernetes Services List Gateways in a namespace",
+      "tags": [
+        "Gateway"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways",
+      "operationId": "createNamespacedGateway",
+      "summary": "Kubernetes Services Create a Gateway",
+      "tags": [
+        "Gateway"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}",
+      "operationId": "getNamespacedGateway",
+      "summary": "Kubernetes Services Get a Gateway",
+      "tags": [
+        "Gateway"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}",
+      "operationId": "replaceNamespacedGateway",
+      "summary": "Kubernetes Services Replace a Gateway",
+      "tags": [
+        "Gateway"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}",
+      "operationId": "deleteNamespacedGateway",
+      "summary": "Kubernetes Services Delete a Gateway",
+      "tags": [
+        "Gateway"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes",
+      "operationId": "listNamespacedHTTPRoutes",
+      "summary": "Kubernetes Services List HTTPRoutes in a namespace",
+      "tags": [
+        "HTTPRoute"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes",
+      "operationId": "createNamespacedHTTPRoute",
+      "summary": "Kubernetes Services Create an HTTPRoute",
+      "tags": [
+        "HTTPRoute"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}",
+      "operationId": "getNamespacedHTTPRoute",
+      "summary": "Kubernetes Services Get an HTTPRoute",
+      "tags": [
+        "HTTPRoute"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}",
+      "operationId": "replaceNamespacedHTTPRoute",
+      "summary": "Kubernetes Services Replace an HTTPRoute",
+      "tags": [
+        "HTTPRoute"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}",
+      "operationId": "deleteNamespacedHTTPRoute",
+      "summary": "Kubernetes Services Delete an HTTPRoute",
+      "tags": [
+        "HTTPRoute"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/grpcroutes",
+      "operationId": "listNamespacedGRPCRoutes",
+      "summary": "Kubernetes Services List GRPCRoutes in a namespace",
+      "tags": [
+        "GRPCRoute"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/grpcroutes",
+      "operationId": "createNamespacedGRPCRoute",
+      "summary": "Kubernetes Services Create a GRPCRoute",
+      "tags": [
+        "GRPCRoute"
+      ]
+    }
+  ]
+}

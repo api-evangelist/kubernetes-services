@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EndpointConditions",
+  "title": "EndpointConditions",
+  "type": "object",
+  "description": "Conditions describing the current state of an endpoint, used by consumers to determine whether the endpoint should receive traffic.",
+  "properties": {
+    "ready": {
+      "type": "boolean",
+      "description": "Whether the endpoint is ready to accept traffic. Pods that have not yet passed readiness probes have ready=false."
+    },
+    "serving": {
+      "type": "boolean",
+      "description": "Whether the endpoint is capable of serving requests even if not yet ready. True for pods that are in the process of terminating."
+    },
+    "terminating": {
+      "type": "boolean",
+      "description": "Whether the endpoint is being gracefully terminated. Allows consumers to complete in-flight requests to terminating pods."
+    }
+  }
+}

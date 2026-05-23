@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Service",
+  "title": "Service",
+  "type": "object",
+  "description": "A Service is an abstract way to expose an application running on a set of Pods as a network service. It provides a stable virtual IP and DNS name, decoupling consumers from individual pod IPs.",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "v1",
+      "description": "API version of the resource."
+    },
+    "kind": {
+      "type": "string",
+      "const": "Service",
+      "description": "Kind of the resource."
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/ObjectMeta"
+    },
+    "spec": {
+      "$ref": "#/components/schemas/ServiceSpec"
+    },
+    "status": {
+      "$ref": "#/components/schemas/ServiceStatus"
+    }
+  }
+}

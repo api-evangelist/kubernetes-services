@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NetworkPolicyPort",
+  "title": "NetworkPolicyPort",
+  "type": "object",
+  "description": "A port and protocol combination allowed by a network policy rule. Empty port/protocol fields match all ports and protocols.",
+  "properties": {
+    "protocol": {
+      "type": "string",
+      "enum": [
+        "TCP",
+        "UDP",
+        "SCTP"
+      ],
+      "description": "Network protocol. Defaults to TCP.",
+      "default": "TCP"
+    },
+    "port": {
+      "description": "Port number or named port to match. If empty, all ports are matched.",
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "endPort": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535,
+      "description": "End of a port range. If specified with port, allows all ports from port to endPort inclusive."
+    }
+  }
+}

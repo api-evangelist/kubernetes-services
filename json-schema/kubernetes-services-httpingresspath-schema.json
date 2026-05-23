@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HTTPIngressPath",
+  "title": "HTTPIngressPath",
+  "type": "object",
+  "description": "A mapping of an HTTP path to a backend service. Used within Ingress rules to route specific paths to different services.",
+  "required": [
+    "pathType",
+    "backend"
+  ],
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "URL path to match. Must begin with '/'. Required for Exact and Prefix pathTypes.",
+      "pattern": "^/"
+    },
+    "pathType": {
+      "type": "string",
+      "enum": [
+        "Exact",
+        "Prefix",
+        "ImplementationSpecific"
+      ],
+      "description": "How the path is matched. Exact requires a case-sensitive exact match; Prefix matches paths sharing a '/' delimited prefix; ImplementationSpecific defers to the IngressClass controller."
+    },
+    "backend": {
+      "$ref": "#/components/schemas/IngressBackend"
+    }
+  }
+}

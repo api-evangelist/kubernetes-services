@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/IngressStatus",
+  "title": "IngressStatus",
+  "type": "object",
+  "description": "Most recently observed status of an Ingress, reporting the load balancer IPs or hostnames assigned by the ingress controller.",
+  "properties": {
+    "loadBalancer": {
+      "type": "object",
+      "description": "LoadBalancer status for the ingress.",
+      "properties": {
+        "ingress": {
+          "type": "array",
+          "description": "List of load balancer ingress points.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ip": {
+                "type": "string",
+                "description": "IP address assigned to this ingress point."
+              },
+              "hostname": {
+                "type": "string",
+                "description": "Hostname assigned to this ingress point."
+              },
+              "ports": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "port": {
+                      "type": "integer"
+                    },
+                    "protocol": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
