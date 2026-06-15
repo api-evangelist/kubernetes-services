@@ -1,0 +1,1903 @@
+{
+  "item": [
+    {
+      "id": "07f45a0a-2117-4868-8009-5f8ba1ebacc4",
+      "name": "EndpointSlices",
+      "description": {
+        "content": "EndpointSlice resources tracking IP addresses, ports, and readiness of pods backing a Service, with topology-aware routing support.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1fd7098f-b050-4785-bac7-204427b6d0c9",
+          "name": "Kubernetes Services List EndpointSlices in a namespace",
+          "request": {
+            "name": "Kubernetes Services List EndpointSlices in a namespace",
+            "description": {
+              "content": "Returns a list of all EndpointSlices in the specified namespace. Each EndpointSlice contains up to 1000 endpoints. Use the kubernetes.io/service-name label selector to retrieve slices for a specific Service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "discovery.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "endpointslices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "Label selector expression. Use kubernetes.io/service-name=<svc> to retrieve slices for a specific Service."
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldSelector",
+                  "value": "<string>",
+                  "description": "Field selector to filter resources."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "continue",
+                  "value": "<string>",
+                  "description": "Pagination continuation token."
+                },
+                {
+                  "disabled": false,
+                  "key": "watch",
+                  "value": "<boolean>",
+                  "description": "If true, stream watch events."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5a8cbe86-7db9-4095-b02a-aaa1dc444c3b",
+              "name": "List of EndpointSlice objects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "watch",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"addressType\": \"IPv6\",\n      \"endpoints\": [\n        {\n          \"addresses\": [\n            \"string\"\n          ],\n          \"conditions\": {\n            \"ready\": true,\n            \"serving\": true,\n            \"terminating\": false\n          },\n          \"hostname\": \"string\",\n          \"nodeName\": \"string\",\n          \"zone\": \"string\",\n          \"targetRef\": {\n            \"apiVersion\": \"string\",\n            \"kind\": \"string\",\n            \"namespace\": \"string\",\n            \"name\": \"string\",\n            \"uid\": \"string\"\n          },\n          \"hints\": {\n            \"forZones\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"forNodes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        {\n          \"addresses\": [\n            \"string\"\n          ],\n          \"conditions\": {\n            \"ready\": false,\n            \"serving\": false,\n            \"terminating\": true\n          },\n          \"hostname\": \"string\",\n          \"nodeName\": \"string\",\n          \"zone\": \"string\",\n          \"targetRef\": {\n            \"apiVersion\": \"string\",\n            \"kind\": \"string\",\n            \"namespace\": \"string\",\n            \"name\": \"string\",\n            \"uid\": \"string\"\n          },\n          \"hints\": {\n            \"forZones\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"forNodes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      ],\n      \"apiVersion\": \"string\",\n      \"kind\": \"string\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"uid\": \"string\",\n        \"resourceVersion\": \"string\",\n        \"creationTimestamp\": \"2024-07-03T12:37:11.077Z\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"ports\": [\n        {\n          \"name\": \"string\",\n          \"port\": 11732,\n          \"protocol\": \"TCP\",\n          \"appProtocol\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"port\": 48298,\n          \"protocol\": \"TCP\",\n          \"appProtocol\": \"string\"\n        }\n      ]\n    },\n    {\n      \"addressType\": \"IPv4\",\n      \"endpoints\": [\n        {\n          \"addresses\": [\n            \"string\"\n          ],\n          \"conditions\": {\n            \"ready\": false,\n            \"serving\": false,\n            \"terminating\": true\n          },\n          \"hostname\": \"string\",\n          \"nodeName\": \"string\",\n          \"zone\": \"string\",\n          \"targetRef\": {\n            \"apiVersion\": \"string\",\n            \"kind\": \"string\",\n            \"namespace\": \"string\",\n            \"name\": \"string\",\n            \"uid\": \"string\"\n          },\n          \"hints\": {\n            \"forZones\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"forNodes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        {\n          \"addresses\": [\n            \"string\"\n          ],\n          \"conditions\": {\n            \"ready\": true,\n            \"serving\": false,\n            \"terminating\": true\n          },\n          \"hostname\": \"string\",\n          \"nodeName\": \"string\",\n          \"zone\": \"string\",\n          \"targetRef\": {\n            \"apiVersion\": \"string\",\n            \"kind\": \"string\",\n            \"namespace\": \"string\",\n            \"name\": \"string\",\n            \"uid\": \"string\"\n          },\n          \"hints\": {\n            \"forZones\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"forNodes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      ],\n      \"apiVersion\": \"string\",\n      \"kind\": \"string\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"uid\": \"string\",\n        \"resourceVersion\": \"string\",\n        \"creationTimestamp\": \"2021-05-11T00:33:16.485Z\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      },\n      \"ports\": [\n        {\n          \"name\": \"string\",\n          \"port\": 60423,\n          \"protocol\": \"TCP\",\n          \"appProtocol\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"port\": 17731,\n          \"protocol\": \"TCP\",\n          \"appProtocol\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"resourceVersion\": \"string\",\n    \"continue\": \"string\",\n    \"remainingItemCount\": 8428\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe1c0a0c-877d-46ae-a4d6-e5ff63a907e0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "watch",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9206235d-6e23-481b-bece-40ac68558d9e",
+          "name": "Kubernetes Services Create an EndpointSlice",
+          "request": {
+            "name": "Kubernetes Services Create an EndpointSlice",
+            "description": {
+              "content": "Creates a new EndpointSlice in the specified namespace. EndpointSlices are typically managed by the EndpointSlice controller; manual creation is used for custom service implementations. The kubernetes.io/service-name label must be set to associate the slice with a Service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "discovery.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "endpointslices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dryRun",
+                  "value": "<string>",
+                  "description": "If 'All', validates without persisting."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addressType\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"<string>\"\n      ],\n      \"conditions\": {\n        \"ready\": \"<boolean>\",\n        \"serving\": \"<boolean>\",\n        \"terminating\": \"<boolean>\"\n      },\n      \"hostname\": \"<string>\",\n      \"nodeName\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"targetRef\": {\n        \"apiVersion\": \"<string>\",\n        \"kind\": \"<string>\",\n        \"namespace\": \"<string>\",\n        \"name\": \"<string>\",\n        \"uid\": \"<string>\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"<string>\"\n      ],\n      \"conditions\": {\n        \"ready\": \"<boolean>\",\n        \"serving\": \"<boolean>\",\n        \"terminating\": \"<boolean>\"\n      },\n      \"hostname\": \"<string>\",\n      \"nodeName\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"targetRef\": {\n        \"apiVersion\": \"<string>\",\n        \"kind\": \"<string>\",\n        \"namespace\": \"<string>\",\n        \"name\": \"<string>\",\n        \"uid\": \"<string>\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"uid\": \"<string>\",\n    \"resourceVersion\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "00b19b2a-af09-4c6c-9fd9-8897962555c4",
+              "name": "EndpointSlice created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dryRun",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addressType\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": false,\n        \"terminating\": false\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": true,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2018-07-17T01:48:44.014Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"string\",\n      \"port\": 12641,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"port\": 48195,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addressType\": \"IPv6\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": true,\n        \"serving\": false,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": true,\n        \"serving\": false,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2016-01-16T16:32:53.107Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"string\",\n      \"port\": 8660,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"port\": 47470,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0cf551c1-874c-40d9-89e4-33465411cf59",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dryRun",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addressType\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": false,\n        \"terminating\": false\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": true,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2018-07-17T01:48:44.014Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"string\",\n      \"port\": 12641,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"port\": 48195,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbf0bb2b-889e-43c0-bfa3-87f6a1e5f10c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dryRun",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addressType\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": false,\n        \"terminating\": false\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": true,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2018-07-17T01:48:44.014Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"string\",\n      \"port\": 12641,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"port\": 48195,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36bd7048-9c3c-4c75-ade4-82c39ba64bad",
+          "name": "Kubernetes Services Get an EndpointSlice",
+          "request": {
+            "name": "Kubernetes Services Get an EndpointSlice",
+            "description": {
+              "content": "Returns the specified EndpointSlice including its address type, endpoints with IP addresses and readiness conditions, and port definitions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "discovery.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "endpointslices",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the EndpointSlice resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "61128ca2-e893-4534-bf04-d2bb3f452ed8",
+              "name": "EndpointSlice details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addressType\": \"IPv6\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": true,\n        \"serving\": false,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": true,\n        \"serving\": false,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2016-01-16T16:32:53.107Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"string\",\n      \"port\": 8660,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"port\": 47470,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c6cb131-a634-4907-8ffa-2c56eb806ff1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa99239f-9f87-4c7d-b75e-d59afcd9c656",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c0aec6c-555c-449e-835a-1c1bd8bffd66",
+          "name": "Kubernetes Services Replace an EndpointSlice",
+          "request": {
+            "name": "Kubernetes Services Replace an EndpointSlice",
+            "description": {
+              "content": "Replaces the full specification of the specified EndpointSlice. Used by custom endpoint controllers to update endpoint addresses and readiness conditions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "discovery.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "endpointslices",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dryRun",
+                  "value": "<string>",
+                  "description": "If 'All', validates without persisting."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the EndpointSlice resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addressType\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"<string>\"\n      ],\n      \"conditions\": {\n        \"ready\": \"<boolean>\",\n        \"serving\": \"<boolean>\",\n        \"terminating\": \"<boolean>\"\n      },\n      \"hostname\": \"<string>\",\n      \"nodeName\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"targetRef\": {\n        \"apiVersion\": \"<string>\",\n        \"kind\": \"<string>\",\n        \"namespace\": \"<string>\",\n        \"name\": \"<string>\",\n        \"uid\": \"<string>\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"<string>\"\n      ],\n      \"conditions\": {\n        \"ready\": \"<boolean>\",\n        \"serving\": \"<boolean>\",\n        \"terminating\": \"<boolean>\"\n      },\n      \"hostname\": \"<string>\",\n      \"nodeName\": \"<string>\",\n      \"zone\": \"<string>\",\n      \"targetRef\": {\n        \"apiVersion\": \"<string>\",\n        \"kind\": \"<string>\",\n        \"namespace\": \"<string>\",\n        \"name\": \"<string>\",\n        \"uid\": \"<string>\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"<string>\"\n          },\n          {\n            \"name\": \"<string>\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"uid\": \"<string>\",\n    \"resourceVersion\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"port\": \"<integer>\",\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "36679b47-2c9c-4c57-83cc-69b204cc2a7e",
+              "name": "EndpointSlice updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dryRun",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addressType\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": false,\n        \"terminating\": false\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": true,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2018-07-17T01:48:44.014Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"string\",\n      \"port\": 12641,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"port\": 48195,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addressType\": \"IPv6\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": true,\n        \"serving\": false,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": true,\n        \"serving\": false,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2016-01-16T16:32:53.107Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"string\",\n      \"port\": 8660,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"port\": 47470,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0634943-1425-4930-9f12-5b798c553c04",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dryRun",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addressType\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": false,\n        \"terminating\": false\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": true,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2018-07-17T01:48:44.014Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"string\",\n      \"port\": 12641,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"port\": 48195,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "176b0043-0ac9-4709-a5d8-d07c2a551569",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dryRun",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addressType\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": false,\n        \"terminating\": false\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": true,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2018-07-17T01:48:44.014Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"string\",\n      \"port\": 12641,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"port\": 48195,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "734c64b6-56cf-4eae-934b-6ca16dcbf316",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dryRun",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addressType\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": false,\n        \"terminating\": false\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": false,\n        \"serving\": true,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2018-07-17T01:48:44.014Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"string\",\n      \"port\": 12641,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"port\": 48195,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd40eb11-c507-4e31-a431-aa4549d77691",
+          "name": "Kubernetes Services Patch an EndpointSlice",
+          "request": {
+            "name": "Kubernetes Services Patch an EndpointSlice",
+            "description": {
+              "content": "Applies a partial update to the specified EndpointSlice. Used to update individual endpoint readiness conditions or topology hints without replacing the entire slice.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "discovery.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "endpointslices",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the EndpointSlice resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/merge-patch+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6bcc2d40-23a5-4e13-ae6a-85277733d817",
+              "name": "EndpointSlice patched",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addressType\": \"IPv6\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": true,\n        \"serving\": false,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": true,\n        \"serving\": false,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2016-01-16T16:32:53.107Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"string\",\n      \"port\": 8660,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"port\": 47470,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a42a300-ab18-4fa3-a725-ec9a04048c5f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e96d7aa0-02aa-455d-8a84-286e9de51895",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca56d86e-f5d5-4aaa-84b1-221bdd6d98d6",
+          "name": "Kubernetes Services Delete an EndpointSlice",
+          "request": {
+            "name": "Kubernetes Services Delete an EndpointSlice",
+            "description": {
+              "content": "Deletes the specified EndpointSlice. The EndpointSlice controller will recreate a replacement slice if the Service still has backing pods.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "discovery.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "endpointslices",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the EndpointSlice resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72326dc8-87d6-4518-8365-53120d7e95ae",
+              "name": "EndpointSlice deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addressType\": \"IPv6\",\n  \"endpoints\": [\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": true,\n        \"serving\": false,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"addresses\": [\n        \"string\"\n      ],\n      \"conditions\": {\n        \"ready\": true,\n        \"serving\": false,\n        \"terminating\": true\n      },\n      \"hostname\": \"string\",\n      \"nodeName\": \"string\",\n      \"zone\": \"string\",\n      \"targetRef\": {\n        \"apiVersion\": \"string\",\n        \"kind\": \"string\",\n        \"namespace\": \"string\",\n        \"name\": \"string\",\n        \"uid\": \"string\"\n      },\n      \"hints\": {\n        \"forZones\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ],\n        \"forNodes\": [\n          {\n            \"name\": \"string\"\n          },\n          {\n            \"name\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2016-01-16T16:32:53.107Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"ports\": [\n    {\n      \"name\": \"string\",\n      \"port\": 8660,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"port\": 47470,\n      \"protocol\": \"TCP\",\n      \"appProtocol\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9df4d19-cc4e-41c5-b0dd-78f8e6f0caf6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "061163ec-c29f-4b82-a934-b1659f953996",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "endpointslices",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the EndpointSlice resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c09d875-bf8b-40c6-8301-8dec16cfbc90",
+          "name": "Kubernetes Services List EndpointSlices across all namespaces",
+          "request": {
+            "name": "Kubernetes Services List EndpointSlices across all namespaces",
+            "description": {
+              "content": "Returns all EndpointSlice objects cluster-wide. Useful for network visibility tools and load balancer implementations that need to enumerate all service endpoints across the cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "discovery.k8s.io",
+                "v1",
+                "endpointslices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "Label selector expression. Use kubernetes.io/service-name=<svc> to retrieve slices for a specific Service."
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldSelector",
+                  "value": "<string>",
+                  "description": "Field selector to filter resources."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "watch",
+                  "value": "<boolean>",
+                  "description": "If true, stream watch events."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e1d509a-405b-48ad-9531-aefadd22990d",
+              "name": "List of EndpointSlices across all namespaces",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "endpointslices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "watch",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"addressType\": \"IPv6\",\n      \"endpoints\": [\n        {\n          \"addresses\": [\n            \"string\"\n          ],\n          \"conditions\": {\n            \"ready\": true,\n            \"serving\": true,\n            \"terminating\": false\n          },\n          \"hostname\": \"string\",\n          \"nodeName\": \"string\",\n          \"zone\": \"string\",\n          \"targetRef\": {\n            \"apiVersion\": \"string\",\n            \"kind\": \"string\",\n            \"namespace\": \"string\",\n            \"name\": \"string\",\n            \"uid\": \"string\"\n          },\n          \"hints\": {\n            \"forZones\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"forNodes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        {\n          \"addresses\": [\n            \"string\"\n          ],\n          \"conditions\": {\n            \"ready\": false,\n            \"serving\": false,\n            \"terminating\": true\n          },\n          \"hostname\": \"string\",\n          \"nodeName\": \"string\",\n          \"zone\": \"string\",\n          \"targetRef\": {\n            \"apiVersion\": \"string\",\n            \"kind\": \"string\",\n            \"namespace\": \"string\",\n            \"name\": \"string\",\n            \"uid\": \"string\"\n          },\n          \"hints\": {\n            \"forZones\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"forNodes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      ],\n      \"apiVersion\": \"string\",\n      \"kind\": \"string\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"uid\": \"string\",\n        \"resourceVersion\": \"string\",\n        \"creationTimestamp\": \"2024-07-03T12:37:11.077Z\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"ports\": [\n        {\n          \"name\": \"string\",\n          \"port\": 11732,\n          \"protocol\": \"TCP\",\n          \"appProtocol\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"port\": 48298,\n          \"protocol\": \"TCP\",\n          \"appProtocol\": \"string\"\n        }\n      ]\n    },\n    {\n      \"addressType\": \"IPv4\",\n      \"endpoints\": [\n        {\n          \"addresses\": [\n            \"string\"\n          ],\n          \"conditions\": {\n            \"ready\": false,\n            \"serving\": false,\n            \"terminating\": true\n          },\n          \"hostname\": \"string\",\n          \"nodeName\": \"string\",\n          \"zone\": \"string\",\n          \"targetRef\": {\n            \"apiVersion\": \"string\",\n            \"kind\": \"string\",\n            \"namespace\": \"string\",\n            \"name\": \"string\",\n            \"uid\": \"string\"\n          },\n          \"hints\": {\n            \"forZones\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"forNodes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        {\n          \"addresses\": [\n            \"string\"\n          ],\n          \"conditions\": {\n            \"ready\": true,\n            \"serving\": false,\n            \"terminating\": true\n          },\n          \"hostname\": \"string\",\n          \"nodeName\": \"string\",\n          \"zone\": \"string\",\n          \"targetRef\": {\n            \"apiVersion\": \"string\",\n            \"kind\": \"string\",\n            \"namespace\": \"string\",\n            \"name\": \"string\",\n            \"uid\": \"string\"\n          },\n          \"hints\": {\n            \"forZones\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"forNodes\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      ],\n      \"apiVersion\": \"string\",\n      \"kind\": \"string\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"uid\": \"string\",\n        \"resourceVersion\": \"string\",\n        \"creationTimestamp\": \"2021-05-11T00:33:16.485Z\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        }\n      },\n      \"ports\": [\n        {\n          \"name\": \"string\",\n          \"port\": 60423,\n          \"protocol\": \"TCP\",\n          \"appProtocol\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"port\": 17731,\n          \"protocol\": \"TCP\",\n          \"appProtocol\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"resourceVersion\": \"string\",\n    \"continue\": \"string\",\n    \"remainingItemCount\": 8428\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ab62488-b5cd-4819-92e8-d88523f1efa5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "discovery.k8s.io",
+                    "v1",
+                    "endpointslices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "watch",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 407,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://kubernetes.default.svc",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "261da10c-5722-4503-bbab-f24751cfaefa",
+    "name": "Kubernetes Services Kubernetes EndpointSlices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kubernetes EndpointSlices API tracks the IP addresses, ports, readiness, and topology information for Pods backing a Service. EndpointSlices replaced the older Endpoints API to improve scalability for large clusters with thousands of pods. A single Service may be backed by multiple EndpointSlices, and the EndpointSlice controller automatically manages their lifecycle in response to pod and Service changes.\n\nContact Support:\n Name: Kubernetes Community",
+      "type": "text/plain"
+    }
+  }
+}

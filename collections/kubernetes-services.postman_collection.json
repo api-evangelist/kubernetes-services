@@ -1,0 +1,2629 @@
+{
+  "item": [
+    {
+      "id": "f1399a84-15d0-4a34-a885-a5e28940347e",
+      "name": "ServiceStatus",
+      "description": {
+        "content": "Status subresource operations for Services, used to update load balancer provisioning state and conditions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0440e283-9b92-43aa-93df-faaf7ed8268a",
+          "name": "Kubernetes Services Get Service status",
+          "request": {
+            "name": "Kubernetes Services Get Service status",
+            "description": {
+              "content": "Returns the status subresource of the specified Service, including load balancer ingress IPs or hostnames and any provisioning conditions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d5ffdd73-8d9f-4f84-88d1-59fc19c8a0fd",
+              "name": "Service status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "services",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the Service resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 5757,\n    \"creationTimestamp\": \"1968-09-08T17:18:03.105Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 6228,\n        \"name\": \"string\",\n        \"targetPort\": 45770,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 31880,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 14760,\n        \"name\": \"string\",\n        \"targetPort\": 47834,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30980,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"RequireDualStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 58805\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 6666,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1070,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 5917,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1436,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 4666,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 1530,\n        \"lastTransitionTime\": \"1962-01-06T07:37:02.265Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 8150,\n        \"lastTransitionTime\": \"1981-06-26T19:12:41.716Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72f9c30a-4f06-4b25-ba8a-c01a7b5e16e2",
+              "name": "Unauthorized — missing or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "services",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the Service resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c59ebdf-70d9-44e9-8fe3-78ebff84c89e",
+              "name": "Not found — the specified Service does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "services",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the Service resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b601cb19-bf55-421e-8ae3-f3adb39cf8dd",
+          "name": "Kubernetes Services Replace Service status",
+          "request": {
+            "name": "Kubernetes Services Replace Service status",
+            "description": {
+              "content": "Replaces the status subresource of the specified Service. Used by load balancer controllers to report the provisioned external IP or hostname back to the Service resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"uid\": \"<string>\",\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<integer>\",\n    \"creationTimestamp\": \"<dateTime>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"<string>\"\n    },\n    \"ports\": [\n      {\n        \"port\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"targetPort\": \"<integer>\",\n        \"protocol\": \"TCP\",\n        \"nodePort\": \"<integer>\",\n        \"appProtocol\": \"<string>\"\n      },\n      {\n        \"port\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"targetPort\": \"<integer>\",\n        \"protocol\": \"TCP\",\n        \"nodePort\": \"<integer>\",\n        \"appProtocol\": \"<string>\"\n      }\n    ],\n    \"clusterIP\": \"<string>\",\n    \"clusterIPs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ipFamilies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ipFamilyPolicy\": \"<string>\",\n    \"externalName\": \"<string>\",\n    \"externalIPs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"externalTrafficPolicy\": \"<string>\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": \"<integer>\"\n      }\n    },\n    \"loadBalancerIP\": \"<string>\",\n    \"loadBalancerSourceRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"healthCheckNodePort\": \"<integer>\",\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"<string>\",\n          \"hostname\": \"<string>\",\n          \"ports\": [\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            },\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"<string>\",\n          \"hostname\": \"<string>\",\n          \"ports\": [\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            },\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"observedGeneration\": \"<integer>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"observedGeneration\": \"<integer>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c0c51aab-eeda-4ed2-a911-23f82a28d24f",
+              "name": "Service status updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "services",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the Service resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 1478,\n    \"creationTimestamp\": \"2010-09-14T07:06:46.566Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 37867,\n        \"name\": \"string\",\n        \"targetPort\": 6006,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 32701,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 29949,\n        \"name\": \"string\",\n        \"targetPort\": 41257,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30661,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"SingleStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 27332\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 7208,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6221,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 6281,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 7760,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7892,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 4850,\n        \"lastTransitionTime\": \"1954-05-31T13:53:21.598Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5931,\n        \"lastTransitionTime\": \"2013-10-27T18:53:17.496Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 5757,\n    \"creationTimestamp\": \"1968-09-08T17:18:03.105Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 6228,\n        \"name\": \"string\",\n        \"targetPort\": 45770,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 31880,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 14760,\n        \"name\": \"string\",\n        \"targetPort\": 47834,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30980,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"RequireDualStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 58805\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 6666,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1070,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 5917,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1436,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 4666,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 1530,\n        \"lastTransitionTime\": \"1962-01-06T07:37:02.265Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 8150,\n        \"lastTransitionTime\": \"1981-06-26T19:12:41.716Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "883e46e4-8d3f-477c-92de-55107128d9ff",
+              "name": "Unauthorized — missing or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "services",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the Service resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 1478,\n    \"creationTimestamp\": \"2010-09-14T07:06:46.566Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 37867,\n        \"name\": \"string\",\n        \"targetPort\": 6006,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 32701,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 29949,\n        \"name\": \"string\",\n        \"targetPort\": 41257,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30661,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"SingleStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 27332\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 7208,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6221,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 6281,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 7760,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7892,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 4850,\n        \"lastTransitionTime\": \"1954-05-31T13:53:21.598Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5931,\n        \"lastTransitionTime\": \"2013-10-27T18:53:17.496Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03ca047a-f07c-4b55-bd1f-e9fffa697363",
+              "name": "Not found — the specified Service does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "services",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the Service resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 1478,\n    \"creationTimestamp\": \"2010-09-14T07:06:46.566Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 37867,\n        \"name\": \"string\",\n        \"targetPort\": 6006,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 32701,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 29949,\n        \"name\": \"string\",\n        \"targetPort\": 41257,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30661,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"SingleStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 27332\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 7208,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6221,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 6281,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 7760,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7892,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 4850,\n        \"lastTransitionTime\": \"1954-05-31T13:53:21.598Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5931,\n        \"lastTransitionTime\": \"2013-10-27T18:53:17.496Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "59937006-d3c8-4b80-851b-75ac105f26f9",
+      "name": "Kubernetes Services List Services in a namespace",
+      "request": {
+        "name": "Kubernetes Services List Services in a namespace",
+        "description": {
+          "content": "Returns a list of all Services in the specified namespace. Services provide stable virtual IPs and DNS names for pod groups. Supports label and field filtering, and streaming via the watch parameter.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "namespaces",
+            ":namespace",
+            "services"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "labelSelector",
+              "value": "<string>",
+              "description": "Label selector expression to filter resources. Supports equality (=, ==, !=) and set-based (in, notin, exists) operators."
+            },
+            {
+              "disabled": false,
+              "key": "fieldSelector",
+              "value": "<string>",
+              "description": "Field selector expression to filter resources by field values. Example: metadata.name=my-service"
+            },
+            {
+              "disabled": false,
+              "key": "limit",
+              "value": "<integer>",
+              "description": "Maximum number of items to return. Use with continue for pagination."
+            },
+            {
+              "disabled": false,
+              "key": "continue",
+              "value": "<string>",
+              "description": "Pagination token from a previous response's metadata.continue field."
+            },
+            {
+              "disabled": false,
+              "key": "resourceVersion",
+              "value": "<string>",
+              "description": "Resource version for watch operations. Returns events after this version."
+            },
+            {
+              "disabled": false,
+              "key": "watch",
+              "value": "<boolean>",
+              "description": "If true, return a watch stream of changes instead of a list."
+            }
+          ],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "namespace",
+              "description": "(Required) Namespace name to scope the request."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "e3a832e8-8bd8-419b-bd73-e834d43626db",
+          "name": "List of Services",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "labelSelector",
+                  "value": "<string>"
+                },
+                {
+                  "key": "fieldSelector",
+                  "value": "<string>"
+                },
+                {
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "continue",
+                  "value": "<string>"
+                },
+                {
+                  "key": "resourceVersion",
+                  "value": "<string>"
+                },
+                {
+                  "key": "watch",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"items\": [\n    {\n      \"apiVersion\": \"string\",\n      \"kind\": \"string\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"uid\": \"string\",\n        \"resourceVersion\": \"string\",\n        \"generation\": 1988,\n        \"creationTimestamp\": \"2024-10-17T23:39:36.890Z\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"spec\": {\n        \"type\": \"ClusterIP\",\n        \"selector\": {\n          \"key_0\": \"string\"\n        },\n        \"ports\": [\n          {\n            \"port\": 47169,\n            \"name\": \"string\",\n            \"targetPort\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protocol\": \"TCP\",\n            \"nodePort\": 31382,\n            \"appProtocol\": \"string\"\n          },\n          {\n            \"port\": 55127,\n            \"name\": \"string\",\n            \"targetPort\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protocol\": \"TCP\",\n            \"nodePort\": 32191,\n            \"appProtocol\": \"string\"\n          }\n        ],\n        \"clusterIP\": \"string\",\n        \"clusterIPs\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipFamilies\": [\n          \"IPv6\",\n          \"IPv4\"\n        ],\n        \"ipFamilyPolicy\": \"SingleStack\",\n        \"externalName\": \"string\",\n        \"externalIPs\": [\n          \"string\",\n          \"string\"\n        ],\n        \"externalTrafficPolicy\": \"Local\",\n        \"sessionAffinity\": \"None\",\n        \"sessionAffinityConfig\": {\n          \"clientIP\": {\n            \"timeoutSeconds\": 16569\n          }\n        },\n        \"loadBalancerIP\": \"string\",\n        \"loadBalancerSourceRanges\": [\n          \"string\",\n          \"string\"\n        ],\n        \"healthCheckNodePort\": 2816,\n        \"publishNotReadyAddresses\": false,\n        \"allocateLoadBalancerNodePorts\": true\n      },\n      \"status\": {\n        \"loadBalancer\": {\n          \"ingress\": [\n            {\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ports\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ports\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8499,\n            \"lastTransitionTime\": \"1962-07-14T09:03:29.453Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 8550,\n            \"lastTransitionTime\": \"2018-08-10T21:20:04.315Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"string\",\n      \"kind\": \"string\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"uid\": \"string\",\n        \"resourceVersion\": \"string\",\n        \"generation\": 2179,\n        \"creationTimestamp\": \"2005-12-24T20:55:07.315Z\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        }\n      },\n      \"spec\": {\n        \"type\": \"ClusterIP\",\n        \"selector\": {\n          \"key_0\": \"string\"\n        },\n        \"ports\": [\n          {\n            \"port\": 58407,\n            \"name\": \"string\",\n            \"targetPort\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protocol\": \"TCP\",\n            \"nodePort\": 30072,\n            \"appProtocol\": \"string\"\n          },\n          {\n            \"port\": 49510,\n            \"name\": \"string\",\n            \"targetPort\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protocol\": \"TCP\",\n            \"nodePort\": 30953,\n            \"appProtocol\": \"string\"\n          }\n        ],\n        \"clusterIP\": \"string\",\n        \"clusterIPs\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipFamilies\": [\n          \"IPv4\",\n          \"IPv4\"\n        ],\n        \"ipFamilyPolicy\": \"PreferDualStack\",\n        \"externalName\": \"string\",\n        \"externalIPs\": [\n          \"string\",\n          \"string\"\n        ],\n        \"externalTrafficPolicy\": \"Local\",\n        \"sessionAffinity\": \"None\",\n        \"sessionAffinityConfig\": {\n          \"clientIP\": {\n            \"timeoutSeconds\": 72985\n          }\n        },\n        \"loadBalancerIP\": \"string\",\n        \"loadBalancerSourceRanges\": [\n          \"string\",\n          \"string\"\n        ],\n        \"healthCheckNodePort\": 2576,\n        \"publishNotReadyAddresses\": false,\n        \"allocateLoadBalancerNodePorts\": true\n      },\n      \"status\": {\n        \"loadBalancer\": {\n          \"ingress\": [\n            {\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ports\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ports\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 9955,\n            \"lastTransitionTime\": \"1970-06-16T13:09:12.898Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"False\",\n            \"observedGeneration\": 2241,\n            \"lastTransitionTime\": \"1954-02-09T06:15:42.466Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"resourceVersion\": \"string\",\n    \"continue\": \"string\",\n    \"remainingItemCount\": 7601\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "d6169618-48e4-4777-9d47-2000a65ef166",
+          "name": "Unauthorized — missing or invalid credentials",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "labelSelector",
+                  "value": "<string>"
+                },
+                {
+                  "key": "fieldSelector",
+                  "value": "<string>"
+                },
+                {
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "continue",
+                  "value": "<string>"
+                },
+                {
+                  "key": "resourceVersion",
+                  "value": "<string>"
+                },
+                {
+                  "key": "watch",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "fddb50f2-80ff-4471-bc48-cb5b1a128c85",
+      "name": "Kubernetes Services Create a Service",
+      "request": {
+        "name": "Kubernetes Services Create a Service",
+        "description": {
+          "content": "Creates a new Service in the specified namespace. The Service type determines how the service is exposed: ClusterIP for internal access, NodePort to add a node-level port, LoadBalancer to provision a cloud load balancer, or ExternalName to alias an external DNS name.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "namespaces",
+            ":namespace",
+            "services"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "dryRun",
+              "value": "<string>",
+              "description": "If 'All', the request is validated and processed without persisting. Useful to verify changes before applying them."
+            }
+          ],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "namespace",
+              "description": "(Required) Namespace name to scope the request."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"uid\": \"<string>\",\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<integer>\",\n    \"creationTimestamp\": \"<dateTime>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"<string>\"\n    },\n    \"ports\": [\n      {\n        \"port\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"targetPort\": \"<integer>\",\n        \"protocol\": \"TCP\",\n        \"nodePort\": \"<integer>\",\n        \"appProtocol\": \"<string>\"\n      },\n      {\n        \"port\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"targetPort\": \"<integer>\",\n        \"protocol\": \"TCP\",\n        \"nodePort\": \"<integer>\",\n        \"appProtocol\": \"<string>\"\n      }\n    ],\n    \"clusterIP\": \"<string>\",\n    \"clusterIPs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ipFamilies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ipFamilyPolicy\": \"<string>\",\n    \"externalName\": \"<string>\",\n    \"externalIPs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"externalTrafficPolicy\": \"<string>\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": \"<integer>\"\n      }\n    },\n    \"loadBalancerIP\": \"<string>\",\n    \"loadBalancerSourceRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"healthCheckNodePort\": \"<integer>\",\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"<string>\",\n          \"hostname\": \"<string>\",\n          \"ports\": [\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            },\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"<string>\",\n          \"hostname\": \"<string>\",\n          \"ports\": [\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            },\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"observedGeneration\": \"<integer>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"observedGeneration\": \"<integer>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      }\n    ]\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "c3c584a3-1f51-489f-b97d-711e3626c1e0",
+          "name": "Service created successfully",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 1478,\n    \"creationTimestamp\": \"2010-09-14T07:06:46.566Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 37867,\n        \"name\": \"string\",\n        \"targetPort\": 6006,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 32701,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 29949,\n        \"name\": \"string\",\n        \"targetPort\": 41257,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30661,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"SingleStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 27332\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 7208,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6221,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 6281,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 7760,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7892,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 4850,\n        \"lastTransitionTime\": \"1954-05-31T13:53:21.598Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5931,\n        \"lastTransitionTime\": \"2013-10-27T18:53:17.496Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 5757,\n    \"creationTimestamp\": \"1968-09-08T17:18:03.105Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 6228,\n        \"name\": \"string\",\n        \"targetPort\": 45770,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 31880,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 14760,\n        \"name\": \"string\",\n        \"targetPort\": 47834,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30980,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"RequireDualStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 58805\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 6666,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1070,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 5917,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1436,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 4666,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 1530,\n        \"lastTransitionTime\": \"1962-01-06T07:37:02.265Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 8150,\n        \"lastTransitionTime\": \"1981-06-26T19:12:41.716Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "c2b4cb24-b9d7-48d0-9d61-120178e61c6d",
+          "name": "Bad request — invalid resource specification",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 1478,\n    \"creationTimestamp\": \"2010-09-14T07:06:46.566Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 37867,\n        \"name\": \"string\",\n        \"targetPort\": 6006,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 32701,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 29949,\n        \"name\": \"string\",\n        \"targetPort\": 41257,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30661,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"SingleStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 27332\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 7208,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6221,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 6281,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 7760,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7892,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 4850,\n        \"lastTransitionTime\": \"1954-05-31T13:53:21.598Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5931,\n        \"lastTransitionTime\": \"2013-10-27T18:53:17.496Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "ce3331e7-855f-4e01-8151-b9e3a3be10fe",
+          "name": "Unauthorized — missing or invalid credentials",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 1478,\n    \"creationTimestamp\": \"2010-09-14T07:06:46.566Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 37867,\n        \"name\": \"string\",\n        \"targetPort\": 6006,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 32701,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 29949,\n        \"name\": \"string\",\n        \"targetPort\": 41257,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30661,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"SingleStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 27332\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 7208,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6221,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 6281,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 7760,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7892,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 4850,\n        \"lastTransitionTime\": \"1954-05-31T13:53:21.598Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5931,\n        \"lastTransitionTime\": \"2013-10-27T18:53:17.496Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "9f4c5e08-3889-4f3c-be0d-3efaea419b0d",
+          "name": "Conflict — a Service with that name already exists",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 1478,\n    \"creationTimestamp\": \"2010-09-14T07:06:46.566Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 37867,\n        \"name\": \"string\",\n        \"targetPort\": 6006,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 32701,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 29949,\n        \"name\": \"string\",\n        \"targetPort\": 41257,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30661,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"SingleStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 27332\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 7208,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6221,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 6281,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 7760,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7892,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 4850,\n        \"lastTransitionTime\": \"1954-05-31T13:53:21.598Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5931,\n        \"lastTransitionTime\": \"2013-10-27T18:53:17.496Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Conflict",
+          "code": 409,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "d8f65439-9723-4161-9b58-0a5d19d34cac",
+      "name": "Kubernetes Services Get a Service",
+      "request": {
+        "name": "Kubernetes Services Get a Service",
+        "description": {
+          "content": "Returns the specified Service including its cluster IP, type, port mappings, selector, session affinity configuration, and load balancer status.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "namespaces",
+            ":namespace",
+            "services",
+            ":name"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "namespace",
+              "description": "(Required) Namespace name to scope the request."
+            },
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "name",
+              "description": "(Required) Name of the Service resource."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "e4502654-5eae-4295-89e2-5fb84066a731",
+          "name": "Service details",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 5757,\n    \"creationTimestamp\": \"1968-09-08T17:18:03.105Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 6228,\n        \"name\": \"string\",\n        \"targetPort\": 45770,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 31880,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 14760,\n        \"name\": \"string\",\n        \"targetPort\": 47834,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30980,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"RequireDualStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 58805\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 6666,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1070,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 5917,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1436,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 4666,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 1530,\n        \"lastTransitionTime\": \"1962-01-06T07:37:02.265Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 8150,\n        \"lastTransitionTime\": \"1981-06-26T19:12:41.716Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "8353cd44-6eef-4251-92c0-aa3784234224",
+          "name": "Unauthorized — missing or invalid credentials",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "c2b853dc-8055-45cb-a63d-6c038c16cae9",
+          "name": "Not found — the specified Service does not exist",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "47ab124f-4d0b-49a4-8f1d-564be9a95edf",
+      "name": "Kubernetes Services Replace a Service",
+      "request": {
+        "name": "Kubernetes Services Replace a Service",
+        "description": {
+          "content": "Replaces the full specification of the specified Service. Updates to selector take effect immediately; changing the type between ClusterIP, NodePort, and LoadBalancer may trigger infrastructure changes.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "namespaces",
+            ":namespace",
+            "services",
+            ":name"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "dryRun",
+              "value": "<string>",
+              "description": "If 'All', the request is validated and processed without persisting. Useful to verify changes before applying them."
+            }
+          ],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "namespace",
+              "description": "(Required) Namespace name to scope the request."
+            },
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "name",
+              "description": "(Required) Name of the Service resource."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "PUT",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"uid\": \"<string>\",\n    \"resourceVersion\": \"<string>\",\n    \"generation\": \"<integer>\",\n    \"creationTimestamp\": \"<dateTime>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"<string>\"\n    },\n    \"ports\": [\n      {\n        \"port\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"targetPort\": \"<integer>\",\n        \"protocol\": \"TCP\",\n        \"nodePort\": \"<integer>\",\n        \"appProtocol\": \"<string>\"\n      },\n      {\n        \"port\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"targetPort\": \"<integer>\",\n        \"protocol\": \"TCP\",\n        \"nodePort\": \"<integer>\",\n        \"appProtocol\": \"<string>\"\n      }\n    ],\n    \"clusterIP\": \"<string>\",\n    \"clusterIPs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ipFamilies\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ipFamilyPolicy\": \"<string>\",\n    \"externalName\": \"<string>\",\n    \"externalIPs\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"externalTrafficPolicy\": \"<string>\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": \"<integer>\"\n      }\n    },\n    \"loadBalancerIP\": \"<string>\",\n    \"loadBalancerSourceRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"healthCheckNodePort\": \"<integer>\",\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"<string>\",\n          \"hostname\": \"<string>\",\n          \"ports\": [\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            },\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"<string>\",\n          \"hostname\": \"<string>\",\n          \"ports\": [\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            },\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"observedGeneration\": \"<integer>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"observedGeneration\": \"<integer>\",\n        \"lastTransitionTime\": \"<dateTime>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\"\n      }\n    ]\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "2fc1a720-4aaa-4f1a-b4af-9109bc89bfb3",
+          "name": "Service updated",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 1478,\n    \"creationTimestamp\": \"2010-09-14T07:06:46.566Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 37867,\n        \"name\": \"string\",\n        \"targetPort\": 6006,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 32701,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 29949,\n        \"name\": \"string\",\n        \"targetPort\": 41257,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30661,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"SingleStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 27332\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 7208,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6221,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 6281,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 7760,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7892,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 4850,\n        \"lastTransitionTime\": \"1954-05-31T13:53:21.598Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5931,\n        \"lastTransitionTime\": \"2013-10-27T18:53:17.496Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 5757,\n    \"creationTimestamp\": \"1968-09-08T17:18:03.105Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 6228,\n        \"name\": \"string\",\n        \"targetPort\": 45770,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 31880,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 14760,\n        \"name\": \"string\",\n        \"targetPort\": 47834,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30980,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"RequireDualStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 58805\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 6666,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1070,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 5917,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1436,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 4666,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 1530,\n        \"lastTransitionTime\": \"1962-01-06T07:37:02.265Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 8150,\n        \"lastTransitionTime\": \"1981-06-26T19:12:41.716Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "323d552b-ff41-4607-b57a-b5079189a9dd",
+          "name": "Bad request — invalid resource specification",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 1478,\n    \"creationTimestamp\": \"2010-09-14T07:06:46.566Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 37867,\n        \"name\": \"string\",\n        \"targetPort\": 6006,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 32701,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 29949,\n        \"name\": \"string\",\n        \"targetPort\": 41257,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30661,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"SingleStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 27332\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 7208,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6221,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 6281,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 7760,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7892,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 4850,\n        \"lastTransitionTime\": \"1954-05-31T13:53:21.598Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5931,\n        \"lastTransitionTime\": \"2013-10-27T18:53:17.496Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "684384c4-4473-47a7-9766-1e4a55f012e6",
+          "name": "Unauthorized — missing or invalid credentials",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 1478,\n    \"creationTimestamp\": \"2010-09-14T07:06:46.566Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 37867,\n        \"name\": \"string\",\n        \"targetPort\": 6006,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 32701,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 29949,\n        \"name\": \"string\",\n        \"targetPort\": 41257,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30661,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"SingleStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 27332\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 7208,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6221,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 6281,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 7760,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7892,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 4850,\n        \"lastTransitionTime\": \"1954-05-31T13:53:21.598Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5931,\n        \"lastTransitionTime\": \"2013-10-27T18:53:17.496Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "c1735fac-5362-4e9f-b79c-88cffa62f423",
+          "name": "Not found — the specified Service does not exist",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 1478,\n    \"creationTimestamp\": \"2010-09-14T07:06:46.566Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 37867,\n        \"name\": \"string\",\n        \"targetPort\": 6006,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 32701,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 29949,\n        \"name\": \"string\",\n        \"targetPort\": 41257,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30661,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"SingleStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 27332\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 7208,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6221,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 6281,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 7760,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7892,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 4850,\n        \"lastTransitionTime\": \"1954-05-31T13:53:21.598Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 5931,\n        \"lastTransitionTime\": \"2013-10-27T18:53:17.496Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "445f9ec9-a230-41ed-8041-9117b1fea004",
+      "name": "Kubernetes Services Patch a Service",
+      "request": {
+        "name": "Kubernetes Services Patch a Service",
+        "description": {
+          "content": "Applies a partial update to the specified Service. Supports strategic-merge-patch, merge-patch, and apply-patch content types for targeted field updates without replacing the full resource.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "namespaces",
+            ":namespace",
+            "services",
+            ":name"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "dryRun",
+              "value": "<string>",
+              "description": "If 'All', the request is validated and processed without persisting. Useful to verify changes before applying them."
+            }
+          ],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "namespace",
+              "description": "(Required) Namespace name to scope the request."
+            },
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "name",
+              "description": "(Required) Name of the Service resource."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/merge-patch+json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "PATCH",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "<object>",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "36aea5b8-c8d2-4c5f-ab9f-42b3e6f98da1",
+          "name": "Service patched",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 5757,\n    \"creationTimestamp\": \"1968-09-08T17:18:03.105Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 6228,\n        \"name\": \"string\",\n        \"targetPort\": 45770,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 31880,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 14760,\n        \"name\": \"string\",\n        \"targetPort\": 47834,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30980,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"RequireDualStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 58805\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 6666,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1070,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 5917,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1436,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 4666,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 1530,\n        \"lastTransitionTime\": \"1962-01-06T07:37:02.265Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 8150,\n        \"lastTransitionTime\": \"1981-06-26T19:12:41.716Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "4b196be6-211d-49a2-ba66-7fa050a7613c",
+          "name": "Bad request — invalid resource specification",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "913c515c-6d15-4b55-a5a9-eadbfa3cd9e8",
+          "name": "Unauthorized — missing or invalid credentials",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "8ad64bc5-21d2-4042-ac58-8ff727255fc6",
+          "name": "Not found — the specified Service does not exist",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "772f9173-61d1-4852-896d-51e28598bddd",
+      "name": "Kubernetes Services Delete a Service",
+      "request": {
+        "name": "Kubernetes Services Delete a Service",
+        "description": {
+          "content": "Deletes the specified Service. For LoadBalancer-type services, the associated external load balancer will be deprovisioned. ClusterIP is released back to the IP pool.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "namespaces",
+            ":namespace",
+            "services",
+            ":name"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "gracePeriodSeconds",
+              "value": "<integer>",
+              "description": "Duration in seconds to wait before forcefully deleting the resource."
+            },
+            {
+              "disabled": false,
+              "key": "dryRun",
+              "value": "<string>",
+              "description": "If 'All', the request is validated and processed without persisting. Useful to verify changes before applying them."
+            }
+          ],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "namespace",
+              "description": "(Required) Namespace name to scope the request."
+            },
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "name",
+              "description": "(Required) Name of the Service resource."
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "DELETE",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "9b86fdd0-c8fd-489f-b31d-b24679c92c27",
+          "name": "Service deleted",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "gracePeriodSeconds",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"generation\": 5757,\n    \"creationTimestamp\": \"1968-09-08T17:18:03.105Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"type\": \"ClusterIP\",\n    \"selector\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"ports\": [\n      {\n        \"port\": 6228,\n        \"name\": \"string\",\n        \"targetPort\": 45770,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 31880,\n        \"appProtocol\": \"string\"\n      },\n      {\n        \"port\": 14760,\n        \"name\": \"string\",\n        \"targetPort\": 47834,\n        \"protocol\": \"TCP\",\n        \"nodePort\": 30980,\n        \"appProtocol\": \"string\"\n      }\n    ],\n    \"clusterIP\": \"string\",\n    \"clusterIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ipFamilies\": [\n      \"IPv6\",\n      \"IPv6\"\n    ],\n    \"ipFamilyPolicy\": \"RequireDualStack\",\n    \"externalName\": \"string\",\n    \"externalIPs\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalTrafficPolicy\": \"Cluster\",\n    \"sessionAffinity\": \"None\",\n    \"sessionAffinityConfig\": {\n      \"clientIP\": {\n        \"timeoutSeconds\": 58805\n      }\n    },\n    \"loadBalancerIP\": \"string\",\n    \"loadBalancerSourceRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"healthCheckNodePort\": 6666,\n    \"publishNotReadyAddresses\": false,\n    \"allocateLoadBalancerNodePorts\": true\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1070,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 5917,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 1436,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 4666,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"False\",\n        \"observedGeneration\": 1530,\n        \"lastTransitionTime\": \"1962-01-06T07:37:02.265Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"observedGeneration\": 8150,\n        \"lastTransitionTime\": \"1981-06-26T19:12:41.716Z\",\n        \"reason\": \"string\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "6f8a4f4b-61a0-4ee2-bece-afc5692d95ca",
+          "name": "Unauthorized — missing or invalid credentials",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "gracePeriodSeconds",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "3a5e67ea-7307-46b3-9420-e0cf0cd008c3",
+          "name": "Not found — the specified Service does not exist",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "services",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "gracePeriodSeconds",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "dryRun",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the Service resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "bb170c7c-3238-47c6-b293-d77d7bea3c4e",
+      "name": "Kubernetes Services List Services across all namespaces",
+      "request": {
+        "name": "Kubernetes Services List Services across all namespaces",
+        "description": {
+          "content": "Returns a list of all Services across every namespace in the cluster. Useful for cluster-wide service discovery and auditing. Supports label and field filtering.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "v1",
+            "services"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "labelSelector",
+              "value": "<string>",
+              "description": "Label selector expression to filter resources. Supports equality (=, ==, !=) and set-based (in, notin, exists) operators."
+            },
+            {
+              "disabled": false,
+              "key": "fieldSelector",
+              "value": "<string>",
+              "description": "Field selector expression to filter resources by field values. Example: metadata.name=my-service"
+            },
+            {
+              "disabled": false,
+              "key": "limit",
+              "value": "<integer>",
+              "description": "Maximum number of items to return. Use with continue for pagination."
+            },
+            {
+              "disabled": false,
+              "key": "watch",
+              "value": "<boolean>",
+              "description": "If true, return a watch stream of changes instead of a list."
+            }
+          ],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "bad69011-79b9-400d-a538-07c9e37d6f7b",
+          "name": "List of Services across all namespaces",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "labelSelector",
+                  "value": "<string>"
+                },
+                {
+                  "key": "fieldSelector",
+                  "value": "<string>"
+                },
+                {
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "watch",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"items\": [\n    {\n      \"apiVersion\": \"string\",\n      \"kind\": \"string\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"uid\": \"string\",\n        \"resourceVersion\": \"string\",\n        \"generation\": 1988,\n        \"creationTimestamp\": \"2024-10-17T23:39:36.890Z\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"spec\": {\n        \"type\": \"ClusterIP\",\n        \"selector\": {\n          \"key_0\": \"string\"\n        },\n        \"ports\": [\n          {\n            \"port\": 47169,\n            \"name\": \"string\",\n            \"targetPort\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protocol\": \"TCP\",\n            \"nodePort\": 31382,\n            \"appProtocol\": \"string\"\n          },\n          {\n            \"port\": 55127,\n            \"name\": \"string\",\n            \"targetPort\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protocol\": \"TCP\",\n            \"nodePort\": 32191,\n            \"appProtocol\": \"string\"\n          }\n        ],\n        \"clusterIP\": \"string\",\n        \"clusterIPs\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipFamilies\": [\n          \"IPv6\",\n          \"IPv4\"\n        ],\n        \"ipFamilyPolicy\": \"SingleStack\",\n        \"externalName\": \"string\",\n        \"externalIPs\": [\n          \"string\",\n          \"string\"\n        ],\n        \"externalTrafficPolicy\": \"Local\",\n        \"sessionAffinity\": \"None\",\n        \"sessionAffinityConfig\": {\n          \"clientIP\": {\n            \"timeoutSeconds\": 16569\n          }\n        },\n        \"loadBalancerIP\": \"string\",\n        \"loadBalancerSourceRanges\": [\n          \"string\",\n          \"string\"\n        ],\n        \"healthCheckNodePort\": 2816,\n        \"publishNotReadyAddresses\": false,\n        \"allocateLoadBalancerNodePorts\": true\n      },\n      \"status\": {\n        \"loadBalancer\": {\n          \"ingress\": [\n            {\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ports\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ports\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8499,\n            \"lastTransitionTime\": \"1962-07-14T09:03:29.453Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 8550,\n            \"lastTransitionTime\": \"2018-08-10T21:20:04.315Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"string\",\n      \"kind\": \"string\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"uid\": \"string\",\n        \"resourceVersion\": \"string\",\n        \"generation\": 2179,\n        \"creationTimestamp\": \"2005-12-24T20:55:07.315Z\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        }\n      },\n      \"spec\": {\n        \"type\": \"ClusterIP\",\n        \"selector\": {\n          \"key_0\": \"string\"\n        },\n        \"ports\": [\n          {\n            \"port\": 58407,\n            \"name\": \"string\",\n            \"targetPort\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protocol\": \"TCP\",\n            \"nodePort\": 30072,\n            \"appProtocol\": \"string\"\n          },\n          {\n            \"port\": 49510,\n            \"name\": \"string\",\n            \"targetPort\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protocol\": \"TCP\",\n            \"nodePort\": 30953,\n            \"appProtocol\": \"string\"\n          }\n        ],\n        \"clusterIP\": \"string\",\n        \"clusterIPs\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipFamilies\": [\n          \"IPv4\",\n          \"IPv4\"\n        ],\n        \"ipFamilyPolicy\": \"PreferDualStack\",\n        \"externalName\": \"string\",\n        \"externalIPs\": [\n          \"string\",\n          \"string\"\n        ],\n        \"externalTrafficPolicy\": \"Local\",\n        \"sessionAffinity\": \"None\",\n        \"sessionAffinityConfig\": {\n          \"clientIP\": {\n            \"timeoutSeconds\": 72985\n          }\n        },\n        \"loadBalancerIP\": \"string\",\n        \"loadBalancerSourceRanges\": [\n          \"string\",\n          \"string\"\n        ],\n        \"healthCheckNodePort\": 2576,\n        \"publishNotReadyAddresses\": false,\n        \"allocateLoadBalancerNodePorts\": true\n      },\n      \"status\": {\n        \"loadBalancer\": {\n          \"ingress\": [\n            {\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ports\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ports\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 9955,\n            \"lastTransitionTime\": \"1970-06-16T13:09:12.898Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"False\",\n            \"observedGeneration\": 2241,\n            \"lastTransitionTime\": \"1954-02-09T06:15:42.466Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"resourceVersion\": \"string\",\n    \"continue\": \"string\",\n    \"remainingItemCount\": 7601\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "4774828e-abf0-49b8-911c-51fbfc47530c",
+          "name": "Unauthorized — missing or invalid credentials",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "labelSelector",
+                  "value": "<string>"
+                },
+                {
+                  "key": "fieldSelector",
+                  "value": "<string>"
+                },
+                {
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "watch",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": 7791,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Failure\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://kubernetes.default.svc",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "70f6a891-b5b3-4666-8d7c-140a2a52abe1",
+    "name": "Kubernetes Services API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kubernetes Services API provides an abstraction for exposing groups of Pods over a network with a stable virtual IP address and DNS name. Services decouple consumers from the pod IPs, enabling load balancing across pod replicas and supporting ClusterIP, NodePort, LoadBalancer, and ExternalName service types for internal and external connectivity within Kubernetes clusters.\n\nContact Support:\n Name: Kubernetes Community",
+      "type": "text/plain"
+    }
+  }
+}
