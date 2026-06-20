@@ -4,7 +4,7 @@ description: >-
   Kubernetes Services provide an abstract way to expose an application running on a set of Pods as a network service.
   They provide stable networking endpoints and load balancing across pod replicas in a Kubernetes cluster.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Container Orchestration
   - Kubernetes
