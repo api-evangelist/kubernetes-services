@@ -1,0 +1,29 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/kubernetes-endpoint-slices-openapi.yml, openapi/kubernetes-gateway-api-openapi.yml,
+  openapi/kubernetes-ingress-openapi.yml, openapi/kubernetes-network-policies-openapi.yml, openapi/kubernetes-services-openapi.yml
+summary:
+  types:
+  - http
+  - mutualTLS
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Kubernetes service account or user bearer token.
+  sources:
+  - openapi/kubernetes-endpoint-slices-openapi.yml
+  - openapi/kubernetes-gateway-api-openapi.yml
+  - openapi/kubernetes-ingress-openapi.yml
+  - openapi/kubernetes-network-policies-openapi.yml
+  - openapi/kubernetes-services-openapi.yml
+- name: clientCertificate
+  type: mutualTLS
+  description: Client TLS certificate signed by the cluster CA.
+  sources:
+  - openapi/kubernetes-endpoint-slices-openapi.yml
+  - openapi/kubernetes-gateway-api-openapi.yml
+  - openapi/kubernetes-ingress-openapi.yml
+  - openapi/kubernetes-network-policies-openapi.yml
+  - openapi/kubernetes-services-openapi.yml

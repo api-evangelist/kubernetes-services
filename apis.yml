@@ -128,6 +128,12 @@ apis:
       - type: Documentation
         url: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/
 common:
+  - type: VulnerabilityDisclosure
+    url: security/kubernetes-services-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/kubernetes-services-domain-security.yml
+  - type: Authentication
+    url: authentication/kubernetes-services-authentication.yml
   - type: Website
     url: https://kubernetes.io
   - type: Documentation
