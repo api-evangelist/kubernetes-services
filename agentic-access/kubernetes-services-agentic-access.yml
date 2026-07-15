@@ -1,0 +1,711 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/kubernetes-endpoint-slices-openapi.yml, openapi/kubernetes-gateway-api-openapi.yml,
+  openapi/kubernetes-ingress-openapi.yml, openapi/kubernetes-network-policies-openapi.yml, openapi/kubernetes-services-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 52
+  by_action_class:
+    connected: 23
+    acting: 29
+  by_consequence:
+    read: 23
+    write: 29
+  human_in_the_loop_required: 0
+operations:
+- path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
+  method: get
+  operationId: listNamespacedEndpointSlices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
+  method: post
+  operationId: createNamespacedEndpointSlice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
+  method: get
+  operationId: getNamespacedEndpointSlice
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
+  method: put
+  operationId: replaceNamespacedEndpointSlice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
+  method: patch
+  operationId: patchNamespacedEndpointSlice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
+  method: delete
+  operationId: deleteNamespacedEndpointSlice
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/discovery.k8s.io/v1/endpointslices
+  method: get
+  operationId: listEndpointSlicesAllNamespaces
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/gatewayclasses
+  method: get
+  operationId: listGatewayClasses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/gatewayclasses
+  method: post
+  operationId: createGatewayClass
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/gatewayclasses/{name}
+  method: get
+  operationId: getGatewayClass
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/gatewayclasses/{name}
+  method: delete
+  operationId: deleteGatewayClass
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways
+  method: get
+  operationId: listNamespacedGateways
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways
+  method: post
+  operationId: createNamespacedGateway
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}
+  method: get
+  operationId: getNamespacedGateway
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}
+  method: put
+  operationId: replaceNamespacedGateway
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways/{name}
+  method: delete
+  operationId: deleteNamespacedGateway
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes
+  method: get
+  operationId: listNamespacedHTTPRoutes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes
+  method: post
+  operationId: createNamespacedHTTPRoute
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}
+  method: get
+  operationId: getNamespacedHTTPRoute
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}
+  method: put
+  operationId: replaceNamespacedHTTPRoute
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}
+  method: delete
+  operationId: deleteNamespacedHTTPRoute
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/grpcroutes
+  method: get
+  operationId: listNamespacedGRPCRoutes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/grpcroutes
+  method: post
+  operationId: createNamespacedGRPCRoute
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses
+  method: get
+  operationId: listNamespacedIngresses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses
+  method: post
+  operationId: createNamespacedIngress
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
+  method: get
+  operationId: getNamespacedIngress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
+  method: put
+  operationId: replaceNamespacedIngress
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
+  method: patch
+  operationId: patchNamespacedIngress
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
+  method: delete
+  operationId: deleteNamespacedIngress
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
+  method: get
+  operationId: getNamespacedIngressStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
+  method: put
+  operationId: replaceNamespacedIngressStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/networking.k8s.io/v1/ingresses
+  method: get
+  operationId: listIngressesAllNamespaces
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/networking.k8s.io/v1/ingressclasses
+  method: get
+  operationId: listIngressClasses
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/networking.k8s.io/v1/ingressclasses
+  method: post
+  operationId: createIngressClass
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/networking.k8s.io/v1/ingressclasses/{name}
+  method: get
+  operationId: getIngressClass
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/networking.k8s.io/v1/ingressclasses/{name}
+  method: delete
+  operationId: deleteIngressClass
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
+  method: get
+  operationId: listNamespacedNetworkPolicies
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
+  method: post
+  operationId: createNamespacedNetworkPolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
+  method: get
+  operationId: getNamespacedNetworkPolicy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
+  method: put
+  operationId: replaceNamespacedNetworkPolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
+  method: patch
+  operationId: patchNamespacedNetworkPolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
+  method: delete
+  operationId: deleteNamespacedNetworkPolicy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /apis/networking.k8s.io/v1/networkpolicies
+  method: get
+  operationId: listNetworkPoliciesAllNamespaces
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/namespaces/{namespace}/services
+  method: get
+  operationId: listNamespacedServices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/namespaces/{namespace}/services
+  method: post
+  operationId: createNamespacedService
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/namespaces/{namespace}/services/{name}
+  method: get
+  operationId: getNamespacedService
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/namespaces/{namespace}/services/{name}
+  method: put
+  operationId: replaceNamespacedService
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/namespaces/{namespace}/services/{name}
+  method: patch
+  operationId: patchNamespacedService
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/namespaces/{namespace}/services/{name}
+  method: delete
+  operationId: deleteNamespacedService
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/namespaces/{namespace}/services/{name}/status
+  method: get
+  operationId: getNamespacedServiceStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/namespaces/{namespace}/services/{name}/status
+  method: put
+  operationId: replaceNamespacedServiceStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/services
+  method: get
+  operationId: listServicesAllNamespaces
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

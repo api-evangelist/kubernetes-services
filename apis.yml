@@ -128,6 +128,8 @@ apis:
       - type: Documentation
         url: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/
 common:
+  - type: AgenticAccess
+    url: agentic-access/kubernetes-services-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/kubernetes-services-vulnerability-disclosure.yml
   - type: DomainSecurity
