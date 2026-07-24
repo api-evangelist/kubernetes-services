@@ -1,0 +1,255 @@
+openapi: 3.1.0
+info:
+  title: Kubernetes Services Kubernetes EndpointSlices IngressClass API
+  description: The Kubernetes EndpointSlices API tracks the IP addresses, ports, readiness, and topology information for Pods backing a Service. EndpointSlices replaced the older Endpoints API to improve scalability for large clusters with thousands of pods. A single Service may be backed by multiple EndpointSlices, and the EndpointSlice controller automatically manages their lifecycle in response to pod and Service changes.
+  version: v1.32.0
+  contact:
+    name: Kubernetes Community
+    url: https://kubernetes.io/community/
+  termsOfService: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://kubernetes.default.svc
+  description: In-cluster Kubernetes API Server
+security:
+- bearerAuth: []
+- clientCertificate: []
+tags:
+- name: IngressClass
+  description: IngressClass resources identifying which ingress controller should fulfill an Ingress resource.
+paths:
+  /apis/networking.k8s.io/v1/ingressclasses:
+    get:
+      operationId: listIngressClasses
+      summary: Kubernetes Services List IngressClasses
+      description: Returns a list of all IngressClass resources in the cluster. Each IngressClass identifies an ingress controller implementation and its parameters. Ingress objects reference an IngressClass to select their controller.
+      tags:
+      - IngressClass
+      parameters:
+      - $ref: '#/components/parameters/LabelSelector'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Watch'
+      responses:
+        '200':
+          description: List of IngressClass resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngressClassList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createIngressClass
+      summary: Kubernetes Services Create an IngressClass
+      description: Creates a new IngressClass resource. IngressClasses are cluster-scoped and define a mapping between Ingress resources and the controller responsible for fulfilling them.
+      tags:
+      - IngressClass
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngressClass'
+      responses:
+        '201':
+          description: IngressClass created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngressClass'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /apis/networking.k8s.io/v1/ingressclasses/{name}:
+    get:
+      operationId: getIngressClass
+      summary: Kubernetes Services Get an IngressClass
+      description: Returns the specified IngressClass including the controller name and any controller-specific parameters reference.
+      tags:
+      - IngressClass
+      parameters:
+      - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: IngressClass details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngressClass'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteIngressClass
+      summary: Kubernetes Services Delete an IngressClass
+      description: Deletes the specified IngressClass. Existing Ingress objects that reference this IngressClass will no longer be fulfilled by any controller unless another IngressClass is configured.
+      tags:
+      - IngressClass
+      parameters:
+      - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: IngressClass deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngressClass'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource.
+      schema:
+        type: string
+    Watch:
+      name: watch
+      in: query
+      description: If true, stream watch events instead of returning a list.
+      schema:
+        type: boolean
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
+  schemas:
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the object.
+        namespace:
+          type: string
+          description: Namespace of the object.
+        uid:
+          type: string
+          description: Unique server-assigned identifier.
+        resourceVersion:
+          type: string
+          description: Internal version for optimistic concurrency.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Key-value label pairs.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata.
+    IngressClass:
+      type: object
+      description: An IngressClass is a cluster-scoped resource that represents an ingress controller implementation. Ingress objects reference an IngressClass by name to select which controller fulfills them.
+      properties:
+        apiVersion:
+          type: string
+          const: networking.k8s.io/v1
+        kind:
+          type: string
+          const: IngressClass
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: IngressClass specification.
+          properties:
+            controller:
+              type: string
+              description: 'Name of the controller that handles Ingresses of this class. Example: ingress.controller.example.com/nginx'
+            parameters:
+              type: object
+              description: Reference to a custom resource containing controller-specific parameters for this IngressClass.
+    IngressClassList:
+      type: object
+      description: A list of IngressClass resources.
+      required:
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          const: IngressClassList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/IngressClass'
+    Status:
+      type: object
+      description: Error or result status returned by the API.
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+          - Success
+          - Failure
+    ListMeta:
+      type: object
+      description: Metadata for list responses.
+      properties:
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
+          type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Kubernetes service account or user bearer token.
+    clientCertificate:
+      type: mutualTLS
+      description: Client TLS certificate signed by the cluster CA.
+externalDocs:
+  description: Kubernetes EndpointSlice API Reference
+  url: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/

@@ -1,0 +1,299 @@
+openapi: 3.1.0
+info:
+  title: Kubernetes Services Kubernetes EndpointSlices GatewayClass API
+  description: The Kubernetes EndpointSlices API tracks the IP addresses, ports, readiness, and topology information for Pods backing a Service. EndpointSlices replaced the older Endpoints API to improve scalability for large clusters with thousands of pods. A single Service may be backed by multiple EndpointSlices, and the EndpointSlice controller automatically manages their lifecycle in response to pod and Service changes.
+  version: v1.32.0
+  contact:
+    name: Kubernetes Community
+    url: https://kubernetes.io/community/
+  termsOfService: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://kubernetes.default.svc
+  description: In-cluster Kubernetes API Server
+security:
+- bearerAuth: []
+- clientCertificate: []
+tags:
+- name: GatewayClass
+  description: GatewayClass resources defining a class of gateway implementations. Cluster-scoped resources that link to a specific ingress or mesh controller.
+paths:
+  /apis/gateway.networking.k8s.io/v1/gatewayclasses:
+    get:
+      operationId: listGatewayClasses
+      summary: Kubernetes Services List GatewayClasses
+      description: Returns a list of all GatewayClass resources in the cluster. GatewayClasses are cluster-scoped and identify gateway controller implementations available for use by Gateway resources.
+      tags:
+      - GatewayClass
+      parameters:
+      - $ref: '#/components/parameters/LabelSelector'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Watch'
+      responses:
+        '200':
+          description: List of GatewayClass resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayClassList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createGatewayClass
+      summary: Kubernetes Services Create a GatewayClass
+      description: Creates a new GatewayClass resource. GatewayClasses are typically managed by infrastructure providers and installed when a gateway controller is deployed in the cluster.
+      tags:
+      - GatewayClass
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatewayClass'
+      responses:
+        '201':
+          description: GatewayClass created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayClass'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /apis/gateway.networking.k8s.io/v1/gatewayclasses/{name}:
+    get:
+      operationId: getGatewayClass
+      summary: Kubernetes Services Get a GatewayClass
+      description: Returns the specified GatewayClass including the controller name, parameters reference, and the current Accepted condition.
+      tags:
+      - GatewayClass
+      parameters:
+      - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: GatewayClass details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayClass'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteGatewayClass
+      summary: Kubernetes Services Delete a GatewayClass
+      description: Deletes the specified GatewayClass. Gateways referencing this class will lose their controller association.
+      tags:
+      - GatewayClass
+      parameters:
+      - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: GatewayClass deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayClass'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    GatewayClass:
+      type: object
+      description: A GatewayClass is a cluster-scoped resource that defines a class of gateway implementations, linking to a specific gateway controller via the controllerName field. Infrastructure providers create GatewayClasses when deploying their gateway controller.
+      properties:
+        apiVersion:
+          type: string
+          const: gateway.networking.k8s.io/v1
+        kind:
+          type: string
+          const: GatewayClass
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: GatewayClass specification.
+          required:
+          - controllerName
+          properties:
+            controllerName:
+              type: string
+              description: 'Domain-prefixed path identifying the gateway controller implementing this class. Example: gateway.nginx.org/nginx-gateway.'
+            parametersRef:
+              type: object
+              description: Reference to a provider-specific resource containing controller configuration parameters.
+              properties:
+                group:
+                  type: string
+                kind:
+                  type: string
+                name:
+                  type: string
+                namespace:
+                  type: string
+        status:
+          type: object
+          description: Current status of the GatewayClass.
+          properties:
+            conditions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Condition'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the object.
+        namespace:
+          type: string
+          description: Namespace of the object.
+        uid:
+          type: string
+          description: Unique server-assigned identifier.
+        resourceVersion:
+          type: string
+          description: Internal version string.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Label key-value pairs.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata.
+    Status:
+      type: object
+      description: Error or result status.
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+          - Success
+          - Failure
+    Condition:
+      type: object
+      description: A condition expressing an aspect of current resource state.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of condition.
+        status:
+          type: string
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+        reason:
+          type: string
+          description: Machine-readable reason for the condition.
+        message:
+          type: string
+          description: Human-readable condition details.
+        lastTransitionTime:
+          type: string
+          format: date-time
+    ListMeta:
+      type: object
+      description: Metadata for list responses.
+      properties:
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
+          type: integer
+    GatewayClassList:
+      type: object
+      description: A list of GatewayClass resources.
+      required:
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          const: GatewayClassList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayClass'
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource.
+      schema:
+        type: string
+    Watch:
+      name: watch
+      in: query
+      description: If true, stream watch events.
+      schema:
+        type: boolean
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Kubernetes service account or user bearer token.
+    clientCertificate:
+      type: mutualTLS
+      description: Client TLS certificate signed by the cluster CA.
+externalDocs:
+  description: Kubernetes EndpointSlice API Reference
+  url: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/

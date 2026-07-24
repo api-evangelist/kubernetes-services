@@ -1,0 +1,458 @@
+openapi: 3.1.0
+info:
+  title: Kubernetes Services Kubernetes EndpointSlices HTTPRoute API
+  description: The Kubernetes EndpointSlices API tracks the IP addresses, ports, readiness, and topology information for Pods backing a Service. EndpointSlices replaced the older Endpoints API to improve scalability for large clusters with thousands of pods. A single Service may be backed by multiple EndpointSlices, and the EndpointSlice controller automatically manages their lifecycle in response to pod and Service changes.
+  version: v1.32.0
+  contact:
+    name: Kubernetes Community
+    url: https://kubernetes.io/community/
+  termsOfService: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://kubernetes.default.svc
+  description: In-cluster Kubernetes API Server
+security:
+- bearerAuth: []
+- clientCertificate: []
+tags:
+- name: HTTPRoute
+  description: HTTPRoute resources defining HTTP and HTTPS routing rules from Gateway listeners to backend services with support for path, header, and query parameter matching.
+paths:
+  /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes:
+    get:
+      operationId: listNamespacedHTTPRoutes
+      summary: Kubernetes Services List HTTPRoutes in a namespace
+      description: Returns a list of all HTTPRoute resources in the specified namespace. HTTPRoutes define HTTP request routing rules from Gateway listeners to backend services with support for path, header, query parameter, and method matching.
+      tags:
+      - HTTPRoute
+      parameters:
+      - $ref: '#/components/parameters/NamespaceParam'
+      - $ref: '#/components/parameters/LabelSelector'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Watch'
+      responses:
+        '200':
+          description: List of HTTPRoute resources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRouteList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createNamespacedHTTPRoute
+      summary: Kubernetes Services Create an HTTPRoute
+      description: Creates a new HTTPRoute in the specified namespace. The HTTPRoute attaches to a Gateway listener and defines how matched HTTP requests are forwarded to backend services, with optional request/response filters.
+      tags:
+      - HTTPRoute
+      parameters:
+      - $ref: '#/components/parameters/NamespaceParam'
+      - $ref: '#/components/parameters/DryRun'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HTTPRoute'
+      responses:
+        '201':
+          description: HTTPRoute created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRoute'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes/{name}:
+    get:
+      operationId: getNamespacedHTTPRoute
+      summary: Kubernetes Services Get an HTTPRoute
+      description: Returns the specified HTTPRoute including its Gateway parent references, hostname matchers, routing rules, and backend references.
+      tags:
+      - HTTPRoute
+      parameters:
+      - $ref: '#/components/parameters/NamespaceParam'
+      - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: HTTPRoute details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRoute'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceNamespacedHTTPRoute
+      summary: Kubernetes Services Replace an HTTPRoute
+      description: Replaces the full specification of the specified HTTPRoute, updating all routing rules and backend references.
+      tags:
+      - HTTPRoute
+      parameters:
+      - $ref: '#/components/parameters/NamespaceParam'
+      - $ref: '#/components/parameters/NameParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HTTPRoute'
+      responses:
+        '200':
+          description: HTTPRoute updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRoute'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteNamespacedHTTPRoute
+      summary: Kubernetes Services Delete an HTTPRoute
+      description: Deletes the specified HTTPRoute. The gateway controller removes the corresponding routing rules from the gateway's proxy configuration.
+      tags:
+      - HTTPRoute
+      parameters:
+      - $ref: '#/components/parameters/NamespaceParam'
+      - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: HTTPRoute deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPRoute'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    DryRun:
+      name: dryRun
+      in: query
+      description: If 'All', validates without persisting.
+      schema:
+        type: string
+        enum:
+        - All
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource.
+      schema:
+        type: string
+    NamespaceParam:
+      name: namespace
+      in: path
+      required: true
+      description: Namespace name to scope the request.
+      schema:
+        type: string
+    Watch:
+      name: watch
+      in: query
+      description: If true, stream watch events.
+      schema:
+        type: boolean
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  schemas:
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the object.
+        namespace:
+          type: string
+          description: Namespace of the object.
+        uid:
+          type: string
+          description: Unique server-assigned identifier.
+        resourceVersion:
+          type: string
+          description: Internal version string.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Label key-value pairs.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata.
+    HTTPRouteMatch:
+      type: object
+      description: Conditions for matching an incoming HTTP request. Multiple matches within a rule are OR'd; conditions within a match are AND'd.
+      properties:
+        path:
+          type: object
+          description: Path match conditions.
+          properties:
+            type:
+              type: string
+              enum:
+              - Exact
+              - PathPrefix
+              - RegularExpression
+              description: Path match type.
+            value:
+              type: string
+              description: Path value to match.
+        headers:
+          type: array
+          description: Header match conditions. All conditions must match.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Header name to match.
+              value:
+                type: string
+                description: Header value to match.
+              type:
+                type: string
+                enum:
+                - Exact
+                - RegularExpression
+        queryParams:
+          type: array
+          description: Query parameter match conditions.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+              type:
+                type: string
+                enum:
+                - Exact
+                - RegularExpression
+        method:
+          type: string
+          enum:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          - HEAD
+          - OPTIONS
+          - CONNECT
+          - TRACE
+          description: HTTP method to match.
+    HTTPBackendRef:
+      type: object
+      description: Reference to a backend service in an HTTPRoute rule, with an optional traffic weight for proportional routing.
+      required:
+      - name
+      - port
+      properties:
+        name:
+          type: string
+          description: Name of the referenced Service.
+        namespace:
+          type: string
+          description: Namespace of the Service. Defaults to the HTTPRoute's namespace.
+        port:
+          type: integer
+          minimum: 1
+          maximum: 65535
+          description: Port number on the referenced Service.
+        weight:
+          type: integer
+          minimum: 0
+          maximum: 1000000
+          description: Relative weight for traffic distribution. Requests are proportioned by weight across backendRefs in the same rule.
+    Status:
+      type: object
+      description: Error or result status.
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+          - Success
+          - Failure
+    Condition:
+      type: object
+      description: A condition expressing an aspect of current resource state.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of condition.
+        status:
+          type: string
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+        reason:
+          type: string
+          description: Machine-readable reason for the condition.
+        message:
+          type: string
+          description: Human-readable condition details.
+        lastTransitionTime:
+          type: string
+          format: date-time
+    HTTPRouteList:
+      type: object
+      description: A list of HTTPRoute resources.
+      required:
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          const: HTTPRouteList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPRoute'
+    ListMeta:
+      type: object
+      description: Metadata for list responses.
+      properties:
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
+          type: integer
+    HTTPRoute:
+      type: object
+      description: An HTTPRoute defines HTTP routing rules from one or more Gateway listeners to backend services. Rules support rich matching on path, headers, query parameters, and HTTP method, and can apply request and response filters.
+      properties:
+        apiVersion:
+          type: string
+          const: gateway.networking.k8s.io/v1
+        kind:
+          type: string
+          const: HTTPRoute
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: HTTPRoute specification.
+          properties:
+            parentRefs:
+              type: array
+              description: Gateway listeners this route attaches to. Routes must be accepted by the Gateway to receive traffic.
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: Name of the parent Gateway.
+                  namespace:
+                    type: string
+                    description: Namespace of the parent Gateway.
+                  sectionName:
+                    type: string
+                    description: Listener name on the Gateway to attach to.
+            hostnames:
+              type: array
+              description: Hostnames that should match to route traffic to this route. Supports wildcard prefixes.
+              items:
+                type: string
+            rules:
+              type: array
+              description: Routing rules. Each rule consists of match conditions and backend references. Rules are evaluated in order.
+              items:
+                type: object
+                properties:
+                  matches:
+                    type: array
+                    description: Match conditions for this rule. Rules are OR'd.
+                    items:
+                      $ref: '#/components/schemas/HTTPRouteMatch'
+                  backendRefs:
+                    type: array
+                    description: Backends to forward matched requests to.
+                    items:
+                      $ref: '#/components/schemas/HTTPBackendRef'
+        status:
+          type: object
+          properties:
+            parents:
+              type: array
+              description: Status per parent Gateway this route is attached to.
+              items:
+                type: object
+                properties:
+                  parentRef:
+                    type: object
+                  conditions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Condition'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Kubernetes service account or user bearer token.
+    clientCertificate:
+      type: mutualTLS
+      description: Client TLS certificate signed by the cluster CA.
+externalDocs:
+  description: Kubernetes EndpointSlice API Reference
+  url: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/
