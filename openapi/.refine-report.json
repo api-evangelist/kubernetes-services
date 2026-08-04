@@ -1,0 +1,36 @@
+{
+  "provider": "kubernetes-services",
+  "sources": [
+    "kubernetes-services-endpointslices-api-openapi.yml",
+    "kubernetes-services-gateway-api-openapi.yml",
+    "kubernetes-services-gatewayclass-api-openapi.yml",
+    "kubernetes-services-grpcroute-api-openapi.yml",
+    "kubernetes-services-httproute-api-openapi.yml",
+    "kubernetes-services-ingress-api-openapi.yml",
+    "kubernetes-services-ingressclass-api-openapi.yml",
+    "kubernetes-services-ingressstatus-api-openapi.yml",
+    "kubernetes-services-namespaces-api-openapi.yml",
+    "kubernetes-services-networkpolicy-api-openapi.yml",
+    "kubernetes-services-services-api-openapi.yml",
+    "kubernetes-services-servicestatus-api-openapi.yml"
+  ],
+  "outputs": [
+    "kubernetes-services-endpointslices-api-openapi.yml",
+    "kubernetes-services-gateway-api-openapi.yml",
+    "kubernetes-services-gatewayclass-api-openapi.yml",
+    "kubernetes-services-grpcroute-api-openapi.yml",
+    "kubernetes-services-httproute-api-openapi.yml",
+    "kubernetes-services-ingress-api-openapi.yml",
+    "kubernetes-services-ingressclass-api-openapi.yml",
+    "kubernetes-services-ingressstatus-api-openapi.yml",
+    "kubernetes-services-namespaces-api-openapi.yml",
+    "kubernetes-services-networkpolicy-api-openapi.yml",
+    "kubernetes-services-services-api-openapi.yml",
+    "kubernetes-services-servicestatus-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

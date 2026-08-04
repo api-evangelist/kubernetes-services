@@ -1,0 +1,746 @@
+openapi: 3.1.0
+info:
+  title: Kubernetes Services API
+  description: >-
+    The Kubernetes Services API provides an abstraction for exposing groups of
+    Pods over a network with a stable virtual IP address and DNS name. Services
+    decouple consumers from the pod IPs, enabling load balancing across pod
+    replicas and supporting ClusterIP, NodePort, LoadBalancer, and ExternalName
+    service types for internal and external connectivity within Kubernetes
+    clusters.
+  version: v1.32.0
+  contact:
+    name: Kubernetes Community
+    url: https://kubernetes.io/community/
+  termsOfService: https://www.apache.org/licenses/LICENSE-2.0
+externalDocs:
+  description: Kubernetes Services API Reference
+  url: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/service-v1/
+servers:
+  - url: https://kubernetes.default.svc
+    description: In-cluster Kubernetes API Server
+tags:
+  - name: ServiceStatus
+    description: >-
+      Status subresource operations for Services, used to update load balancer
+      provisioning state and conditions.
+security:
+  - bearerAuth: []
+  - clientCertificate: []
+paths:
+  /api/v1/namespaces/{namespace}/services:
+    get:
+      operationId: listNamespacedServices
+      summary: Kubernetes Services List Services in a namespace
+      description: >-
+        Returns a list of all Services in the specified namespace. Services
+        provide stable virtual IPs and DNS names for pod groups. Supports
+        label and field filtering, and streaming via the watch parameter.
+      tags: []
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/FieldSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Continue'
+        - $ref: '#/components/parameters/ResourceVersion'
+        - $ref: '#/components/parameters/Watch'
+      responses:
+        '200':
+          description: List of Services
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createNamespacedService
+      summary: Kubernetes Services Create a Service
+      description: >-
+        Creates a new Service in the specified namespace. The Service type
+        determines how the service is exposed: ClusterIP for internal access,
+        NodePort to add a node-level port, LoadBalancer to provision a cloud
+        load balancer, or ExternalName to alias an external DNS name.
+      tags: []
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/DryRun'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      responses:
+        '201':
+          description: Service created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+  /api/v1/namespaces/{namespace}/services/{name}:
+    get:
+      operationId: getNamespacedService
+      summary: Kubernetes Services Get a Service
+      description: >-
+        Returns the specified Service including its cluster IP, type, port
+        mappings, selector, session affinity configuration, and load balancer
+        status.
+      tags: []
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: Service details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceNamespacedService
+      summary: Kubernetes Services Replace a Service
+      description: >-
+        Replaces the full specification of the specified Service. Updates to
+        selector take effect immediately; changing the type between ClusterIP,
+        NodePort, and LoadBalancer may trigger infrastructure changes.
+      tags: []
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/NameParam'
+        - $ref: '#/components/parameters/DryRun'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      responses:
+        '200':
+          description: Service updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: patchNamespacedService
+      summary: Kubernetes Services Patch a Service
+      description: >-
+        Applies a partial update to the specified Service. Supports
+        strategic-merge-patch, merge-patch, and apply-patch content types for
+        targeted field updates without replacing the full resource.
+      tags: []
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/NameParam'
+        - $ref: '#/components/parameters/DryRun'
+      requestBody:
+        required: true
+        content:
+          application/merge-patch+json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Service patched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteNamespacedService
+      summary: Kubernetes Services Delete a Service
+      description: >-
+        Deletes the specified Service. For LoadBalancer-type services, the
+        associated external load balancer will be deprovisioned. ClusterIP
+        is released back to the IP pool.
+      tags: []
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/NameParam'
+        - $ref: '#/components/parameters/GracePeriod'
+        - $ref: '#/components/parameters/DryRun'
+      responses:
+        '200':
+          description: Service deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v1/namespaces/{namespace}/services/{name}/status:
+    get:
+      operationId: getNamespacedServiceStatus
+      summary: Kubernetes Services Get Service status
+      description: >-
+        Returns the status subresource of the specified Service, including
+        load balancer ingress IPs or hostnames and any provisioning conditions.
+      tags:
+        - ServiceStatus
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/NameParam'
+      responses:
+        '200':
+          description: Service status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceNamespacedServiceStatus
+      summary: Kubernetes Services Replace Service status
+      description: >-
+        Replaces the status subresource of the specified Service. Used by
+        load balancer controllers to report the provisioned external IP or
+        hostname back to the Service resource.
+      tags:
+        - ServiceStatus
+      parameters:
+        - $ref: '#/components/parameters/NamespaceParam'
+        - $ref: '#/components/parameters/NameParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      responses:
+        '200':
+          description: Service status updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v1/services:
+    get:
+      operationId: listServicesAllNamespaces
+      summary: Kubernetes Services List Services across all namespaces
+      description: >-
+        Returns a list of all Services across every namespace in the cluster.
+        Useful for cluster-wide service discovery and auditing. Supports
+        label and field filtering.
+      tags: []
+      parameters:
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/FieldSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Watch'
+      responses:
+        '200':
+          description: List of Services across all namespaces
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        Kubernetes service account token or user token. Include in the
+        Authorization header as 'Bearer <token>'.
+    clientCertificate:
+      type: mutualTLS
+      description: >-
+        Client certificate authentication using a TLS certificate signed by
+        the cluster certificate authority.
+  parameters:
+    NamespaceParam:
+      name: namespace
+      in: path
+      required: true
+      description: Namespace name to scope the request.
+      schema:
+        type: string
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the Service resource.
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: >-
+        Label selector expression to filter resources. Supports equality
+        (=, ==, !=) and set-based (in, notin, exists) operators.
+      schema:
+        type: string
+    FieldSelector:
+      name: fieldSelector
+      in: query
+      description: >-
+        Field selector expression to filter resources by field values.
+        Example: metadata.name=my-service
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return. Use with continue for pagination.
+      schema:
+        type: integer
+        minimum: 1
+    Continue:
+      name: continue
+      in: query
+      description: Pagination token from a previous response's metadata.continue field.
+      schema:
+        type: string
+    ResourceVersion:
+      name: resourceVersion
+      in: query
+      description: >-
+        Resource version for watch operations. Returns events after this version.
+      schema:
+        type: string
+    Watch:
+      name: watch
+      in: query
+      description: If true, return a watch stream of changes instead of a list.
+      schema:
+        type: boolean
+    DryRun:
+      name: dryRun
+      in: query
+      description: >-
+        If 'All', the request is validated and processed without persisting.
+        Useful to verify changes before applying them.
+      schema:
+        type: string
+        enum:
+          - All
+    GracePeriod:
+      name: gracePeriodSeconds
+      in: query
+      description: >-
+        Duration in seconds to wait before forcefully deleting the resource.
+      schema:
+        type: integer
+        minimum: 0
+  responses:
+    BadRequest:
+      description: Bad request — invalid resource specification
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Unauthorized — missing or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    NotFound:
+      description: Not found — the specified Service does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Conflict:
+      description: Conflict — a Service with that name already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  schemas:
+    ServicePort:
+      type: object
+      description: >-
+        A port mapping within a Service, defining the protocol, service-facing
+        port, and the target pod port.
+      required:
+        - port
+      properties:
+        name:
+          type: string
+          description: >-
+            Port name. Must be unique within the ports list and conform to
+            DNS_LABEL format. Required for multi-port Services.
+          maxLength: 15
+        port:
+          type: integer
+          minimum: 1
+          maximum: 65535
+          description: Port number the Service listens on.
+        targetPort:
+          description: >-
+            Port number or named port on the Pod to forward traffic to.
+            Defaults to the value of port.
+          oneOf:
+            - type: integer
+              minimum: 1
+              maximum: 65535
+            - type: string
+        protocol:
+          type: string
+          enum:
+            - TCP
+            - UDP
+            - SCTP
+          description: Network protocol for this port. Defaults to TCP.
+          default: TCP
+        nodePort:
+          type: integer
+          minimum: 30000
+          maximum: 32767
+          description: >-
+            Port exposed on each node for NodePort and LoadBalancer service
+            types. Allocated automatically if not specified.
+        appProtocol:
+          type: string
+          description: >-
+            Application-layer protocol hint for the port. Examples: h2c, ws,
+            wss, kubernetes.io/h2c.
+    ServiceSpec:
+      type: object
+      description: >-
+        Specification of the desired behavior of a Service, defining port
+        mappings, pod selection, service type, IP configuration, and traffic
+        policy.
+      properties:
+        type:
+          type: string
+          enum:
+            - ClusterIP
+            - NodePort
+            - LoadBalancer
+            - ExternalName
+          description: >-
+            How the Service is exposed. ClusterIP (default) creates an
+            internal IP; NodePort adds a node-level port; LoadBalancer
+            provisions a cloud load balancer; ExternalName maps to an
+            external DNS name.
+          default: ClusterIP
+        selector:
+          type: object
+          additionalProperties:
+            type: string
+          description: >-
+            Label selector identifying the Pods this Service routes traffic to.
+            Not used for ExternalName services.
+        ports:
+          type: array
+          description: List of port mappings for this Service.
+          items:
+            $ref: '#/components/schemas/ServicePort'
+        clusterIP:
+          type: string
+          description: >-
+            Cluster-internal IP address for the Service. Assigned automatically
+            unless explicitly set. Set to 'None' for headless services.
+        clusterIPs:
+          type: array
+          items:
+            type: string
+          description: >-
+            List of cluster IPs for dual-stack services. The first value is
+            the primary clusterIP.
+        ipFamilies:
+          type: array
+          items:
+            type: string
+            enum:
+              - IPv4
+              - IPv6
+          description: IP families used by this Service for dual-stack configuration.
+        ipFamilyPolicy:
+          type: string
+          enum:
+            - SingleStack
+            - PreferDualStack
+            - RequireDualStack
+          description: IP family policy for dual-stack configuration.
+        externalName:
+          type: string
+          description: >-
+            External DNS name this Service resolves to. Only used when type is
+            ExternalName. No proxying or load balancing is performed.
+        externalIPs:
+          type: array
+          items:
+            type: string
+          description: >-
+            Additional IPs for which nodes will also accept traffic for this
+            Service. Not managed by Kubernetes.
+        externalTrafficPolicy:
+          type: string
+          enum:
+            - Cluster
+            - Local
+          description: >-
+            How external traffic is routed. Local preserves client source IP
+            but may be unbalanced; Cluster routes to any ready pod.
+        sessionAffinity:
+          type: string
+          enum:
+            - None
+            - ClientIP
+          description: >-
+            Session affinity type. ClientIP routes repeated requests from the
+            same IP to the same pod. Defaults to None.
+          default: None
+        sessionAffinityConfig:
+          type: object
+          description: Configuration of session affinity.
+          properties:
+            clientIP:
+              type: object
+              properties:
+                timeoutSeconds:
+                  type: integer
+                  minimum: 1
+                  maximum: 86400
+                  description: >-
+                    Seconds of idle time before the session affinity timeout
+                    elapses.
+        loadBalancerIP:
+          type: string
+          description: >-
+            Specific IP to request for the load balancer when supported by
+            the cloud provider.
+        loadBalancerSourceRanges:
+          type: array
+          items:
+            type: string
+          description: >-
+            CIDR ranges allowed to access the load balancer. Traffic outside
+            these ranges is dropped by the load balancer.
+        healthCheckNodePort:
+          type: integer
+          description: >-
+            Health check node port when externalTrafficPolicy is Local and
+            type is LoadBalancer.
+        publishNotReadyAddresses:
+          type: boolean
+          description: >-
+            If true, the DNS will provide the addresses of not-ready endpoints
+            for this service. Defaults to false.
+          default: false
+        allocateLoadBalancerNodePorts:
+          type: boolean
+          description: >-
+            Whether NodePorts are allocated for LoadBalancer services. Set to
+            false to disable NodePort allocation. Defaults to true.
+          default: true
+    ServiceStatus:
+      type: object
+      description: >-
+        Most recently observed status of a Service, including load balancer
+        provisioning state and ingress IP/hostname assignments.
+      properties:
+        loadBalancer:
+          type: object
+          description: Status of the load balancer for LoadBalancer-type services.
+          properties:
+            ingress:
+              type: array
+              description: >-
+                List of ingress points for the load balancer. May be IP
+                addresses or hostnames depending on the cloud provider.
+              items:
+                $ref: '#/components/schemas/LoadBalancerIngress'
+        conditions:
+          type: array
+          description: Current service conditions.
+          items:
+            $ref: '#/components/schemas/Condition'
+    LoadBalancerIngress:
+      type: object
+      description: >-
+        An ingress point for a load balancer, representing a provisioned IP
+        address or DNS hostname assigned by the cloud provider.
+      properties:
+        ip:
+          type: string
+          description: IP address of the load balancer ingress point.
+        hostname:
+          type: string
+          description: Hostname of the load balancer ingress point.
+        ports:
+          type: array
+          description: Port status for each exposed port.
+          items:
+            type: object
+            properties:
+              port:
+                type: integer
+              protocol:
+                type: string
+              error:
+                type: string
+                description: Error message if the port could not be provisioned.
+    Service:
+      type: object
+      description: >-
+        A Service is an abstract way to expose an application running on a
+        set of Pods as a network service. It provides a stable virtual IP and
+        DNS name, decoupling consumers from individual pod IPs.
+      properties:
+        apiVersion:
+          type: string
+          const: v1
+          description: API version of the resource.
+        kind:
+          type: string
+          const: Service
+          description: Kind of the resource.
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/ServiceSpec'
+        status:
+          $ref: '#/components/schemas/ServiceStatus'
+    ServiceList:
+      type: object
+      description: A list of Services returned by list operations.
+      required:
+        - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          const: ServiceList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Service'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the object, unique within the namespace.
+        namespace:
+          type: string
+          description: Namespace that scopes the resource.
+        uid:
+          type: string
+          description: Unique identifier generated by the server.
+        resourceVersion:
+          type: string
+          description: Internal version string for optimistic concurrency.
+        generation:
+          type: integer
+          description: Sequence number for spec changes.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the object was created.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Key-value labels for selecting and organizing resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata for tooling and controllers.
+    ListMeta:
+      type: object
+      description: Metadata for list responses including pagination state.
+      properties:
+        resourceVersion:
+          type: string
+          description: Resource version of the list for watch operations.
+        continue:
+          type: string
+          description: Pagination token for retrieving the next page.
+        remainingItemCount:
+          type: integer
+          description: Number of items remaining if pagination is in effect.
+    Condition:
+      type: object
+      description: >-
+        A condition representing a particular aspect of a resource's current
+        state.
+      required:
+        - type
+        - status
+      properties:
+        type:
+          type: string
+          description: Type of condition.
+        status:
+          type: string
+          enum:
+            - 'True'
+            - 'False'
+            - Unknown
+          description: Status of the condition.
+        observedGeneration:
+          type: integer
+          description: Generation the condition was observed at.
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time the condition last transitioned.
+        reason:
+          type: string
+          description: Machine-readable reason for the condition.
+        message:
+          type: string
+          description: Human-readable details about the condition.
+    Status:
+      type: object
+      description: A return value for operations that do not return other objects.
+      properties:
+        code:
+          type: integer
+          description: HTTP status code.
+        message:
+          type: string
+          description: Human-readable description of the status.
+        reason:
+          type: string
+          description: Machine-readable reason for the status.
+        status:
+          type: string
+          enum:
+            - Success
+            - Failure
