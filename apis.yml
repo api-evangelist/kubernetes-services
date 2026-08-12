@@ -435,6 +435,19 @@ apis:
   - type: Reference
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 common:
+  - type: IssueTracker
+    url: https://github.com/kubernetes/kubernetes/issues
+  - type: Releases
+    url: https://github.com/kubernetes/kubernetes/releases
+  - type: SecurityPolicy
+    url: https://github.com/kubernetes/kubernetes/blob/master/.github/SECURITY.md
+  - type: CodeOfConduct
+    url: https://github.com/kubernetes/kubernetes/blob/master/code-of-conduct.md
+  - type: ContributionGuide
+    url: https://github.com/kubernetes/kubernetes/blob/master/CONTRIBUTING.md
+  - type: License
+    name: Apache-2.0
+    url: https://github.com/kubernetes/kubernetes/blob/master/LICENSE
   - type: AgenticAccess
     url: agentic-access/kubernetes-services-agentic-access.yml
   - type: VulnerabilityDisclosure
