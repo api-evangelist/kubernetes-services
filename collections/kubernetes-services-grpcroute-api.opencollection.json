@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kubernetes Services Kubernetes EndpointSlices GRPCRoute API",
+    "version": "v1.32.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GRPCRoute",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Kubernetes Services List GRPCRoutes in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kubernetes.default.svc/apis/gateway.networking.k8s.io/v1/namespaces/:namespace/grpcroutes",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace name to scope the request."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "Label selector to filter resources."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return."
+              },
+              {
+                "name": "watch",
+                "value": "",
+                "type": "query",
+                "description": "If true, stream watch events."
+              }
+            ]
+          },
+          "docs": "Returns a list of all GRPCRoute resources in the specified namespace. GRPCRoutes define gRPC routing rules matching on service and method names."
+        },
+        {
+          "info": {
+            "name": "Kubernetes Services Create a GRPCRoute",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://kubernetes.default.svc/apis/gateway.networking.k8s.io/v1/namespaces/:namespace/grpcroutes",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace name to scope the request."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new GRPCRoute in the specified namespace for routing gRPC traffic from a Gateway listener to backend services based on gRPC service and method names."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kubernetes Kubernetes EndpointSlices Services API",
+    "version": "v1.32.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Kubernetes Services List Services across all namespaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kubernetes.default.svc/api/v1/services",
+            "params": [
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "Label selector expression to filter resources. Supports equality (=, ==, !=) and set-based (in, notin, exists) operators."
+              },
+              {
+                "name": "fieldSelector",
+                "value": "",
+                "type": "query",
+                "description": "Field selector expression to filter resources by field values. Example: metadata.name=my-service"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return. Use with continue for pagination."
+              },
+              {
+                "name": "watch",
+                "value": "",
+                "type": "query",
+                "description": "If true, return a watch stream of changes instead of a list."
+              }
+            ]
+          },
+          "docs": "Returns a list of all Services across every namespace in the cluster. Useful for cluster-wide service discovery and auditing. Supports label and field filtering."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

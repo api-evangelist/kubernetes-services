@@ -1,0 +1,227 @@
+{
+  "item": [
+    {
+      "id": "2a4c4dab-6f70-489f-9a36-0e1b70f54224",
+      "name": "Services",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "32ec5be3-5c9b-460d-bd02-942765fb948f",
+          "name": "Kubernetes Services List Services across all namespaces",
+          "request": {
+            "name": "Kubernetes Services List Services across all namespaces",
+            "description": {
+              "content": "Returns a list of all Services across every namespace in the cluster. Useful for cluster-wide service discovery and auditing. Supports label and field filtering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "Label selector expression to filter resources. Supports equality (=, ==, !=) and set-based (in, notin, exists) operators."
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldSelector",
+                  "value": "<string>",
+                  "description": "Field selector expression to filter resources by field values. Example: metadata.name=my-service"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of items to return. Use with continue for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "watch",
+                  "value": "<boolean>",
+                  "description": "If true, return a watch stream of changes instead of a list."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac18251e-4255-4893-b332-d61aa77c7f55",
+              "name": "List of Services across all namespaces",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "watch",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"apiVersion\": \"string\",\n      \"kind\": \"string\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"uid\": \"string\",\n        \"resourceVersion\": \"string\",\n        \"generation\": 773,\n        \"creationTimestamp\": \"2013-04-01T21:43:22.072Z\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        }\n      },\n      \"spec\": {\n        \"type\": \"ClusterIP\",\n        \"selector\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"ports\": [\n          {\n            \"port\": 46588,\n            \"name\": \"string\",\n            \"targetPort\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protocol\": \"TCP\",\n            \"nodePort\": 30280,\n            \"appProtocol\": \"string\"\n          },\n          {\n            \"port\": 55480,\n            \"name\": \"string\",\n            \"targetPort\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protocol\": \"TCP\",\n            \"nodePort\": 31501,\n            \"appProtocol\": \"string\"\n          }\n        ],\n        \"clusterIP\": \"string\",\n        \"clusterIPs\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipFamilies\": [\n          \"IPv6\",\n          \"IPv6\"\n        ],\n        \"ipFamilyPolicy\": \"SingleStack\",\n        \"externalName\": \"string\",\n        \"externalIPs\": [\n          \"string\",\n          \"string\"\n        ],\n        \"externalTrafficPolicy\": \"Local\",\n        \"sessionAffinity\": \"None\",\n        \"sessionAffinityConfig\": {\n          \"clientIP\": {\n            \"timeoutSeconds\": 36273\n          }\n        },\n        \"loadBalancerIP\": \"string\",\n        \"loadBalancerSourceRanges\": [\n          \"string\",\n          \"string\"\n        ],\n        \"healthCheckNodePort\": 6985,\n        \"publishNotReadyAddresses\": false,\n        \"allocateLoadBalancerNodePorts\": true\n      },\n      \"status\": {\n        \"loadBalancer\": {\n          \"ingress\": [\n            {\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ports\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ports\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 2406,\n            \"lastTransitionTime\": \"2011-10-08T06:23:46.782Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"observedGeneration\": 8416,\n            \"lastTransitionTime\": \"1974-04-26T05:31:14.024Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"string\",\n      \"kind\": \"string\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"uid\": \"string\",\n        \"resourceVersion\": \"string\",\n        \"generation\": 9690,\n        \"creationTimestamp\": \"1978-10-19T14:16:25.829Z\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        }\n      },\n      \"spec\": {\n        \"type\": \"ClusterIP\",\n        \"selector\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"ports\": [\n          {\n            \"port\": 49873,\n            \"name\": \"string\",\n            \"targetPort\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protocol\": \"TCP\",\n            \"nodePort\": 31624,\n            \"appProtocol\": \"string\"\n          },\n          {\n            \"port\": 18665,\n            \"name\": \"string\",\n            \"targetPort\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"protocol\": \"TCP\",\n            \"nodePort\": 30072,\n            \"appProtocol\": \"string\"\n          }\n        ],\n        \"clusterIP\": \"string\",\n        \"clusterIPs\": [\n          \"string\",\n          \"string\"\n        ],\n        \"ipFamilies\": [\n          \"IPv6\",\n          \"IPv6\"\n        ],\n        \"ipFamilyPolicy\": \"RequireDualStack\",\n        \"externalName\": \"string\",\n        \"externalIPs\": [\n          \"string\",\n          \"string\"\n        ],\n        \"externalTrafficPolicy\": \"Cluster\",\n        \"sessionAffinity\": \"None\",\n        \"sessionAffinityConfig\": {\n          \"clientIP\": {\n            \"timeoutSeconds\": 40238\n          }\n        },\n        \"loadBalancerIP\": \"string\",\n        \"loadBalancerSourceRanges\": [\n          \"string\",\n          \"string\"\n        ],\n        \"healthCheckNodePort\": 6754,\n        \"publishNotReadyAddresses\": false,\n        \"allocateLoadBalancerNodePorts\": true\n      },\n      \"status\": {\n        \"loadBalancer\": {\n          \"ingress\": [\n            {\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ports\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"ip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"hostname\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ports\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"observedGeneration\": 8221,\n            \"lastTransitionTime\": \"1980-02-24T20:07:26.408Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"False\",\n            \"observedGeneration\": 7886,\n            \"lastTransitionTime\": \"2000-04-08T17:11:01.083Z\",\n            \"reason\": \"string\",\n            \"message\": \"string\"\n          }\n        ]\n      }\n    }\n  ],\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"resourceVersion\": \"string\",\n    \"continue\": \"string\",\n    \"remainingItemCount\": 3942\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a607e9e5-9656-43bb-a7e3-166df8fcbc35",
+              "name": "Unauthorized — missing or invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fieldSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "watch",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2288,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://kubernetes.default.svc",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "79c7e5b9-89f9-4aa1-bacc-7e6fd07e4c82",
+    "name": "Kubernetes Kubernetes EndpointSlices Services API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kubernetes EndpointSlices API tracks the IP addresses, ports, readiness, and topology information for Pods backing a Service. EndpointSlices replaced the older Endpoints API to improve scalability for large clusters with thousands of pods. A single Service may be backed by multiple EndpointSlices, and the EndpointSlice controller automatically manages their lifecycle in response to pod and Service changes.\n\nContact Support:\n Name: Kubernetes Community",
+      "type": "text/plain"
+    }
+  }
+}

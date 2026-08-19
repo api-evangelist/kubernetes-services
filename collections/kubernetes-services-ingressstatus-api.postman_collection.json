@@ -1,0 +1,582 @@
+{
+  "item": [
+    {
+      "id": "c4b12a8c-41d3-41dc-8ba4-565ce1283b89",
+      "name": "IngressStatus",
+      "description": {
+        "content": "Status subresource for Ingress objects, reporting load balancer IP or hostname assignments from the ingress controller.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "28787b2b-d8b8-43f1-9b10-7620c1282009",
+          "name": "Kubernetes Services Get Ingress status",
+          "request": {
+            "name": "Kubernetes Services Get Ingress status",
+            "description": {
+              "content": "Returns the status subresource for the specified Ingress, including the load balancer IP addresses or hostnames assigned by the ingress controller.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "networking.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "ingresses",
+                ":name",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "75c89758-a93f-499b-a5bc-42d0e39fce92",
+              "name": "Ingress status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "ingresses",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1954-04-10T23:28:47.382Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"ingressClassName\": \"string\",\n    \"defaultBackend\": {\n      \"service\": {\n        \"name\": \"string\",\n        \"port\": {\n          \"number\": 22575,\n          \"name\": \"string\"\n        }\n      },\n      \"resource\": {\n        \"apiGroup\": \"string\",\n        \"kind\": \"string\",\n        \"name\": \"string\"\n      }\n    },\n    \"tls\": [\n      {\n        \"hosts\": [\n          \"string\",\n          \"string\"\n        ],\n        \"secretName\": \"string\"\n      },\n      {\n        \"hosts\": [\n          \"string\",\n          \"string\"\n        ],\n        \"secretName\": \"string\"\n      }\n    ],\n    \"rules\": [\n      {\n        \"host\": \"string\",\n        \"http\": {\n          \"paths\": [\n            {\n              \"pathType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"backend\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"path\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      },\n      {\n        \"host\": \"string\",\n        \"http\": {\n          \"paths\": [\n            {\n              \"pathType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"backend\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"path\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6291,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 8265,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 2121,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7429,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a788e43-433b-4520-b920-f7c37f01f36a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "ingresses",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5996,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5455cc04-c710-43fe-8d07-af26b52c4c6b",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "ingresses",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5996,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a08f352-04dc-456c-9ed7-18df0fe3975e",
+          "name": "Kubernetes Services Replace Ingress status",
+          "request": {
+            "name": "Kubernetes Services Replace Ingress status",
+            "description": {
+              "content": "Replaces the status subresource of the specified Ingress. Used by ingress controllers to report assigned load balancer IPs and hostnames.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "networking.k8s.io",
+                "v1",
+                "namespaces",
+                ":namespace",
+                "ingresses",
+                ":name",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) Namespace name to scope the request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) Name of the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"uid\": \"<string>\",\n    \"resourceVersion\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"spec\": {\n    \"ingressClassName\": \"<string>\",\n    \"defaultBackend\": {\n      \"service\": {\n        \"name\": \"<string>\",\n        \"port\": {\n          \"number\": \"<integer>\",\n          \"name\": \"<string>\"\n        }\n      },\n      \"resource\": {\n        \"apiGroup\": \"<string>\",\n        \"kind\": \"<string>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"tls\": [\n      {\n        \"hosts\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"secretName\": \"<string>\"\n      },\n      {\n        \"hosts\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"secretName\": \"<string>\"\n      }\n    ],\n    \"rules\": [\n      {\n        \"host\": \"<string>\",\n        \"http\": {\n          \"paths\": [\n            {\n              \"pathType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"backend\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"path\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      },\n      {\n        \"host\": \"<string>\",\n        \"http\": {\n          \"paths\": [\n            {\n              \"pathType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"backend\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"path\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"<string>\",\n          \"hostname\": \"<string>\",\n          \"ports\": [\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            },\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"<string>\",\n          \"hostname\": \"<string>\",\n          \"ports\": [\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            },\n            {\n              \"port\": \"<integer>\",\n              \"protocol\": \"<string>\",\n              \"error\": \"<string>\"\n            }\n          ]\n        }\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e3468655-e2c5-4292-8f39-0d6675885868",
+              "name": "Ingress status updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "ingresses",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1993-01-25T20:36:08.184Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"ingressClassName\": \"string\",\n    \"defaultBackend\": {\n      \"service\": {\n        \"name\": \"string\",\n        \"port\": {\n          \"number\": 43967,\n          \"name\": \"string\"\n        }\n      },\n      \"resource\": {\n        \"apiGroup\": \"string\",\n        \"kind\": \"string\",\n        \"name\": \"string\"\n      }\n    },\n    \"tls\": [\n      {\n        \"hosts\": [\n          \"string\",\n          \"string\"\n        ],\n        \"secretName\": \"string\"\n      },\n      {\n        \"hosts\": [\n          \"string\",\n          \"string\"\n        ],\n        \"secretName\": \"string\"\n      }\n    ],\n    \"rules\": [\n      {\n        \"host\": \"string\",\n        \"http\": {\n          \"paths\": [\n            {\n              \"pathType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"backend\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"path\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      },\n      {\n        \"host\": \"string\",\n        \"http\": {\n          \"paths\": [\n            {\n              \"pathType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"backend\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"path\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 2467,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 8941,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 13,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 5600,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"string\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1954-04-10T23:28:47.382Z\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"ingressClassName\": \"string\",\n    \"defaultBackend\": {\n      \"service\": {\n        \"name\": \"string\",\n        \"port\": {\n          \"number\": 22575,\n          \"name\": \"string\"\n        }\n      },\n      \"resource\": {\n        \"apiGroup\": \"string\",\n        \"kind\": \"string\",\n        \"name\": \"string\"\n      }\n    },\n    \"tls\": [\n      {\n        \"hosts\": [\n          \"string\",\n          \"string\"\n        ],\n        \"secretName\": \"string\"\n      },\n      {\n        \"hosts\": [\n          \"string\",\n          \"string\"\n        ],\n        \"secretName\": \"string\"\n      }\n    ],\n    \"rules\": [\n      {\n        \"host\": \"string\",\n        \"http\": {\n          \"paths\": [\n            {\n              \"pathType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"backend\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"path\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      },\n      {\n        \"host\": \"string\",\n        \"http\": {\n          \"paths\": [\n            {\n              \"pathType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"backend\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"path\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 6291,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 8265,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 2121,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 7429,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da952c8a-29b6-4dbd-8e30-8ded54f42d98",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "ingresses",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1993-01-25T20:36:08.184Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"ingressClassName\": \"string\",\n    \"defaultBackend\": {\n      \"service\": {\n        \"name\": \"string\",\n        \"port\": {\n          \"number\": 43967,\n          \"name\": \"string\"\n        }\n      },\n      \"resource\": {\n        \"apiGroup\": \"string\",\n        \"kind\": \"string\",\n        \"name\": \"string\"\n      }\n    },\n    \"tls\": [\n      {\n        \"hosts\": [\n          \"string\",\n          \"string\"\n        ],\n        \"secretName\": \"string\"\n      },\n      {\n        \"hosts\": [\n          \"string\",\n          \"string\"\n        ],\n        \"secretName\": \"string\"\n      }\n    ],\n    \"rules\": [\n      {\n        \"host\": \"string\",\n        \"http\": {\n          \"paths\": [\n            {\n              \"pathType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"backend\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"path\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      },\n      {\n        \"host\": \"string\",\n        \"http\": {\n          \"paths\": [\n            {\n              \"pathType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"backend\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"path\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 2467,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 8941,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 13,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 5600,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5996,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6fa8f7bc-b9bb-41ae-8e23-a6389f02c6a0",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "networking.k8s.io",
+                    "v1",
+                    "namespaces",
+                    ":namespace",
+                    "ingresses",
+                    ":name",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) Namespace name to scope the request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) Name of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"uid\": \"string\",\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1993-01-25T20:36:08.184Z\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    }\n  },\n  \"spec\": {\n    \"ingressClassName\": \"string\",\n    \"defaultBackend\": {\n      \"service\": {\n        \"name\": \"string\",\n        \"port\": {\n          \"number\": 43967,\n          \"name\": \"string\"\n        }\n      },\n      \"resource\": {\n        \"apiGroup\": \"string\",\n        \"kind\": \"string\",\n        \"name\": \"string\"\n      }\n    },\n    \"tls\": [\n      {\n        \"hosts\": [\n          \"string\",\n          \"string\"\n        ],\n        \"secretName\": \"string\"\n      },\n      {\n        \"hosts\": [\n          \"string\",\n          \"string\"\n        ],\n        \"secretName\": \"string\"\n      }\n    ],\n    \"rules\": [\n      {\n        \"host\": \"string\",\n        \"http\": {\n          \"paths\": [\n            {\n              \"pathType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"backend\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"path\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      },\n      {\n        \"host\": \"string\",\n        \"http\": {\n          \"paths\": [\n            {\n              \"pathType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"backend\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"path\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    ]\n  },\n  \"status\": {\n    \"loadBalancer\": {\n      \"ingress\": [\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 2467,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 8941,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        },\n        {\n          \"ip\": \"string\",\n          \"hostname\": \"string\",\n          \"ports\": [\n            {\n              \"port\": 13,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            },\n            {\n              \"port\": 5600,\n              \"protocol\": \"string\",\n              \"error\": \"string\"\n            }\n          ]\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5996,\n  \"message\": \"string\",\n  \"reason\": \"string\",\n  \"status\": \"Success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://kubernetes.default.svc",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2f783d81-ec61-4e8d-b3b2-253ab5237f64",
+    "name": "Kubernetes Services Kubernetes EndpointSlices IngressStatus API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kubernetes EndpointSlices API tracks the IP addresses, ports, readiness, and topology information for Pods backing a Service. EndpointSlices replaced the older Endpoints API to improve scalability for large clusters with thousands of pods. A single Service may be backed by multiple EndpointSlices, and the EndpointSlice controller automatically manages their lifecycle in response to pod and Service changes.\n\nContact Support:\n Name: Kubernetes Community",
+      "type": "text/plain"
+    }
+  }
+}

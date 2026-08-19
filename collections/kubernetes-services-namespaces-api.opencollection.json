@@ -1,0 +1,240 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kubernetes Services Kubernetes EndpointSlices Namespaces API",
+    "version": "v1.32.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Namespaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Kubernetes Services List Services in a namespace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kubernetes.default.svc/api/v1/namespaces/:namespace/services",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace name to scope the request."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "Label selector expression to filter resources. Supports equality (=, ==, !=) and set-based (in, notin, exists) operators."
+              },
+              {
+                "name": "fieldSelector",
+                "value": "",
+                "type": "query",
+                "description": "Field selector expression to filter resources by field values. Example: metadata.name=my-service"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return. Use with continue for pagination."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token from a previous response's metadata.continue field."
+              },
+              {
+                "name": "resourceVersion",
+                "value": "",
+                "type": "query",
+                "description": "Resource version for watch operations. Returns events after this version."
+              },
+              {
+                "name": "watch",
+                "value": "",
+                "type": "query",
+                "description": "If true, return a watch stream of changes instead of a list."
+              }
+            ]
+          },
+          "docs": "Returns a list of all Services in the specified namespace. Services provide stable virtual IPs and DNS names for pod groups. Supports label and field filtering, and streaming via the watch parameter."
+        },
+        {
+          "info": {
+            "name": "Kubernetes Services Create a Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://kubernetes.default.svc/api/v1/namespaces/:namespace/services",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace name to scope the request."
+              },
+              {
+                "name": "dryRun",
+                "value": "",
+                "type": "query",
+                "description": "If 'All', the request is validated and processed without persisting. Useful to verify changes before applying them."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Service in the specified namespace. The Service type determines how the service is exposed: ClusterIP for internal access, NodePort to add a node-level port, LoadBalancer to provision a cloud load balancer, or ExternalName to alias an external DNS name."
+        },
+        {
+          "info": {
+            "name": "Kubernetes Services Get a Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://kubernetes.default.svc/api/v1/namespaces/:namespace/services/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace name to scope the request."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Service resource."
+              }
+            ]
+          },
+          "docs": "Returns the specified Service including its cluster IP, type, port mappings, selector, session affinity configuration, and load balancer status."
+        },
+        {
+          "info": {
+            "name": "Kubernetes Services Replace a Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://kubernetes.default.svc/api/v1/namespaces/:namespace/services/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace name to scope the request."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Service resource."
+              },
+              {
+                "name": "dryRun",
+                "value": "",
+                "type": "query",
+                "description": "If 'All', the request is validated and processed without persisting. Useful to verify changes before applying them."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the full specification of the specified Service. Updates to selector take effect immediately; changing the type between ClusterIP, NodePort, and LoadBalancer may trigger infrastructure changes."
+        },
+        {
+          "info": {
+            "name": "Kubernetes Services Patch a Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://kubernetes.default.svc/api/v1/namespaces/:namespace/services/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace name to scope the request."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Service resource."
+              },
+              {
+                "name": "dryRun",
+                "value": "",
+                "type": "query",
+                "description": "If 'All', the request is validated and processed without persisting. Useful to verify changes before applying them."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Applies a partial update to the specified Service. Supports strategic-merge-patch, merge-patch, and apply-patch content types for targeted field updates without replacing the full resource."
+        },
+        {
+          "info": {
+            "name": "Kubernetes Services Delete a Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://kubernetes.default.svc/api/v1/namespaces/:namespace/services/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace name to scope the request."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the Service resource."
+              },
+              {
+                "name": "gracePeriodSeconds",
+                "value": "",
+                "type": "query",
+                "description": "Duration in seconds to wait before forcefully deleting the resource."
+              },
+              {
+                "name": "dryRun",
+                "value": "",
+                "type": "query",
+                "description": "If 'All', the request is validated and processed without persisting. Useful to verify changes before applying them."
+              }
+            ]
+          },
+          "docs": "Deletes the specified Service. For LoadBalancer-type services, the associated external load balancer will be deprovisioned. ClusterIP is released back to the IP pool."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
