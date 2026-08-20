@@ -345,6 +345,8 @@ apis:
     namespace selectors, and IP CIDR blocks.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
+  - Network Policy
+  tags_raw:
   - NetworkPolicy
   properties:
   - type: OpenAPI
@@ -408,6 +410,8 @@ apis:
     Status subresource operations for Services, used to update load balancer provisioning state and conditions.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
+  - Service Status
+  tags_raw:
   - ServiceStatus
   properties:
   - type: OpenAPI
