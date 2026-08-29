@@ -4,6 +4,19 @@ description: >-
   Kubernetes Services provide an abstract way to expose an application running on a set of Pods as a network service.
   They provide stable networking endpoints and load balancing across pod replicas in a Kubernetes cluster.
 type: Index
+deliveryModel:
+  model: self-hosted
+  license: Apache-2.0
+  open_source: true
+  commercial: false
+  callable_host: false
+  label: Self-hosted open source · you run it yourself
+  confidence: high
+  source:
+  - license
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: self-serve
