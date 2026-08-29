@@ -452,6 +452,9 @@ apis:
   - type: Reference
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 common:
+  - type: CapabilityMap
+    url: capabilities/kubernetes-services-capability-edges.yml
+    name: Kubernetes Services Business Capability Map
   - type: IssueTracker
     url: https://github.com/kubernetes/kubernetes/issues
   - type: Releases
