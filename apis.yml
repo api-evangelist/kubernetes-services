@@ -358,7 +358,7 @@ apis:
     namespace selectors, and IP CIDR blocks.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
-  - Network Policy
+  - NetworkPolicy
   tags_raw:
   - NetworkPolicy
   properties:
