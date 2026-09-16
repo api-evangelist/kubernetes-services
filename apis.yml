@@ -1,8 +1,8 @@
 aid: kubernetes-services
 name: Kubernetes Services
-description: >-
-  Kubernetes Services provide an abstract way to expose an application running on a set of Pods as a network service.
-  They provide stable networking endpoints and load balancing across pod replicas in a Kubernetes cluster.
+description: Kubernetes Services provide an abstract way to expose an application running on a set of
+  Pods as a network service. They provide stable networking endpoints and load balancing across pod replicas
+  in a Kubernetes cluster.
 type: Index
 deliveryModel:
   model: self-hosted
@@ -33,22 +33,21 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/kubernetes-services.png
 tags:
-  - Container Orchestration
-  - Kubernetes
-  - Load Balancing
-  - Networking
-  - Service Discovery
+- Container Orchestration
+- Kubernetes
+- Load Balancing
+- Networking
+- Service Discovery
 url: https://raw.githubusercontent.com/api-evangelist/kubernetes-services/refs/heads/main/apis.yml
 created: '2025-01-01'
-modified: '2026-05-19'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
 - aid: kubernetes-services:kubernetes-dns
   name: Kubernetes DNS for Services and Pods
-  description: >-
-    Kubernetes provides DNS-based service discovery for Services and Pods within a cluster. DNS records
-    are automatically created for Services, allowing workloads to locate services by name rather than
-    by IP address.
+  description: Kubernetes provides DNS-based service discovery for Services and Pods within a cluster.
+    DNS records are automatically created for Services, allowing workloads to locate services by name
+    rather than by IP address.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/
   tags:
   - DNS
@@ -60,9 +59,8 @@ apis:
     url: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/
 - aid: kubernetes-services:kubernetes-services-endpointslices-api
   name: Kubernetes Services EndpointSlices API
-  description: >-
-    EndpointSlice resources tracking IP addresses, ports, and readiness of pods backing a Service, with
-    topology-aware routing support.
+  description: EndpointSlice resources tracking IP addresses, ports, and readiness of pods backing a Service,
+    with topology-aware routing support.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
   - EndpointSlices
@@ -93,9 +91,8 @@ apis:
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 - aid: kubernetes-services:kubernetes-services-gateway-api
   name: Kubernetes Services Gateway API
-  description: >-
-    Gateway resources instantiating traffic-handling infrastructure such as cloud load balancers or in-cluster
-    proxies, with listeners for each protocol.
+  description: Gateway resources instantiating traffic-handling infrastructure such as cloud load balancers
+    or in-cluster proxies, with listeners for each protocol.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
   - Gateway
@@ -126,9 +123,8 @@ apis:
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 - aid: kubernetes-services:kubernetes-services-gatewayclass-api
   name: Kubernetes Services GatewayClass API
-  description: >-
-    GatewayClass resources defining a class of gateway implementations. Cluster-scoped resources that
-    link to a specific ingress or mesh controller.
+  description: GatewayClass resources defining a class of gateway implementations. Cluster-scoped resources
+    that link to a specific ingress or mesh controller.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
   - GatewayClass
@@ -159,9 +155,8 @@ apis:
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 - aid: kubernetes-services:kubernetes-services-grpcroute-api
   name: Kubernetes Services GRPCRoute API
-  description: >-
-    GRPCRoute resources defining gRPC routing rules from Gateway listeners to backend services with service
-    and method name matching.
+  description: GRPCRoute resources defining gRPC routing rules from Gateway listeners to backend services
+    with service and method name matching.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
   - GRPCRoute
@@ -192,9 +187,8 @@ apis:
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 - aid: kubernetes-services:kubernetes-services-httproute-api
   name: Kubernetes Services HTTPRoute API
-  description: >-
-    HTTPRoute resources defining HTTP and HTTPS routing rules from Gateway listeners to backend services
-    with support for path, header, and query parameter matching.
+  description: HTTPRoute resources defining HTTP and HTTPS routing rules from Gateway listeners to backend
+    services with support for path, header, and query parameter matching.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
   - HTTPRoute
@@ -225,9 +219,8 @@ apis:
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 - aid: kubernetes-services:kubernetes-services-ingress-api
   name: Kubernetes Services Ingress API
-  description: >-
-    Ingress resources defining HTTP and HTTPS routing rules from external traffic to cluster services,
-    with TLS termination support.
+  description: Ingress resources defining HTTP and HTTPS routing rules from external traffic to cluster
+    services, with TLS termination support.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
   - Ingress
@@ -258,8 +251,7 @@ apis:
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 - aid: kubernetes-services:kubernetes-services-ingressclass-api
   name: Kubernetes Services IngressClass API
-  description: >-
-    IngressClass resources identifying which ingress controller should fulfill an Ingress resource.
+  description: IngressClass resources identifying which ingress controller should fulfill an Ingress resource.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
   - IngressClass
@@ -290,9 +282,8 @@ apis:
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 - aid: kubernetes-services:kubernetes-services-ingressstatus-api
   name: Kubernetes Services IngressStatus API
-  description: >-
-    Status subresource for Ingress objects, reporting load balancer IP or hostname assignments from the
-    ingress controller.
+  description: Status subresource for Ingress objects, reporting load balancer IP or hostname assignments
+    from the ingress controller.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
   - IngressStatus
@@ -354,9 +345,8 @@ apis:
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 - aid: kubernetes-services:kubernetes-services-networkpolicy-api
   name: Kubernetes Services NetworkPolicy API
-  description: >-
-    NetworkPolicy resources controlling Pod-level traffic ingress and egress based on label selectors,
-    namespace selectors, and IP CIDR blocks.
+  description: NetworkPolicy resources controlling Pod-level traffic ingress and egress based on label
+    selectors, namespace selectors, and IP CIDR blocks.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
   - Network Policy
@@ -388,7 +378,7 @@ apis:
   - type: Reference
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 - aid: kubernetes-services:kubernetes-services-services-api
-  name: Kubernetes Services Services API
+  name: Kubernetes Services API
   description: The Services API from Kubernetes Services — 1 operation(s) for services.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
@@ -420,8 +410,8 @@ apis:
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 - aid: kubernetes-services:kubernetes-services-servicestatus-api
   name: Kubernetes Services ServiceStatus API
-  description: >-
-    Status subresource operations for Services, used to update load balancer provisioning state and conditions.
+  description: Status subresource operations for Services, used to update load balancer provisioning state
+    and conditions.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
   - Service Status
@@ -453,52 +443,52 @@ apis:
   - type: Reference
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 common:
-  - type: CapabilityMap
-    url: capabilities/kubernetes-services-capability-edges.yml
-    name: Kubernetes Services Business Capability Map
-  - type: IssueTracker
-    url: https://github.com/kubernetes/kubernetes/issues
-  - type: Releases
-    url: https://github.com/kubernetes/kubernetes/releases
-  - type: SecurityPolicy
-    url: https://github.com/kubernetes/kubernetes/blob/master/.github/SECURITY.md
-  - type: CodeOfConduct
-    url: https://github.com/kubernetes/kubernetes/blob/master/code-of-conduct.md
-  - type: ContributionGuide
-    url: https://github.com/kubernetes/kubernetes/blob/master/CONTRIBUTING.md
-  - type: License
-    name: Apache-2.0
-    url: https://github.com/kubernetes/kubernetes/blob/master/LICENSE
-  - type: AgenticAccess
-    url: agentic-access/kubernetes-services-agentic-access.yml
-  - type: VulnerabilityDisclosure
-    url: security/kubernetes-services-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/kubernetes-services-domain-security.yml
-  - type: Authentication
-    url: authentication/kubernetes-services-authentication.yml
-  - type: Website
-    url: https://kubernetes.io
-  - type: Documentation
-    url: https://kubernetes.io/docs/concepts/services-networking/
-  - type: GettingStarted
-    url: https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
-  - type: Reference
-    url: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/
-  - type: GitHubOrganization
-    url: https://github.com/kubernetes
-  - type: GitHubRepository
-    url: https://github.com/kubernetes/kubernetes
-  - type: Blog
-    url: https://kubernetes.io/blog/
-  - type: Community
-    url: https://kubernetes.io/community/
-  - type: ChangeLog
-    url: https://kubernetes.io/releases/
-  - type: JSONSchema
-    url: json-schema/kubernetes-services-schema.json
-  - type: JSONLD
-    url: json-ld/kubernetes-services-context.jsonld
+- type: CapabilityMap
+  url: capabilities/kubernetes-services-capability-edges.yml
+  name: Kubernetes Services Business Capability Map
+- type: IssueTracker
+  url: https://github.com/kubernetes/kubernetes/issues
+- type: Releases
+  url: https://github.com/kubernetes/kubernetes/releases
+- type: SecurityPolicy
+  url: https://github.com/kubernetes/kubernetes/blob/master/.github/SECURITY.md
+- type: CodeOfConduct
+  url: https://github.com/kubernetes/kubernetes/blob/master/code-of-conduct.md
+- type: ContributionGuide
+  url: https://github.com/kubernetes/kubernetes/blob/master/CONTRIBUTING.md
+- type: License
+  name: Apache-2.0
+  url: https://github.com/kubernetes/kubernetes/blob/master/LICENSE
+- type: AgenticAccess
+  url: agentic-access/kubernetes-services-agentic-access.yml
+- type: VulnerabilityDisclosure
+  url: security/kubernetes-services-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/kubernetes-services-domain-security.yml
+- type: Authentication
+  url: authentication/kubernetes-services-authentication.yml
+- type: Website
+  url: https://kubernetes.io
+- type: Documentation
+  url: https://kubernetes.io/docs/concepts/services-networking/
+- type: GettingStarted
+  url: https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
+- type: Reference
+  url: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/
+- type: GitHubOrganization
+  url: https://github.com/kubernetes
+- type: GitHubRepository
+  url: https://github.com/kubernetes/kubernetes
+- type: Blog
+  url: https://kubernetes.io/blog/
+- type: Community
+  url: https://kubernetes.io/community/
+- type: ChangeLog
+  url: https://kubernetes.io/releases/
+- type: JSONSchema
+  url: json-schema/kubernetes-services-schema.json
+- type: JSONLD
+  url: json-ld/kubernetes-services-context.jsonld
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
