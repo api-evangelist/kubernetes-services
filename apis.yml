@@ -98,6 +98,8 @@ apis:
     proxies, with listeners for each protocol.
   humanURL: https://kubernetes.io/docs/concepts/services-networking/service/
   tags:
+  - Gateways
+  tags_raw:
   - Gateway
   properties:
   - type: OpenAPI
