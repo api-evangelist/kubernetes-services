@@ -1,36 +1,62 @@
 {
   "provider": "kubernetes-services",
   "sources": [
-    "kubernetes-services-endpointslices-api-openapi.yml",
-    "kubernetes-services-gateway-api-openapi.yml",
-    "kubernetes-services-gatewayclass-api-openapi.yml",
-    "kubernetes-services-grpcroute-api-openapi.yml",
-    "kubernetes-services-httproute-api-openapi.yml",
-    "kubernetes-services-ingress-api-openapi.yml",
-    "kubernetes-services-ingressclass-api-openapi.yml",
-    "kubernetes-services-ingressstatus-api-openapi.yml",
-    "kubernetes-services-namespaces-api-openapi.yml",
-    "kubernetes-services-networkpolicy-api-openapi.yml",
-    "kubernetes-services-services-api-openapi.yml",
-    "kubernetes-services-servicestatus-api-openapi.yml"
+    "_original/kubernetes-endpoint-slices-openapi.yml",
+    "_original/kubernetes-gateway-api-openapi.yml",
+    "_original/kubernetes-ingress-openapi.yml",
+    "_original/kubernetes-network-policies-openapi.yml",
+    "_original/kubernetes-services-openapi.yml"
   ],
   "outputs": [
     "kubernetes-services-endpointslices-api-openapi.yml",
+    "kubernetes-services-grpcroute-api-openapi.yml",
     "kubernetes-services-gateway-api-openapi.yml",
     "kubernetes-services-gatewayclass-api-openapi.yml",
-    "kubernetes-services-grpcroute-api-openapi.yml",
     "kubernetes-services-httproute-api-openapi.yml",
     "kubernetes-services-ingress-api-openapi.yml",
     "kubernetes-services-ingressclass-api-openapi.yml",
     "kubernetes-services-ingressstatus-api-openapi.yml",
-    "kubernetes-services-namespaces-api-openapi.yml",
     "kubernetes-services-networkpolicy-api-openapi.yml",
-    "kubernetes-services-services-api-openapi.yml",
-    "kubernetes-services-servicestatus-api-openapi.yml"
+    "kubernetes-services-namespaces-api-openapi.yml",
+    "kubernetes-services-servicestatus-api-openapi.yml",
+    "kubernetes-services-services-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 2 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (5 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "kubernetes-endpoint-slices-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "kubernetes-gateway-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "kubernetes-ingress-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "kubernetes-network-policies-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "kubernetes-services-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "kubernetes-services-openapi.yml: tagged paths GET /api/v1/namespaces/{namespace}/services -> Namespaces",
+    "kubernetes-services-openapi.yml: tagged paths POST /api/v1/namespaces/{namespace}/services -> Namespaces",
+    "kubernetes-services-openapi.yml: tagged paths GET /api/v1/namespaces/{namespace}/services/{name} -> Namespaces",
+    "kubernetes-services-openapi.yml: tagged paths PUT /api/v1/namespaces/{namespace}/services/{name} -> Namespaces",
+    "kubernetes-services-openapi.yml: tagged paths PATCH /api/v1/namespaces/{namespace}/services/{name} -> Namespaces",
+    "kubernetes-services-openapi.yml: tagged paths DELETE /api/v1/namespaces/{namespace}/services/{name} -> Namespaces",
+    "kubernetes-services-openapi.yml: tagged paths GET /api/v1/services -> Services",
+    "kubernetes-services-openapi.yml: declared missing tag: Namespaces",
+    "kubernetes-services-openapi.yml: declared missing tag: Services",
+    "superseded outputs removed: kubernetes-services-network-policy-api-openapi.yml, kubernetes-services-service-status-api-openapi.yml",
+    "apis.yml register: written (+2 apis, 13 total)"
+  ],
+  "skipped": [
+    "kubernetes-services-endpointslices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kubernetes-services-gateway-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kubernetes-services-gatewayclass-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kubernetes-services-grpcroute-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kubernetes-services-httproute-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kubernetes-services-ingress-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kubernetes-services-ingressclass-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kubernetes-services-ingressstatus-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kubernetes-services-namespaces-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kubernetes-services-network-policy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kubernetes-services-service-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kubernetes-services-services-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

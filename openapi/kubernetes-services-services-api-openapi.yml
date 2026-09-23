@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Kubernetes Kubernetes EndpointSlices Services API
-  description: The Kubernetes EndpointSlices API tracks the IP addresses, ports, readiness, and topology information for Pods backing a Service. EndpointSlices replaced the older Endpoints API to improve scalability for large clusters with thousands of pods. A single Service may be backed by multiple EndpointSlices, and the EndpointSlice controller automatically manages their lifecycle in response to pod and Service changes.
+  title: Kubernetes Services API
+  description: The Kubernetes Services API provides an abstraction for exposing groups of Pods over a network with a stable virtual IP address and DNS name. Services decouple consumers from the pod IPs, enabling load balancing across pod replicas and supporting ClusterIP, NodePort, LoadBalancer, and ExternalName service types for internal and external connectivity within Kubernetes clusters.
   version: v1.32.0
   contact:
     name: Kubernetes Community
@@ -38,7 +38,195 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    FieldSelector:
+      name: fieldSelector
+      in: query
+      description: 'Field selector expression to filter resources by field values. Example: metadata.name=my-service'
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector expression to filter resources. Supports equality (=, ==, !=) and set-based (in, notin, exists) operators.
+      schema:
+        type: string
+    Watch:
+      name: watch
+      in: query
+      description: If true, return a watch stream of changes instead of a list.
+      schema:
+        type: boolean
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return. Use with continue for pagination.
+      schema:
+        type: integer
+        minimum: 1
   schemas:
+    Service:
+      type: object
+      description: A Service is an abstract way to expose an application running on a set of Pods as a network service. It provides a stable virtual IP and DNS name, decoupling consumers from individual pod IPs.
+      properties:
+        apiVersion:
+          type: string
+          const: v1
+          description: API version of the resource.
+        kind:
+          type: string
+          const: Service
+          description: Kind of the resource.
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/ServiceSpec'
+        status:
+          $ref: '#/components/schemas/ServiceStatus'
+    LoadBalancerIngress:
+      type: object
+      description: An ingress point for a load balancer, representing a provisioned IP address or DNS hostname assigned by the cloud provider.
+      properties:
+        ip:
+          type: string
+          description: IP address of the load balancer ingress point.
+        hostname:
+          type: string
+          description: Hostname of the load balancer ingress point.
+        ports:
+          type: array
+          description: Port status for each exposed port.
+          items:
+            type: object
+            properties:
+              port:
+                type: integer
+              protocol:
+                type: string
+              error:
+                type: string
+                description: Error message if the port could not be provisioned.
+    ServicePort:
+      type: object
+      description: A port mapping within a Service, defining the protocol, service-facing port, and the target pod port.
+      required:
+      - port
+      properties:
+        name:
+          type: string
+          description: Port name. Must be unique within the ports list and conform to DNS_LABEL format. Required for multi-port Services.
+          maxLength: 15
+        port:
+          type: integer
+          minimum: 1
+          maximum: 65535
+          description: Port number the Service listens on.
+        targetPort:
+          description: Port number or named port on the Pod to forward traffic to. Defaults to the value of port.
+          oneOf:
+          - type: integer
+            minimum: 1
+            maximum: 65535
+          - type: string
+        protocol:
+          type: string
+          enum:
+          - TCP
+          - UDP
+          - SCTP
+          description: Network protocol for this port. Defaults to TCP.
+          default: TCP
+        nodePort:
+          type: integer
+          minimum: 30000
+          maximum: 32767
+          description: Port exposed on each node for NodePort and LoadBalancer service types. Allocated automatically if not specified.
+        appProtocol:
+          type: string
+          description: 'Application-layer protocol hint for the port. Examples: h2c, ws, wss, kubernetes.io/h2c.'
+    Status:
+      type: object
+      description: A return value for operations that do not return other objects.
+      properties:
+        code:
+          type: integer
+          description: HTTP status code.
+        message:
+          type: string
+          description: Human-readable description of the status.
+        reason:
+          type: string
+          description: Machine-readable reason for the status.
+        status:
+          type: string
+          enum:
+          - Success
+          - Failure
+    ServiceList:
+      type: object
+      description: A list of Services returned by list operations.
+      required:
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          const: ServiceList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Service'
+    Condition:
+      type: object
+      description: A condition representing a particular aspect of a resource's current state.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of condition.
+        status:
+          type: string
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+          description: Status of the condition.
+        observedGeneration:
+          type: integer
+          description: Generation the condition was observed at.
+        lastTransitionTime:
+          type: string
+          format: date-time
+          description: Time the condition last transitioned.
+        reason:
+          type: string
+          description: Machine-readable reason for the condition.
+        message:
+          type: string
+          description: Human-readable details about the condition.
+    ServiceStatus:
+      type: object
+      description: Most recently observed status of a Service, including load balancer provisioning state and ingress IP/hostname assignments.
+      properties:
+        loadBalancer:
+          type: object
+          description: Status of the load balancer for LoadBalancer-type services.
+          properties:
+            ingress:
+              type: array
+              description: List of ingress points for the load balancer. May be IP addresses or hostnames depending on the cloud provider.
+              items:
+                $ref: '#/components/schemas/LoadBalancerIngress'
+        conditions:
+          type: array
+          description: Current service conditions.
+          items:
+            $ref: '#/components/schemas/Condition'
     ServiceSpec:
       type: object
       description: Specification of the desired behavior of a Service, defining port mappings, pod selection, service type, IP configuration, and traffic policy.
@@ -137,120 +325,19 @@ components:
           type: boolean
           description: Whether NodePorts are allocated for LoadBalancer services. Set to false to disable NodePort allocation. Defaults to true.
           default: true
-    ServiceList:
+    ListMeta:
       type: object
-      description: A list of Services returned by list operations.
-      required:
-      - items
+      description: Metadata for list responses including pagination state.
       properties:
-        apiVersion:
+        resourceVersion:
           type: string
-        kind:
+          description: Resource version of the list for watch operations.
+        continue:
           type: string
-          const: ServiceList
-        metadata:
-          $ref: '#/components/schemas/ListMeta'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Service'
-    LoadBalancerIngress:
-      type: object
-      description: An ingress point for a load balancer, representing a provisioned IP address or DNS hostname assigned by the cloud provider.
-      properties:
-        ip:
-          type: string
-          description: IP address of the load balancer ingress point.
-        hostname:
-          type: string
-          description: Hostname of the load balancer ingress point.
-        ports:
-          type: array
-          description: Port status for each exposed port.
-          items:
-            type: object
-            properties:
-              port:
-                type: integer
-              protocol:
-                type: string
-              error:
-                type: string
-                description: Error message if the port could not be provisioned.
-    ServicePort:
-      type: object
-      description: A port mapping within a Service, defining the protocol, service-facing port, and the target pod port.
-      required:
-      - port
-      properties:
-        name:
-          type: string
-          description: Port name. Must be unique within the ports list and conform to DNS_LABEL format. Required for multi-port Services.
-          maxLength: 15
-        port:
+          description: Pagination token for retrieving the next page.
+        remainingItemCount:
           type: integer
-          minimum: 1
-          maximum: 65535
-          description: Port number the Service listens on.
-        targetPort:
-          description: Port number or named port on the Pod to forward traffic to. Defaults to the value of port.
-          oneOf:
-          - type: integer
-            minimum: 1
-            maximum: 65535
-          - type: string
-        protocol:
-          type: string
-          enum:
-          - TCP
-          - UDP
-          - SCTP
-          description: Network protocol for this port. Defaults to TCP.
-          default: TCP
-        nodePort:
-          type: integer
-          minimum: 30000
-          maximum: 32767
-          description: Port exposed on each node for NodePort and LoadBalancer service types. Allocated automatically if not specified.
-        appProtocol:
-          type: string
-          description: 'Application-layer protocol hint for the port. Examples: h2c, ws, wss, kubernetes.io/h2c.'
-    ServiceStatus:
-      type: object
-      description: Most recently observed status of a Service, including load balancer provisioning state and ingress IP/hostname assignments.
-      properties:
-        loadBalancer:
-          type: object
-          description: Status of the load balancer for LoadBalancer-type services.
-          properties:
-            ingress:
-              type: array
-              description: List of ingress points for the load balancer. May be IP addresses or hostnames depending on the cloud provider.
-              items:
-                $ref: '#/components/schemas/LoadBalancerIngress'
-        conditions:
-          type: array
-          description: Current service conditions.
-          items:
-            $ref: '#/components/schemas/Condition'
-    Service:
-      type: object
-      description: A Service is an abstract way to expose an application running on a set of Pods as a network service. It provides a stable virtual IP and DNS name, decoupling consumers from individual pod IPs.
-      properties:
-        apiVersion:
-          type: string
-          const: v1
-          description: API version of the resource.
-        kind:
-          type: string
-          const: Service
-          description: Kind of the resource.
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/ServiceSpec'
-        status:
-          $ref: '#/components/schemas/ServiceStatus'
+          description: Number of items remaining if pagination is in effect.
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -284,93 +371,6 @@ components:
           additionalProperties:
             type: string
           description: Non-identifying metadata for tooling and controllers.
-    Status:
-      type: object
-      description: A return value for operations that do not return other objects.
-      properties:
-        code:
-          type: integer
-          description: HTTP status code.
-        message:
-          type: string
-          description: Human-readable description of the status.
-        reason:
-          type: string
-          description: Machine-readable reason for the status.
-        status:
-          type: string
-          enum:
-          - Success
-          - Failure
-    Condition:
-      type: object
-      description: A condition representing a particular aspect of a resource's current state.
-      required:
-      - type
-      - status
-      properties:
-        type:
-          type: string
-          description: Type of condition.
-        status:
-          type: string
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-          description: Status of the condition.
-        observedGeneration:
-          type: integer
-          description: Generation the condition was observed at.
-        lastTransitionTime:
-          type: string
-          format: date-time
-          description: Time the condition last transitioned.
-        reason:
-          type: string
-          description: Machine-readable reason for the condition.
-        message:
-          type: string
-          description: Human-readable details about the condition.
-    ListMeta:
-      type: object
-      description: Metadata for list responses including pagination state.
-      properties:
-        resourceVersion:
-          type: string
-          description: Resource version of the list for watch operations.
-        continue:
-          type: string
-          description: Pagination token for retrieving the next page.
-        remainingItemCount:
-          type: integer
-          description: Number of items remaining if pagination is in effect.
-  parameters:
-    LabelSelector:
-      name: labelSelector
-      in: query
-      description: Label selector expression to filter resources. Supports equality (=, ==, !=) and set-based (in, notin, exists) operators.
-      schema:
-        type: string
-    FieldSelector:
-      name: fieldSelector
-      in: query
-      description: 'Field selector expression to filter resources by field values. Example: metadata.name=my-service'
-      schema:
-        type: string
-    Watch:
-      name: watch
-      in: query
-      description: If true, return a watch stream of changes instead of a list.
-      schema:
-        type: boolean
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return. Use with continue for pagination.
-      schema:
-        type: integer
-        minimum: 1
   responses:
     Unauthorized:
       description: Unauthorized — missing or invalid credentials
@@ -383,10 +383,10 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: Kubernetes service account or user bearer token.
+      description: Kubernetes service account token or user token. Include in the Authorization header as 'Bearer <token>'.
     clientCertificate:
       type: mutualTLS
-      description: Client TLS certificate signed by the cluster CA.
+      description: Client certificate authentication using a TLS certificate signed by the cluster certificate authority.
 externalDocs:
-  description: Kubernetes EndpointSlice API Reference
-  url: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/
+  description: Kubernetes Services API Reference
+  url: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/service-v1/

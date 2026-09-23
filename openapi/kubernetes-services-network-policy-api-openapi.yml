@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Kubernetes Services Kubernetes EndpointSlices NetworkPolicy API
-  description: The Kubernetes EndpointSlices API tracks the IP addresses, ports, readiness, and topology information for Pods backing a Service. EndpointSlices replaced the older Endpoints API to improve scalability for large clusters with thousands of pods. A single Service may be backed by multiple EndpointSlices, and the EndpointSlice controller automatically manages their lifecycle in response to pod and Service changes.
+  title: Kubernetes Services Kubernetes Network Policies Network…
+  description: The Kubernetes NetworkPolicy API controls how groups of Pods communicate with each other and with external network endpoints. Policies define ingress and egress rules based on Pod selectors, namespace selectors, and IP blocks, allowing cluster operators to implement fine-grained network segmentation and zero-trust networking within a Kubernetes cluster.
   version: v1.32.0
   contact:
     name: Kubernetes Community
@@ -14,7 +14,7 @@ security:
 - bearerAuth: []
 - clientCertificate: []
 tags:
-- name: NetworkPolicy
+- name: Network Policy
   description: NetworkPolicy resources controlling Pod-level traffic ingress and egress based on label selectors, namespace selectors, and IP CIDR blocks.
 paths:
   /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies:
@@ -23,7 +23,7 @@ paths:
       summary: Kubernetes Services List NetworkPolicies in a namespace
       description: Returns a list of all NetworkPolicy objects in the specified namespace. Network policies are enforced by the CNI plugin and define which pods can send or receive network traffic.
       tags:
-      - NetworkPolicy
+      - Network Policy
       parameters:
       - $ref: '#/components/parameters/NamespaceParam'
       - $ref: '#/components/parameters/LabelSelector'
@@ -45,7 +45,7 @@ paths:
       summary: Kubernetes Services Create a NetworkPolicy
       description: Creates a new NetworkPolicy in the specified namespace. Once created, the CNI plugin enforces the policy by allowing only the traffic explicitly permitted by ingress and egress rules.
       tags:
-      - NetworkPolicy
+      - Network Policy
       parameters:
       - $ref: '#/components/parameters/NamespaceParam'
       - $ref: '#/components/parameters/DryRun'
@@ -72,7 +72,7 @@ paths:
       summary: Kubernetes Services Get a NetworkPolicy
       description: Returns the specified NetworkPolicy including its pod selector, ingress rules, egress rules, and policy types (Ingress, Egress, or both).
       tags:
-      - NetworkPolicy
+      - Network Policy
       parameters:
       - $ref: '#/components/parameters/NamespaceParam'
       - $ref: '#/components/parameters/NameParam'
@@ -92,7 +92,7 @@ paths:
       summary: Kubernetes Services Replace a NetworkPolicy
       description: Replaces the full specification of the specified NetworkPolicy. The CNI plugin re-evaluates the updated rules immediately for all pods selected by the policy.
       tags:
-      - NetworkPolicy
+      - Network Policy
       parameters:
       - $ref: '#/components/parameters/NamespaceParam'
       - $ref: '#/components/parameters/NameParam'
@@ -121,7 +121,7 @@ paths:
       summary: Kubernetes Services Patch a NetworkPolicy
       description: Applies a partial update to the specified NetworkPolicy using strategic merge patch. Useful for adding or removing individual ingress or egress rules.
       tags:
-      - NetworkPolicy
+      - Network Policy
       parameters:
       - $ref: '#/components/parameters/NamespaceParam'
       - $ref: '#/components/parameters/NameParam'
@@ -147,7 +147,7 @@ paths:
       summary: Kubernetes Services Delete a NetworkPolicy
       description: Deletes the specified NetworkPolicy. Traffic previously restricted by this policy will no longer be affected once the policy is removed.
       tags:
-      - NetworkPolicy
+      - Network Policy
       parameters:
       - $ref: '#/components/parameters/NamespaceParam'
       - $ref: '#/components/parameters/NameParam'
@@ -168,7 +168,7 @@ paths:
       summary: Kubernetes Services List NetworkPolicies across all namespaces
       description: Returns all NetworkPolicy objects across every namespace in the cluster. Useful for auditing network segmentation, identifying gaps in policy coverage, and reviewing cross-namespace traffic restrictions.
       tags:
-      - NetworkPolicy
+      - Network Policy
       parameters:
       - $ref: '#/components/parameters/LabelSelector'
       - $ref: '#/components/parameters/FieldSelector'
@@ -184,145 +184,22 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    DryRun:
-      name: dryRun
-      in: query
-      description: If 'All', validates without persisting the change.
-      schema:
-        type: string
-        enum:
-        - All
-    Continue:
-      name: continue
-      in: query
-      description: Pagination continuation token.
-      schema:
-        type: string
-    Watch:
-      name: watch
-      in: query
-      description: If true, stream watch events instead of returning a list.
-      schema:
-        type: boolean
-    NameParam:
-      name: name
-      in: path
-      required: true
-      description: Name of the NetworkPolicy resource.
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      description: Label selector to filter resources.
-      schema:
-        type: string
-    FieldSelector:
-      name: fieldSelector
-      in: query
-      description: Field selector to filter resources by field values.
-      schema:
-        type: string
-    NamespaceParam:
-      name: namespace
-      in: path
-      required: true
-      description: Namespace name to scope the request.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        minimum: 1
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
   schemas:
-    NetworkPolicyList:
+    IPBlock:
       type: object
-      description: A list of NetworkPolicy objects.
+      description: An IP block defined by a CIDR range with optional exceptions, used to allow or restrict traffic to or from specific IP ranges.
       required:
-      - items
+      - cidr
       properties:
-        apiVersion:
+        cidr:
           type: string
-        kind:
-          type: string
-          const: NetworkPolicyList
-        metadata:
-          $ref: '#/components/schemas/ListMeta'
-        items:
+          description: 'CIDR range to match. Examples: 192.168.1.0/24, 0.0.0.0/0, 2001:db8::/32.'
+          pattern: ^([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}$|^[0-9a-fA-F:]+/[0-9]{1,3}$
+        except:
           type: array
+          description: CIDR ranges to exclude from the ipBlock. Must be within the cidr range.
           items:
-            $ref: '#/components/schemas/NetworkPolicy'
-    NetworkPolicy:
-      type: object
-      description: A NetworkPolicy describes how groups of pods are allowed to communicate with each other and other network endpoints. Policies are additive — if multiple policies select a pod, all rules are combined. Requires a CNI plugin that supports NetworkPolicy enforcement.
-      properties:
-        apiVersion:
-          type: string
-          const: networking.k8s.io/v1
-        kind:
-          type: string
-          const: NetworkPolicy
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/NetworkPolicySpec'
-    LabelSelector:
-      type: object
-      description: A label selector filtering pods or namespaces by their labels. Combines matchLabels equality requirements with matchExpressions set-based requirements using AND logic.
-      properties:
-        matchLabels:
-          type: object
-          additionalProperties:
             type: string
-          description: Key-value pairs that must all match on the target resource labels.
-        matchExpressions:
-          type: array
-          description: Set-based requirements combined with AND logic.
-          items:
-            type: object
-            required:
-            - key
-            - operator
-            properties:
-              key:
-                type: string
-                description: Label key the selector applies to.
-              operator:
-                type: string
-                enum:
-                - In
-                - NotIn
-                - Exists
-                - DoesNotExist
-                description: Relationship between the key and values.
-              values:
-                type: array
-                items:
-                  type: string
-                description: Values for In/NotIn operators.
     NetworkPolicyPeer:
       type: object
       description: A network policy peer specifying a traffic source (in ingress rules) or destination (in egress rules). Uses AND logic when multiple selector types are combined.
@@ -333,6 +210,36 @@ components:
           $ref: '#/components/schemas/LabelSelector'
         ipBlock:
           $ref: '#/components/schemas/IPBlock'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the object.
+        namespace:
+          type: string
+          description: Namespace of the object.
+        uid:
+          type: string
+          description: Unique server-assigned identifier.
+        resourceVersion:
+          type: string
+          description: Internal version string.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Label key-value pairs.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata.
     NetworkPolicyEgressRule:
       type: object
       description: An egress rule allowing outbound traffic from selected pods to specified destinations on specified ports. An empty to list allows traffic to all destinations.
@@ -347,6 +254,20 @@ components:
           description: Ports to which the egress traffic is allowed.
           items:
             $ref: '#/components/schemas/NetworkPolicyPort'
+    NetworkPolicy:
+      type: object
+      description: A NetworkPolicy describes how groups of pods are allowed to communicate with each other and other network endpoints. Policies are additive — if multiple policies select a pod, all rules are combined. Requires a CNI plugin that supports NetworkPolicy enforcement.
+      properties:
+        apiVersion:
+          type: string
+          const: networking.k8s.io/v1
+        kind:
+          type: string
+          const: NetworkPolicy
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/NetworkPolicySpec'
     NetworkPolicyIngressRule:
       type: object
       description: An ingress rule allowing inbound traffic to selected pods from specified sources on specified ports. An empty from list allows traffic from all sources. An empty ports list allows all ports.
@@ -387,36 +308,82 @@ components:
           description: Egress rules. Each rule allows traffic matching all of its conditions. An empty egress list denies all egress traffic.
           items:
             $ref: '#/components/schemas/NetworkPolicyEgressRule'
-    ObjectMeta:
+    ListMeta:
       type: object
-      description: Standard Kubernetes object metadata.
+      description: Metadata for list responses.
       properties:
-        name:
-          type: string
-          description: Name of the object.
-        namespace:
-          type: string
-          description: Namespace of the object.
-        uid:
-          type: string
-          description: Unique server-assigned identifier.
         resourceVersion:
           type: string
-          description: Internal version string.
-        creationTimestamp:
+        continue:
           type: string
-          format: date-time
-          description: Creation timestamp.
-        labels:
+        remainingItemCount:
+          type: integer
+    LabelSelector:
+      type: object
+      description: A label selector filtering pods or namespaces by their labels. Combines matchLabels equality requirements with matchExpressions set-based requirements using AND logic.
+      properties:
+        matchLabels:
           type: object
           additionalProperties:
             type: string
-          description: Label key-value pairs.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Non-identifying metadata.
+          description: Key-value pairs that must all match on the target resource labels.
+        matchExpressions:
+          type: array
+          description: Set-based requirements combined with AND logic.
+          items:
+            type: object
+            required:
+            - key
+            - operator
+            properties:
+              key:
+                type: string
+                description: Label key the selector applies to.
+              operator:
+                type: string
+                enum:
+                - In
+                - NotIn
+                - Exists
+                - DoesNotExist
+                description: Relationship between the key and values.
+              values:
+                type: array
+                items:
+                  type: string
+                description: Values for In/NotIn operators.
+    NetworkPolicyList:
+      type: object
+      description: A list of NetworkPolicy objects.
+      required:
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          const: NetworkPolicyList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkPolicy'
+    Status:
+      type: object
+      description: Error or result status.
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+          - Success
+          - Failure
     NetworkPolicyPort:
       type: object
       description: A port and protocol combination allowed by a network policy rule. Empty port/protocol fields match all ports and protocols.
@@ -441,46 +408,79 @@ components:
           minimum: 1
           maximum: 65535
           description: End of a port range. If specified with port, allows all ports from port to endPort inclusive.
-    IPBlock:
-      type: object
-      description: An IP block defined by a CIDR range with optional exceptions, used to allow or restrict traffic to or from specific IP ranges.
-      required:
-      - cidr
-      properties:
-        cidr:
-          type: string
-          description: 'CIDR range to match. Examples: 192.168.1.0/24, 0.0.0.0/0, 2001:db8::/32.'
-          pattern: ^([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}$|^[0-9a-fA-F:]+/[0-9]{1,3}$
-        except:
-          type: array
-          description: CIDR ranges to exclude from the ipBlock. Must be within the cidr range.
-          items:
-            type: string
-    Status:
-      type: object
-      description: Error or result status.
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        reason:
-          type: string
-        status:
-          type: string
-          enum:
-          - Success
-          - Failure
-    ListMeta:
-      type: object
-      description: Metadata for list responses.
-      properties:
-        resourceVersion:
-          type: string
-        continue:
-          type: string
-        remainingItemCount:
-          type: integer
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    Continue:
+      name: continue
+      in: query
+      description: Pagination continuation token.
+      schema:
+        type: string
+    FieldSelector:
+      name: fieldSelector
+      in: query
+      description: Field selector to filter resources by field values.
+      schema:
+        type: string
+    DryRun:
+      name: dryRun
+      in: query
+      description: If 'All', validates without persisting the change.
+      schema:
+        type: string
+        enum:
+        - All
+    Watch:
+      name: watch
+      in: query
+      description: If true, stream watch events instead of returning a list.
+      schema:
+        type: boolean
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the NetworkPolicy resource.
+      schema:
+        type: string
+    NamespaceParam:
+      name: namespace
+      in: path
+      required: true
+      description: Namespace name to scope the request.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
   securitySchemes:
     bearerAuth:
       type: http
@@ -491,5 +491,5 @@ components:
       type: mutualTLS
       description: Client TLS certificate signed by the cluster CA.
 externalDocs:
-  description: Kubernetes EndpointSlice API Reference
-  url: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/
+  description: Kubernetes NetworkPolicy API Reference
+  url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/

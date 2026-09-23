@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Kubernetes Services Kubernetes EndpointSlices API
+  title: Kubernetes Services Kubernetes Endpoint Slices API
   description: The Kubernetes EndpointSlices API tracks the IP addresses, ports, readiness, and topology information for Pods backing a Service. EndpointSlices replaced the older Endpoints API to improve scalability for large clusters with thousands of pods. A single Service may be backed by multiple EndpointSlices, and the EndpointSlice controller automatically manages their lifecycle in response to pod and Service changes.
   version: v1.32.0
   contact:
@@ -185,47 +185,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    EndpointPort:
-      type: object
-      description: A network port definition shared by all endpoints in the slice. An EndpointSlice may have up to 100 ports.
-      properties:
-        name:
-          type: string
-          description: Port name. Must match a port name in the parent Service. Must be unique within the ports list.
-          maxLength: 15
-        port:
-          type: integer
-          minimum: 1
-          maximum: 65535
-          description: Port number.
-        protocol:
-          type: string
-          enum:
-          - TCP
-          - UDP
-          - SCTP
-          description: Network protocol. Defaults to TCP.
-          default: TCP
-        appProtocol:
-          type: string
-          description: Application-layer protocol hint for this port.
-    EndpointSliceList:
-      type: object
-      description: A list of EndpointSlice objects.
-      required:
-      - items
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          const: EndpointSliceList
-        metadata:
-          $ref: '#/components/schemas/ListMeta'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/EndpointSlice'
     EndpointSlice:
       type: object
       description: An EndpointSlice represents a subset of the endpoints that implement a Service. For a given Service, multiple EndpointSlices may exist, and together they represent all the pods selected by the Service. The kubernetes.io/service-name label links slices to their Service.
@@ -259,41 +218,6 @@ components:
           maxItems: 100
           items:
             $ref: '#/components/schemas/EndpointPort'
-    EndpointHints:
-      type: object
-      description: Routing hints that guide topology-aware routing decisions, directing clients to geographically or logically proximate endpoints.
-      properties:
-        forZones:
-          type: array
-          description: Zones that should prefer routing to this endpoint.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: Name of the zone (e.g. us-east-1a).
-        forNodes:
-          type: array
-          description: Nodes that should prefer routing to this endpoint.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: Name of the node.
-    EndpointConditions:
-      type: object
-      description: Conditions describing the current state of an endpoint, used by consumers to determine whether the endpoint should receive traffic.
-      properties:
-        ready:
-          type: boolean
-          description: Whether the endpoint is ready to accept traffic. Pods that have not yet passed readiness probes have ready=false.
-        serving:
-          type: boolean
-          description: Whether the endpoint is capable of serving requests even if not yet ready. True for pods that are in the process of terminating.
-        terminating:
-          type: boolean
-          description: Whether the endpoint is being gracefully terminated. Allows consumers to complete in-flight requests to terminating pods.
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -324,6 +248,30 @@ components:
           additionalProperties:
             type: string
           description: Non-identifying metadata.
+    EndpointPort:
+      type: object
+      description: A network port definition shared by all endpoints in the slice. An EndpointSlice may have up to 100 ports.
+      properties:
+        name:
+          type: string
+          description: Port name. Must match a port name in the parent Service. Must be unique within the ports list.
+          maxLength: 15
+        port:
+          type: integer
+          minimum: 1
+          maximum: 65535
+          description: Port number.
+        protocol:
+          type: string
+          enum:
+          - TCP
+          - UDP
+          - SCTP
+          description: Network protocol. Defaults to TCP.
+          default: TCP
+        appProtocol:
+          type: string
+          description: Application-layer protocol hint for this port.
     Endpoint:
       type: object
       description: A single network endpoint representing a pod IP address, its readiness conditions, and optional topology information for advanced routing.
@@ -364,6 +312,68 @@ components:
               type: string
         hints:
           $ref: '#/components/schemas/EndpointHints'
+    EndpointHints:
+      type: object
+      description: Routing hints that guide topology-aware routing decisions, directing clients to geographically or logically proximate endpoints.
+      properties:
+        forZones:
+          type: array
+          description: Zones that should prefer routing to this endpoint.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Name of the zone (e.g. us-east-1a).
+        forNodes:
+          type: array
+          description: Nodes that should prefer routing to this endpoint.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Name of the node.
+    EndpointConditions:
+      type: object
+      description: Conditions describing the current state of an endpoint, used by consumers to determine whether the endpoint should receive traffic.
+      properties:
+        ready:
+          type: boolean
+          description: Whether the endpoint is ready to accept traffic. Pods that have not yet passed readiness probes have ready=false.
+        serving:
+          type: boolean
+          description: Whether the endpoint is capable of serving requests even if not yet ready. True for pods that are in the process of terminating.
+        terminating:
+          type: boolean
+          description: Whether the endpoint is being gracefully terminated. Allows consumers to complete in-flight requests to terminating pods.
+    ListMeta:
+      type: object
+      description: Metadata for list responses.
+      properties:
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
+          type: integer
+    EndpointSliceList:
+      type: object
+      description: A list of EndpointSlice objects.
+      required:
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          const: EndpointSliceList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EndpointSlice'
     Status:
       type: object
       description: Error or result status.
@@ -379,17 +389,38 @@ components:
           enum:
           - Success
           - Failure
-    ListMeta:
-      type: object
-      description: Metadata for list responses.
-      properties:
-        resourceVersion:
-          type: string
-        continue:
-          type: string
-        remainingItemCount:
-          type: integer
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   parameters:
+    Continue:
+      name: continue
+      in: query
+      description: Pagination continuation token.
+      schema:
+        type: string
+    FieldSelector:
+      name: fieldSelector
+      in: query
+      description: Field selector to filter resources.
+      schema:
+        type: string
     DryRun:
       name: dryRun
       in: query
@@ -398,35 +429,23 @@ components:
         type: string
         enum:
         - All
-    Continue:
-      name: continue
-      in: query
-      description: Pagination continuation token.
-      schema:
-        type: string
     Watch:
       name: watch
       in: query
       description: If true, stream watch events.
       schema:
         type: boolean
-    NameParam:
-      name: name
-      in: path
-      required: true
-      description: Name of the EndpointSlice resource.
-      schema:
-        type: string
     LabelSelector:
       name: labelSelector
       in: query
       description: Label selector expression. Use kubernetes.io/service-name=<svc> to retrieve slices for a specific Service.
       schema:
         type: string
-    FieldSelector:
-      name: fieldSelector
-      in: query
-      description: Field selector to filter resources.
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the EndpointSlice resource.
       schema:
         type: string
     NamespaceParam:
@@ -443,25 +462,6 @@ components:
       schema:
         type: integer
         minimum: 1
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
   securitySchemes:
     bearerAuth:
       type: http

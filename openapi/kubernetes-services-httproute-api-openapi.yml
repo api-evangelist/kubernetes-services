@@ -1,11 +1,11 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Kubernetes Services Kubernetes EndpointSlices HTTPRoute API
-  description: The Kubernetes EndpointSlices API tracks the IP addresses, ports, readiness, and topology information for Pods backing a Service. EndpointSlices replaced the older Endpoints API to improve scalability for large clusters with thousands of pods. A single Service may be backed by multiple EndpointSlices, and the EndpointSlice controller automatically manages their lifecycle in response to pod and Service changes.
-  version: v1.32.0
+  title: Kubernetes Services Kubernetes Gateway HTTP Route API
+  description: The Kubernetes Gateway API is a role-oriented, extensible API for managing ingress and mesh traffic routing in Kubernetes clusters. It introduces the GatewayClass, Gateway, HTTPRoute, and GRPCRoute resources that collectively provide advanced traffic management features including header-based routing, traffic weighting, cross-namespace routing, and multi-protocol support as a successor to the Ingress API.
+  version: v1.2.0
   contact:
-    name: Kubernetes Community
-    url: https://kubernetes.io/community/
+    name: Kubernetes Gateway API SIG Network
+    url: https://gateway-api.sigs.k8s.io/
   termsOfService: https://www.apache.org/licenses/LICENSE-2.0
 servers:
 - url: https://kubernetes.default.svc
@@ -132,161 +132,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    DryRun:
-      name: dryRun
-      in: query
-      description: If 'All', validates without persisting.
-      schema:
-        type: string
-        enum:
-        - All
-    LabelSelector:
-      name: labelSelector
-      in: query
-      description: Label selector to filter resources.
-      schema:
-        type: string
-    NameParam:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource.
-      schema:
-        type: string
-    NamespaceParam:
-      name: namespace
-      in: path
-      required: true
-      description: Namespace name to scope the request.
-      schema:
-        type: string
-    Watch:
-      name: watch
-      in: query
-      description: If true, stream watch events.
-      schema:
-        type: boolean
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        minimum: 1
-  responses:
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
   schemas:
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata.
-      properties:
-        name:
-          type: string
-          description: Name of the object.
-        namespace:
-          type: string
-          description: Namespace of the object.
-        uid:
-          type: string
-          description: Unique server-assigned identifier.
-        resourceVersion:
-          type: string
-          description: Internal version string.
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Creation timestamp.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Label key-value pairs.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Non-identifying metadata.
-    HTTPRouteMatch:
-      type: object
-      description: Conditions for matching an incoming HTTP request. Multiple matches within a rule are OR'd; conditions within a match are AND'd.
-      properties:
-        path:
-          type: object
-          description: Path match conditions.
-          properties:
-            type:
-              type: string
-              enum:
-              - Exact
-              - PathPrefix
-              - RegularExpression
-              description: Path match type.
-            value:
-              type: string
-              description: Path value to match.
-        headers:
-          type: array
-          description: Header match conditions. All conditions must match.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: Header name to match.
-              value:
-                type: string
-                description: Header value to match.
-              type:
-                type: string
-                enum:
-                - Exact
-                - RegularExpression
-        queryParams:
-          type: array
-          description: Query parameter match conditions.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              value:
-                type: string
-              type:
-                type: string
-                enum:
-                - Exact
-                - RegularExpression
-        method:
-          type: string
-          enum:
-          - GET
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-          - HEAD
-          - OPTIONS
-          - CONNECT
-          - TRACE
-          description: HTTP method to match.
     HTTPBackendRef:
       type: object
       description: Reference to a backend service in an HTTPRoute rule, with an optional traffic weight for proportional routing.
@@ -310,73 +156,6 @@ components:
           minimum: 0
           maximum: 1000000
           description: Relative weight for traffic distribution. Requests are proportioned by weight across backendRefs in the same rule.
-    Status:
-      type: object
-      description: Error or result status.
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        reason:
-          type: string
-        status:
-          type: string
-          enum:
-          - Success
-          - Failure
-    Condition:
-      type: object
-      description: A condition expressing an aspect of current resource state.
-      required:
-      - type
-      - status
-      properties:
-        type:
-          type: string
-          description: Type of condition.
-        status:
-          type: string
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-        reason:
-          type: string
-          description: Machine-readable reason for the condition.
-        message:
-          type: string
-          description: Human-readable condition details.
-        lastTransitionTime:
-          type: string
-          format: date-time
-    HTTPRouteList:
-      type: object
-      description: A list of HTTPRoute resources.
-      required:
-      - items
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          const: HTTPRouteList
-        metadata:
-          $ref: '#/components/schemas/ListMeta'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/HTTPRoute'
-    ListMeta:
-      type: object
-      description: Metadata for list responses.
-      properties:
-        resourceVersion:
-          type: string
-        continue:
-          type: string
-        remainingItemCount:
-          type: integer
     HTTPRoute:
       type: object
       description: An HTTPRoute defines HTTP routing rules from one or more Gateway listeners to backend services. Rules support rich matching on path, headers, query parameters, and HTTP method, and can apply request and response filters.
@@ -444,6 +223,227 @@ components:
                     type: array
                     items:
                       $ref: '#/components/schemas/Condition'
+    HTTPRouteList:
+      type: object
+      description: A list of HTTPRoute resources.
+      required:
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          const: HTTPRouteList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPRoute'
+    Status:
+      type: object
+      description: Error or result status.
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+          - Success
+          - Failure
+    HTTPRouteMatch:
+      type: object
+      description: Conditions for matching an incoming HTTP request. Multiple matches within a rule are OR'd; conditions within a match are AND'd.
+      properties:
+        path:
+          type: object
+          description: Path match conditions.
+          properties:
+            type:
+              type: string
+              enum:
+              - Exact
+              - PathPrefix
+              - RegularExpression
+              description: Path match type.
+            value:
+              type: string
+              description: Path value to match.
+        headers:
+          type: array
+          description: Header match conditions. All conditions must match.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Header name to match.
+              value:
+                type: string
+                description: Header value to match.
+              type:
+                type: string
+                enum:
+                - Exact
+                - RegularExpression
+        queryParams:
+          type: array
+          description: Query parameter match conditions.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              value:
+                type: string
+              type:
+                type: string
+                enum:
+                - Exact
+                - RegularExpression
+        method:
+          type: string
+          enum:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          - HEAD
+          - OPTIONS
+          - CONNECT
+          - TRACE
+          description: HTTP method to match.
+    Condition:
+      type: object
+      description: A condition expressing an aspect of current resource state.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of condition.
+        status:
+          type: string
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+        reason:
+          type: string
+          description: Machine-readable reason for the condition.
+        message:
+          type: string
+          description: Human-readable condition details.
+        lastTransitionTime:
+          type: string
+          format: date-time
+    ListMeta:
+      type: object
+      description: Metadata for list responses.
+      properties:
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
+          type: integer
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the object.
+        namespace:
+          type: string
+          description: Namespace of the object.
+        uid:
+          type: string
+          description: Unique server-assigned identifier.
+        resourceVersion:
+          type: string
+          description: Internal version string.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Label key-value pairs.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata.
+  parameters:
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource.
+      schema:
+        type: string
+    NamespaceParam:
+      name: namespace
+      in: path
+      required: true
+      description: Namespace name to scope the request.
+      schema:
+        type: string
+    DryRun:
+      name: dryRun
+      in: query
+      description: If 'All', validates without persisting.
+      schema:
+        type: string
+        enum:
+        - All
+    Watch:
+      name: watch
+      in: query
+      description: If true, stream watch events.
+      schema:
+        type: boolean
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   securitySchemes:
     bearerAuth:
       type: http
@@ -454,5 +454,5 @@ components:
       type: mutualTLS
       description: Client TLS certificate signed by the cluster CA.
 externalDocs:
-  description: Kubernetes EndpointSlice API Reference
-  url: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/
+  description: Kubernetes Gateway API Documentation
+  url: https://kubernetes.io/docs/concepts/services-networking/gateway/
