@@ -66,6 +66,21 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Status:
+      type: object
+      description: Error or result status returned by the API.
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+          - Success
+          - Failure
     Ingress:
       type: object
       description: An Ingress manages external access to the services in a cluster, typically HTTP/HTTPS. It provides load balancing, SSL termination, and name-based virtual hosting based on routing rules.
@@ -82,25 +97,25 @@ components:
           $ref: '#/components/schemas/IngressSpec'
         status:
           $ref: '#/components/schemas/IngressStatus'
-    IngressRule:
+    IngressSpec:
       type: object
-      description: A host-based routing rule mapping HTTP requests to backend services based on hostname and path prefix matching.
+      description: Specification of the desired behavior of an Ingress, including the routing rules, TLS configuration, default backend, and reference to the ingress controller via the IngressClass.
       properties:
-        host:
+        ingressClassName:
           type: string
-          description: Fully-qualified domain name to match. Wildcard prefixes like *.example.com are supported. If unspecified, all hosts match.
-        http:
-          type: object
-          description: HTTP-specific routing configuration for this rule.
-          required:
-          - paths
-          properties:
-            paths:
-              type: array
-              description: List of path-to-backend mappings for this rule. At least one path must be specified.
-              minItems: 1
-              items:
-                $ref: '#/components/schemas/HTTPIngressPath'
+          description: Name of the IngressClass cluster resource that selects which ingress controller handles this Ingress.
+        defaultBackend:
+          $ref: '#/components/schemas/IngressBackend'
+        tls:
+          type: array
+          description: TLS configuration for HTTPS termination.
+          items:
+            $ref: '#/components/schemas/IngressTLS'
+        rules:
+          type: array
+          description: List of host rules for HTTP traffic routing. If no rules match a request, the defaultBackend is used.
+          items:
+            $ref: '#/components/schemas/IngressRule'
     HTTPIngressPath:
       type: object
       description: A mapping of an HTTP path to a backend service. Used within Ingress rules to route specific paths to different services.
@@ -152,40 +167,36 @@ components:
                           type: string
                         error:
                           type: string
-    Status:
+    ObjectMeta:
       type: object
-      description: Error or result status returned by the API.
+      description: Standard Kubernetes object metadata.
       properties:
-        code:
-          type: integer
-        message:
+        name:
           type: string
-        reason:
+          description: Name of the object.
+        namespace:
           type: string
-        status:
+          description: Namespace of the object.
+        uid:
           type: string
-          enum:
-          - Success
-          - Failure
-    IngressSpec:
-      type: object
-      description: Specification of the desired behavior of an Ingress, including the routing rules, TLS configuration, default backend, and reference to the ingress controller via the IngressClass.
-      properties:
-        ingressClassName:
+          description: Unique server-assigned identifier.
+        resourceVersion:
           type: string
-          description: Name of the IngressClass cluster resource that selects which ingress controller handles this Ingress.
-        defaultBackend:
-          $ref: '#/components/schemas/IngressBackend'
-        tls:
-          type: array
-          description: TLS configuration for HTTPS termination.
-          items:
-            $ref: '#/components/schemas/IngressTLS'
-        rules:
-          type: array
-          description: List of host rules for HTTP traffic routing. If no rules match a request, the defaultBackend is used.
-          items:
-            $ref: '#/components/schemas/IngressRule'
+          description: Internal version for optimistic concurrency.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Key-value label pairs.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata.
     IngressTLS:
       type: object
       description: TLS configuration for an Ingress, specifying a Secret containing the certificate and key for terminating HTTPS connections on port 443.
@@ -237,36 +248,25 @@ components:
             name:
               type: string
               description: Name of the referenced resource.
-    ObjectMeta:
+    IngressRule:
       type: object
-      description: Standard Kubernetes object metadata.
+      description: A host-based routing rule mapping HTTP requests to backend services based on hostname and path prefix matching.
       properties:
-        name:
+        host:
           type: string
-          description: Name of the object.
-        namespace:
-          type: string
-          description: Namespace of the object.
-        uid:
-          type: string
-          description: Unique server-assigned identifier.
-        resourceVersion:
-          type: string
-          description: Internal version for optimistic concurrency.
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Creation timestamp.
-        labels:
+          description: Fully-qualified domain name to match. Wildcard prefixes like *.example.com are supported. If unspecified, all hosts match.
+        http:
           type: object
-          additionalProperties:
-            type: string
-          description: Key-value label pairs.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Non-identifying metadata.
+          description: HTTP-specific routing configuration for this rule.
+          required:
+          - paths
+          properties:
+            paths:
+              type: array
+              description: List of path-to-backend mappings for this rule. At least one path must be specified.
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/HTTPIngressPath'
   responses:
     NotFound:
       description: Not found
@@ -281,18 +281,18 @@ components:
           schema:
             $ref: '#/components/schemas/Status'
   parameters:
-    NamespaceParam:
-      name: namespace
-      in: path
-      required: true
-      description: Namespace name to scope the request.
-      schema:
-        type: string
     NameParam:
       name: name
       in: path
       required: true
       description: Name of the resource.
+      schema:
+        type: string
+    NamespaceParam:
+      name: namespace
+      in: path
+      required: true
+      description: Namespace name to scope the request.
       schema:
         type: string
   securitySchemes:

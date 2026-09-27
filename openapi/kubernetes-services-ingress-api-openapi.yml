@@ -187,6 +187,34 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Ingress:
+      type: object
+      description: An Ingress manages external access to the services in a cluster, typically HTTP/HTTPS. It provides load balancing, SSL termination, and name-based virtual hosting based on routing rules.
+      properties:
+        apiVersion:
+          type: string
+          const: networking.k8s.io/v1
+        kind:
+          type: string
+          const: Ingress
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/IngressSpec'
+        status:
+          $ref: '#/components/schemas/IngressStatus'
+    IngressTLS:
+      type: object
+      description: TLS configuration for an Ingress, specifying a Secret containing the certificate and key for terminating HTTPS connections on port 443.
+      properties:
+        hosts:
+          type: array
+          description: Hosts covered by the TLS certificate. Must match hosts defined in the certificate's Subject Alternative Names.
+          items:
+            type: string
+        secretName:
+          type: string
+          description: Name of the Secret in the same namespace containing the TLS certificate (tls.crt) and key (tls.key).
     IngressRule:
       type: object
       description: A host-based routing rule mapping HTTP requests to backend services based on hostname and path prefix matching.
@@ -206,34 +234,91 @@ components:
               minItems: 1
               items:
                 $ref: '#/components/schemas/HTTPIngressPath'
-    IngressTLS:
+    HTTPIngressPath:
       type: object
-      description: TLS configuration for an Ingress, specifying a Secret containing the certificate and key for terminating HTTPS connections on port 443.
+      description: A mapping of an HTTP path to a backend service. Used within Ingress rules to route specific paths to different services.
+      required:
+      - pathType
+      - backend
       properties:
-        hosts:
-          type: array
-          description: Hosts covered by the TLS certificate. Must match hosts defined in the certificate's Subject Alternative Names.
-          items:
-            type: string
-        secretName:
+        path:
           type: string
-          description: Name of the Secret in the same namespace containing the TLS certificate (tls.crt) and key (tls.key).
-    Ingress:
+          description: URL path to match. Must begin with '/'. Required for Exact and Prefix pathTypes.
+          pattern: ^/
+        pathType:
+          type: string
+          enum:
+          - Exact
+          - Prefix
+          - ImplementationSpecific
+          description: How the path is matched. Exact requires a case-sensitive exact match; Prefix matches paths sharing a '/' delimited prefix; ImplementationSpecific defers to the IngressClass controller.
+        backend:
+          $ref: '#/components/schemas/IngressBackend'
+    Status:
       type: object
-      description: An Ingress manages external access to the services in a cluster, typically HTTP/HTTPS. It provides load balancing, SSL termination, and name-based virtual hosting based on routing rules.
+      description: Error or result status returned by the API.
       properties:
-        apiVersion:
+        code:
+          type: integer
+        message:
           type: string
-          const: networking.k8s.io/v1
-        kind:
+        reason:
           type: string
-          const: Ingress
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/IngressSpec'
         status:
-          $ref: '#/components/schemas/IngressStatus'
+          type: string
+          enum:
+          - Success
+          - Failure
+    IngressSpec:
+      type: object
+      description: Specification of the desired behavior of an Ingress, including the routing rules, TLS configuration, default backend, and reference to the ingress controller via the IngressClass.
+      properties:
+        ingressClassName:
+          type: string
+          description: Name of the IngressClass cluster resource that selects which ingress controller handles this Ingress.
+        defaultBackend:
+          $ref: '#/components/schemas/IngressBackend'
+        tls:
+          type: array
+          description: TLS configuration for HTTPS termination.
+          items:
+            $ref: '#/components/schemas/IngressTLS'
+        rules:
+          type: array
+          description: List of host rules for HTTP traffic routing. If no rules match a request, the defaultBackend is used.
+          items:
+            $ref: '#/components/schemas/IngressRule'
+    IngressStatus:
+      type: object
+      description: Most recently observed status of an Ingress, reporting the load balancer IPs or hostnames assigned by the ingress controller.
+      properties:
+        loadBalancer:
+          type: object
+          description: LoadBalancer status for the ingress.
+          properties:
+            ingress:
+              type: array
+              description: List of load balancer ingress points.
+              items:
+                type: object
+                properties:
+                  ip:
+                    type: string
+                    description: IP address assigned to this ingress point.
+                  hostname:
+                    type: string
+                    description: Hostname assigned to this ingress point.
+                  ports:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        port:
+                          type: integer
+                        protocol:
+                          type: string
+                        error:
+                          type: string
     IngressBackend:
       type: object
       description: Reference to the backend service or resource that an Ingress routing rule should forward traffic to.
@@ -303,37 +388,16 @@ components:
           additionalProperties:
             type: string
           description: Non-identifying metadata.
-    IngressStatus:
+    ListMeta:
       type: object
-      description: Most recently observed status of an Ingress, reporting the load balancer IPs or hostnames assigned by the ingress controller.
+      description: Metadata for list responses.
       properties:
-        loadBalancer:
-          type: object
-          description: LoadBalancer status for the ingress.
-          properties:
-            ingress:
-              type: array
-              description: List of load balancer ingress points.
-              items:
-                type: object
-                properties:
-                  ip:
-                    type: string
-                    description: IP address assigned to this ingress point.
-                  hostname:
-                    type: string
-                    description: Hostname assigned to this ingress point.
-                  ports:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        port:
-                          type: integer
-                        protocol:
-                          type: string
-                        error:
-                          type: string
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
+          type: integer
     IngressList:
       type: object
       description: A list of Ingress objects.
@@ -351,106 +415,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Ingress'
-    IngressSpec:
-      type: object
-      description: Specification of the desired behavior of an Ingress, including the routing rules, TLS configuration, default backend, and reference to the ingress controller via the IngressClass.
-      properties:
-        ingressClassName:
-          type: string
-          description: Name of the IngressClass cluster resource that selects which ingress controller handles this Ingress.
-        defaultBackend:
-          $ref: '#/components/schemas/IngressBackend'
-        tls:
-          type: array
-          description: TLS configuration for HTTPS termination.
-          items:
-            $ref: '#/components/schemas/IngressTLS'
-        rules:
-          type: array
-          description: List of host rules for HTTP traffic routing. If no rules match a request, the defaultBackend is used.
-          items:
-            $ref: '#/components/schemas/IngressRule'
-    HTTPIngressPath:
-      type: object
-      description: A mapping of an HTTP path to a backend service. Used within Ingress rules to route specific paths to different services.
-      required:
-      - pathType
-      - backend
-      properties:
-        path:
-          type: string
-          description: URL path to match. Must begin with '/'. Required for Exact and Prefix pathTypes.
-          pattern: ^/
-        pathType:
-          type: string
-          enum:
-          - Exact
-          - Prefix
-          - ImplementationSpecific
-          description: How the path is matched. Exact requires a case-sensitive exact match; Prefix matches paths sharing a '/' delimited prefix; ImplementationSpecific defers to the IngressClass controller.
-        backend:
-          $ref: '#/components/schemas/IngressBackend'
-    ListMeta:
-      type: object
-      description: Metadata for list responses.
-      properties:
-        resourceVersion:
-          type: string
-        continue:
-          type: string
-        remainingItemCount:
-          type: integer
-    Status:
-      type: object
-      description: Error or result status returned by the API.
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        reason:
-          type: string
-        status:
-          type: string
-          enum:
-          - Success
-          - Failure
-  responses:
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Conflict:
-      description: Conflict
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
   parameters:
-    Continue:
-      name: continue
-      in: query
-      description: Pagination continuation token.
+    NamespaceParam:
+      name: namespace
+      in: path
+      required: true
+      description: Namespace name to scope the request.
       schema:
         type: string
+    Watch:
+      name: watch
+      in: query
+      description: If true, stream watch events instead of returning a list.
+      schema:
+        type: boolean
     FieldSelector:
       name: fieldSelector
       in: query
       description: Field selector to filter resources by field values.
+      schema:
+        type: string
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource.
       schema:
         type: string
     DryRun:
@@ -461,30 +450,16 @@ components:
         type: string
         enum:
         - All
-    Watch:
-      name: watch
-      in: query
-      description: If true, stream watch events instead of returning a list.
-      schema:
-        type: boolean
     LabelSelector:
       name: labelSelector
       in: query
       description: Label selector to filter resources.
       schema:
         type: string
-    NameParam:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource.
-      schema:
-        type: string
-    NamespaceParam:
-      name: namespace
-      in: path
-      required: true
-      description: Namespace name to scope the request.
+    Continue:
+      name: continue
+      in: query
+      description: Pagination continuation token.
       schema:
         type: string
     Limit:
@@ -494,6 +469,31 @@ components:
       schema:
         type: integer
         minimum: 1
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   securitySchemes:
     bearerAuth:
       type: http

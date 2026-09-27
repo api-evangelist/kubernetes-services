@@ -100,56 +100,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    LabelSelector:
-      name: labelSelector
-      in: query
-      description: Label selector to filter resources.
-      schema:
-        type: string
-    NameParam:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource.
-      schema:
-        type: string
-    Watch:
-      name: watch
-      in: query
-      description: If true, stream watch events instead of returning a list.
-      schema:
-        type: boolean
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        minimum: 1
   schemas:
-    IngressClass:
-      type: object
-      description: An IngressClass is a cluster-scoped resource that represents an ingress controller implementation. Ingress objects reference an IngressClass by name to select which controller fulfills them.
-      properties:
-        apiVersion:
-          type: string
-          const: networking.k8s.io/v1
-        kind:
-          type: string
-          const: IngressClass
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          type: object
-          description: IngressClass specification.
-          properties:
-            controller:
-              type: string
-              description: 'Name of the controller that handles Ingresses of this class. Example: ingress.controller.example.com/nginx'
-            parameters:
-              type: object
-              description: Reference to a custom resource containing controller-specific parameters for this IngressClass.
     Status:
       type: object
       description: Error or result status returned by the API.
@@ -182,16 +133,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/IngressClass'
-    ListMeta:
-      type: object
-      description: Metadata for list responses.
-      properties:
-        resourceVersion:
-          type: string
-        continue:
-          type: string
-        remainingItemCount:
-          type: integer
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -222,15 +163,41 @@ components:
           additionalProperties:
             type: string
           description: Non-identifying metadata.
+    ListMeta:
+      type: object
+      description: Metadata for list responses.
+      properties:
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
+          type: integer
+    IngressClass:
+      type: object
+      description: An IngressClass is a cluster-scoped resource that represents an ingress controller implementation. Ingress objects reference an IngressClass by name to select which controller fulfills them.
+      properties:
+        apiVersion:
+          type: string
+          const: networking.k8s.io/v1
+        kind:
+          type: string
+          const: IngressClass
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: IngressClass specification.
+          properties:
+            controller:
+              type: string
+              description: 'Name of the controller that handles Ingresses of this class. Example: ingress.controller.example.com/nginx'
+            parameters:
+              type: object
+              description: Reference to a custom resource containing controller-specific parameters for this IngressClass.
   responses:
     NotFound:
       description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Unauthorized:
-      description: Unauthorized
       content:
         application/json:
           schema:
@@ -241,6 +208,39 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource.
+      schema:
+        type: string
+    Watch:
+      name: watch
+      in: query
+      description: If true, stream watch events instead of returning a list.
+      schema:
+        type: boolean
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

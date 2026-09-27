@@ -132,68 +132,22 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    LabelSelector:
-      name: labelSelector
-      in: query
-      description: Label selector to filter resources.
-      schema:
-        type: string
-    NameParam:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource.
-      schema:
-        type: string
-    NamespaceParam:
-      name: namespace
-      in: path
-      required: true
-      description: Namespace name to scope the request.
-      schema:
-        type: string
-    DryRun:
-      name: dryRun
-      in: query
-      description: If 'All', validates without persisting.
-      schema:
-        type: string
-        enum:
-        - All
-    Watch:
-      name: watch
-      in: query
-      description: If true, stream watch events.
-      schema:
-        type: boolean
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        minimum: 1
-  responses:
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
   schemas:
+    Status:
+      type: object
+      description: Error or result status.
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+          - Success
+          - Failure
     GatewayListener:
       type: object
       description: A listener on a Gateway defining the protocol, port, optional hostname, and which routes are allowed to attach.
@@ -256,21 +210,88 @@ components:
                   - Same
                   - Selector
                   description: Namespaces from which routes may attach. Same means only the Gateway's namespace; All means any namespace.
-    Status:
+    ObjectMeta:
       type: object
-      description: Error or result status.
+      description: Standard Kubernetes object metadata.
       properties:
-        code:
-          type: integer
-        message:
+        name:
           type: string
-        reason:
+          description: Name of the object.
+        namespace:
           type: string
+          description: Namespace of the object.
+        uid:
+          type: string
+          description: Unique server-assigned identifier.
+        resourceVersion:
+          type: string
+          description: Internal version string.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Label key-value pairs.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata.
+    Condition:
+      type: object
+      description: A condition expressing an aspect of current resource state.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of condition.
         status:
           type: string
           enum:
-          - Success
-          - Failure
+          - 'True'
+          - 'False'
+          - Unknown
+        reason:
+          type: string
+          description: Machine-readable reason for the condition.
+        message:
+          type: string
+          description: Human-readable condition details.
+        lastTransitionTime:
+          type: string
+          format: date-time
+    GatewayList:
+      type: object
+      description: A list of Gateway resources.
+      required:
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          const: GatewayList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gateway'
+    ListMeta:
+      type: object
+      description: Metadata for list responses.
+      properties:
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
+          type: integer
     Gateway:
       type: object
       description: A Gateway represents an instance of traffic-handling infrastructure, such as a cloud load balancer or in-cluster proxy. It listens on one or more ports and delegates routing decisions to attached Route resources.
@@ -320,88 +341,67 @@ components:
                     - Hostname
                   value:
                     type: string
-    GatewayList:
-      type: object
-      description: A list of Gateway resources.
-      required:
-      - items
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          const: GatewayList
-        metadata:
-          $ref: '#/components/schemas/ListMeta'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Gateway'
-    Condition:
-      type: object
-      description: A condition expressing an aspect of current resource state.
-      required:
-      - type
-      - status
-      properties:
-        type:
-          type: string
-          description: Type of condition.
-        status:
-          type: string
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-        reason:
-          type: string
-          description: Machine-readable reason for the condition.
-        message:
-          type: string
-          description: Human-readable condition details.
-        lastTransitionTime:
-          type: string
-          format: date-time
-    ListMeta:
-      type: object
-      description: Metadata for list responses.
-      properties:
-        resourceVersion:
-          type: string
-        continue:
-          type: string
-        remainingItemCount:
-          type: integer
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata.
-      properties:
-        name:
-          type: string
-          description: Name of the object.
-        namespace:
-          type: string
-          description: Namespace of the object.
-        uid:
-          type: string
-          description: Unique server-assigned identifier.
-        resourceVersion:
-          type: string
-          description: Internal version string.
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Creation timestamp.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Label key-value pairs.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Non-identifying metadata.
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource.
+      schema:
+        type: string
+    DryRun:
+      name: dryRun
+      in: query
+      description: If 'All', validates without persisting.
+      schema:
+        type: string
+        enum:
+        - All
+    Watch:
+      name: watch
+      in: query
+      description: If true, stream watch events.
+      schema:
+        type: boolean
+    NamespaceParam:
+      name: namespace
+      in: path
+      required: true
+      description: Namespace name to scope the request.
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   securitySchemes:
     bearerAuth:
       type: http

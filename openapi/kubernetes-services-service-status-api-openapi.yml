@@ -65,38 +65,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Not found — the specified Service does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Unauthorized:
-      description: Unauthorized — missing or invalid credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
   schemas:
-    Service:
+    Status:
       type: object
-      description: A Service is an abstract way to expose an application running on a set of Pods as a network service. It provides a stable virtual IP and DNS name, decoupling consumers from individual pod IPs.
+      description: A return value for operations that do not return other objects.
       properties:
-        apiVersion:
+        code:
+          type: integer
+          description: HTTP status code.
+        message:
           type: string
-          const: v1
-          description: API version of the resource.
-        kind:
+          description: Human-readable description of the status.
+        reason:
           type: string
-          const: Service
-          description: Kind of the resource.
-        metadata:
-          $ref: '#/components/schemas/ObjectMeta'
-        spec:
-          $ref: '#/components/schemas/ServiceSpec'
+          description: Machine-readable reason for the status.
         status:
-          $ref: '#/components/schemas/ServiceStatus'
+          type: string
+          enum:
+          - Success
+          - Failure
     LoadBalancerIngress:
       type: object
       description: An ingress point for a load balancer, representing a provisioned IP address or DNS hostname assigned by the cloud provider.
@@ -120,24 +107,62 @@ components:
               error:
                 type: string
                 description: Error message if the port could not be provisioned.
-    Status:
+    ServiceStatus:
       type: object
-      description: A return value for operations that do not return other objects.
+      description: Most recently observed status of a Service, including load balancer provisioning state and ingress IP/hostname assignments.
       properties:
-        code:
+        loadBalancer:
+          type: object
+          description: Status of the load balancer for LoadBalancer-type services.
+          properties:
+            ingress:
+              type: array
+              description: List of ingress points for the load balancer. May be IP addresses or hostnames depending on the cloud provider.
+              items:
+                $ref: '#/components/schemas/LoadBalancerIngress'
+        conditions:
+          type: array
+          description: Current service conditions.
+          items:
+            $ref: '#/components/schemas/Condition'
+    ServicePort:
+      type: object
+      description: A port mapping within a Service, defining the protocol, service-facing port, and the target pod port.
+      required:
+      - port
+      properties:
+        name:
+          type: string
+          description: Port name. Must be unique within the ports list and conform to DNS_LABEL format. Required for multi-port Services.
+          maxLength: 15
+        port:
           type: integer
-          description: HTTP status code.
-        message:
-          type: string
-          description: Human-readable description of the status.
-        reason:
-          type: string
-          description: Machine-readable reason for the status.
-        status:
+          minimum: 1
+          maximum: 65535
+          description: Port number the Service listens on.
+        targetPort:
+          description: Port number or named port on the Pod to forward traffic to. Defaults to the value of port.
+          oneOf:
+          - type: integer
+            minimum: 1
+            maximum: 65535
+          - type: string
+        protocol:
           type: string
           enum:
-          - Success
-          - Failure
+          - TCP
+          - UDP
+          - SCTP
+          description: Network protocol for this port. Defaults to TCP.
+          default: TCP
+        nodePort:
+          type: integer
+          minimum: 30000
+          maximum: 32767
+          description: Port exposed on each node for NodePort and LoadBalancer service types. Allocated automatically if not specified.
+        appProtocol:
+          type: string
+          description: 'Application-layer protocol hint for the port. Examples: h2c, ws, wss, kubernetes.io/h2c.'
     Condition:
       type: object
       description: A condition representing a particular aspect of a resource's current state.
@@ -168,24 +193,57 @@ components:
         message:
           type: string
           description: Human-readable details about the condition.
-    ServiceStatus:
+    ObjectMeta:
       type: object
-      description: Most recently observed status of a Service, including load balancer provisioning state and ingress IP/hostname assignments.
+      description: Standard Kubernetes object metadata.
       properties:
-        loadBalancer:
+        name:
+          type: string
+          description: Name of the object, unique within the namespace.
+        namespace:
+          type: string
+          description: Namespace that scopes the resource.
+        uid:
+          type: string
+          description: Unique identifier generated by the server.
+        resourceVersion:
+          type: string
+          description: Internal version string for optimistic concurrency.
+        generation:
+          type: integer
+          description: Sequence number for spec changes.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the object was created.
+        labels:
           type: object
-          description: Status of the load balancer for LoadBalancer-type services.
-          properties:
-            ingress:
-              type: array
-              description: List of ingress points for the load balancer. May be IP addresses or hostnames depending on the cloud provider.
-              items:
-                $ref: '#/components/schemas/LoadBalancerIngress'
-        conditions:
-          type: array
-          description: Current service conditions.
-          items:
-            $ref: '#/components/schemas/Condition'
+          additionalProperties:
+            type: string
+          description: Key-value labels for selecting and organizing resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata for tooling and controllers.
+    Service:
+      type: object
+      description: A Service is an abstract way to expose an application running on a set of Pods as a network service. It provides a stable virtual IP and DNS name, decoupling consumers from individual pod IPs.
+      properties:
+        apiVersion:
+          type: string
+          const: v1
+          description: API version of the resource.
+        kind:
+          type: string
+          const: Service
+          description: Kind of the resource.
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/ServiceSpec'
+        status:
+          $ref: '#/components/schemas/ServiceStatus'
     ServiceSpec:
       type: object
       description: Specification of the desired behavior of a Service, defining port mappings, pod selection, service type, IP configuration, and traffic policy.
@@ -284,90 +342,32 @@ components:
           type: boolean
           description: Whether NodePorts are allocated for LoadBalancer services. Set to false to disable NodePort allocation. Defaults to true.
           default: true
-    ServicePort:
-      type: object
-      description: A port mapping within a Service, defining the protocol, service-facing port, and the target pod port.
-      required:
-      - port
-      properties:
-        name:
-          type: string
-          description: Port name. Must be unique within the ports list and conform to DNS_LABEL format. Required for multi-port Services.
-          maxLength: 15
-        port:
-          type: integer
-          minimum: 1
-          maximum: 65535
-          description: Port number the Service listens on.
-        targetPort:
-          description: Port number or named port on the Pod to forward traffic to. Defaults to the value of port.
-          oneOf:
-          - type: integer
-            minimum: 1
-            maximum: 65535
-          - type: string
-        protocol:
-          type: string
-          enum:
-          - TCP
-          - UDP
-          - SCTP
-          description: Network protocol for this port. Defaults to TCP.
-          default: TCP
-        nodePort:
-          type: integer
-          minimum: 30000
-          maximum: 32767
-          description: Port exposed on each node for NodePort and LoadBalancer service types. Allocated automatically if not specified.
-        appProtocol:
-          type: string
-          description: 'Application-layer protocol hint for the port. Examples: h2c, ws, wss, kubernetes.io/h2c.'
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata.
-      properties:
-        name:
-          type: string
-          description: Name of the object, unique within the namespace.
-        namespace:
-          type: string
-          description: Namespace that scopes the resource.
-        uid:
-          type: string
-          description: Unique identifier generated by the server.
-        resourceVersion:
-          type: string
-          description: Internal version string for optimistic concurrency.
-        generation:
-          type: integer
-          description: Sequence number for spec changes.
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Timestamp when the object was created.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Key-value labels for selecting and organizing resources.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Non-identifying metadata for tooling and controllers.
+  responses:
+    NotFound:
+      description: Not found — the specified Service does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Unauthorized — missing or invalid credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   parameters:
-    NameParam:
-      name: name
-      in: path
-      required: true
-      description: Name of the Service resource.
-      schema:
-        type: string
     NamespaceParam:
       name: namespace
       in: path
       required: true
       description: Namespace name to scope the request.
+      schema:
+        type: string
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the Service resource.
       schema:
         type: string
   securitySchemes:
