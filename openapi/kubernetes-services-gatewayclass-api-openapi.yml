@@ -101,21 +101,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Status:
-      type: object
-      description: Error or result status.
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        reason:
-          type: string
-        status:
-          type: string
-          enum:
-          - Success
-          - Failure
     GatewayClassList:
       type: object
       description: A list of GatewayClass resources.
@@ -133,36 +118,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GatewayClass'
-    ObjectMeta:
+    ListMeta:
       type: object
-      description: Standard Kubernetes object metadata.
+      description: Metadata for list responses.
       properties:
-        name:
-          type: string
-          description: Name of the object.
-        namespace:
-          type: string
-          description: Namespace of the object.
-        uid:
-          type: string
-          description: Unique server-assigned identifier.
         resourceVersion:
           type: string
-          description: Internal version string.
-        creationTimestamp:
+        continue:
           type: string
-          format: date-time
-          description: Creation timestamp.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Label key-value pairs.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Non-identifying metadata.
+        remainingItemCount:
+          type: integer
     Condition:
       type: object
       description: A condition expressing an aspect of current resource state.
@@ -188,16 +153,6 @@ components:
         lastTransitionTime:
           type: string
           format: date-time
-    ListMeta:
-      type: object
-      description: Metadata for list responses.
-      properties:
-        resourceVersion:
-          type: string
-        continue:
-          type: string
-        remainingItemCount:
-          type: integer
     GatewayClass:
       type: object
       description: A GatewayClass is a cluster-scoped resource that defines a class of gateway implementations, linking to a specific gateway controller via the controllerName field. Infrastructure providers create GatewayClasses when deploying their gateway controller.
@@ -239,15 +194,54 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Condition'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the object.
+        namespace:
+          type: string
+          description: Namespace of the object.
+        uid:
+          type: string
+          description: Unique server-assigned identifier.
+        resourceVersion:
+          type: string
+          description: Internal version string.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Label key-value pairs.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata.
+    Status:
+      type: object
+      description: Error or result status.
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+          - Success
+          - Failure
   responses:
     NotFound:
       description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    BadRequest:
-      description: Bad request
       content:
         application/json:
           schema:
@@ -258,7 +252,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   parameters:
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
     NameParam:
       name: name
       in: path
@@ -272,19 +285,6 @@ components:
       description: If true, stream watch events.
       schema:
         type: boolean
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        minimum: 1
-    LabelSelector:
-      name: labelSelector
-      in: query
-      description: Label selector to filter resources.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

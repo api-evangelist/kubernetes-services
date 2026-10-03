@@ -101,38 +101,16 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Status:
+    ListMeta:
       type: object
-      description: Error or result status returned by the API.
+      description: Metadata for list responses.
       properties:
-        code:
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
           type: integer
-        message:
-          type: string
-        reason:
-          type: string
-        status:
-          type: string
-          enum:
-          - Success
-          - Failure
-    IngressClassList:
-      type: object
-      description: A list of IngressClass resources.
-      required:
-      - items
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          const: IngressClassList
-        metadata:
-          $ref: '#/components/schemas/ListMeta'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/IngressClass'
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -163,16 +141,23 @@ components:
           additionalProperties:
             type: string
           description: Non-identifying metadata.
-    ListMeta:
+    IngressClassList:
       type: object
-      description: Metadata for list responses.
+      description: A list of IngressClass resources.
+      required:
+      - items
       properties:
-        resourceVersion:
+        apiVersion:
           type: string
-        continue:
+        kind:
           type: string
-        remainingItemCount:
-          type: integer
+          const: IngressClassList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/IngressClass'
     IngressClass:
       type: object
       description: An IngressClass is a cluster-scoped resource that represents an ingress controller implementation. Ingress objects reference an IngressClass by name to select which controller fulfills them.
@@ -195,15 +180,24 @@ components:
             parameters:
               type: object
               description: Reference to a custom resource containing controller-specific parameters for this IngressClass.
+    Status:
+      type: object
+      description: Error or result status returned by the API.
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+          - Success
+          - Failure
   responses:
     NotFound:
       description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    BadRequest:
-      description: Bad request
       content:
         application/json:
           schema:
@@ -214,7 +208,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   parameters:
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
     NameParam:
       name: name
       in: path
@@ -228,19 +241,6 @@ components:
       description: If true, stream watch events instead of returning a list.
       schema:
         type: boolean
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        minimum: 1
-    LabelSelector:
-      name: labelSelector
-      in: query
-      description: Label selector to filter resources.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

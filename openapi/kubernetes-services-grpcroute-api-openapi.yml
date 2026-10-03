@@ -65,21 +65,16 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Status:
+    ListMeta:
       type: object
-      description: Error or result status.
+      description: Metadata for list responses.
       properties:
-        code:
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
           type: integer
-        message:
-          type: string
-        reason:
-          type: string
-        status:
-          type: string
-          enum:
-          - Success
-          - Failure
     GRPCRouteList:
       type: object
       description: A list of GRPCRoute resources.
@@ -127,16 +122,21 @@ components:
           additionalProperties:
             type: string
           description: Non-identifying metadata.
-    ListMeta:
+    Status:
       type: object
-      description: Metadata for list responses.
+      description: Error or result status.
       properties:
-        resourceVersion:
-          type: string
-        continue:
-          type: string
-        remainingItemCount:
+        code:
           type: integer
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+          - Success
+          - Failure
     GRPCRoute:
       type: object
       description: A GRPCRoute defines gRPC routing rules from Gateway listeners to backend services, matching on gRPC service and method names for targeted traffic distribution.
@@ -213,12 +213,12 @@ components:
       description: Namespace name to scope the request.
       schema:
         type: string
-    Watch:
-      name: watch
+    LabelSelector:
+      name: labelSelector
       in: query
-      description: If true, stream watch events.
+      description: Label selector to filter resources.
       schema:
-        type: boolean
+        type: string
     Limit:
       name: limit
       in: query
@@ -226,21 +226,21 @@ components:
       schema:
         type: integer
         minimum: 1
-    LabelSelector:
-      name: labelSelector
+    Watch:
+      name: watch
       in: query
-      description: Label selector to filter resources.
+      description: If true, stream watch events.
       schema:
-        type: string
+        type: boolean
   responses:
-    BadRequest:
-      description: Bad request
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
-    Unauthorized:
-      description: Unauthorized
+    BadRequest:
+      description: Bad request
       content:
         application/json:
           schema:
