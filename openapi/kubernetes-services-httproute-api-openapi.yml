@@ -132,6 +132,48 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    DryRun:
+      name: dryRun
+      in: query
+      description: If 'All', validates without persisting.
+      schema:
+        type: string
+        enum:
+        - All
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource.
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    Watch:
+      name: watch
+      in: query
+      description: If true, stream watch events.
+      schema:
+        type: boolean
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
+    NamespaceParam:
+      name: namespace
+      in: path
+      required: true
+      description: Namespace name to scope the request.
+      schema:
+        type: string
   schemas:
     HTTPRoute:
       type: object
@@ -200,6 +242,48 @@ components:
                     type: array
                     items:
                       $ref: '#/components/schemas/Condition'
+    Condition:
+      type: object
+      description: A condition expressing an aspect of current resource state.
+      required:
+      - type
+      - status
+      properties:
+        type:
+          type: string
+          description: Type of condition.
+        status:
+          type: string
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+        reason:
+          type: string
+          description: Machine-readable reason for the condition.
+        message:
+          type: string
+          description: Human-readable condition details.
+        lastTransitionTime:
+          type: string
+          format: date-time
+    HTTPRouteList:
+      type: object
+      description: A list of HTTPRoute resources.
+      required:
+      - items
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          const: HTTPRouteList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPRoute'
     ListMeta:
       type: object
       description: Metadata for list responses.
@@ -210,6 +294,74 @@ components:
           type: string
         remainingItemCount:
           type: integer
+    HTTPBackendRef:
+      type: object
+      description: Reference to a backend service in an HTTPRoute rule, with an optional traffic weight for proportional routing.
+      required:
+      - name
+      - port
+      properties:
+        name:
+          type: string
+          description: Name of the referenced Service.
+        namespace:
+          type: string
+          description: Namespace of the Service. Defaults to the HTTPRoute's namespace.
+        port:
+          type: integer
+          minimum: 1
+          maximum: 65535
+          description: Port number on the referenced Service.
+        weight:
+          type: integer
+          minimum: 0
+          maximum: 1000000
+          description: Relative weight for traffic distribution. Requests are proportioned by weight across backendRefs in the same rule.
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the object.
+        namespace:
+          type: string
+          description: Namespace of the object.
+        uid:
+          type: string
+          description: Unique server-assigned identifier.
+        resourceVersion:
+          type: string
+          description: Internal version string.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Label key-value pairs.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata.
+    Status:
+      type: object
+      description: Error or result status.
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum:
+          - Success
+          - Failure
     HTTPRouteMatch:
       type: object
       description: Conditions for matching an incoming HTTP request. Multiple matches within a rule are OR'd; conditions within a match are AND'd.
@@ -273,158 +425,6 @@ components:
           - CONNECT
           - TRACE
           description: HTTP method to match.
-    Condition:
-      type: object
-      description: A condition expressing an aspect of current resource state.
-      required:
-      - type
-      - status
-      properties:
-        type:
-          type: string
-          description: Type of condition.
-        status:
-          type: string
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-        reason:
-          type: string
-          description: Machine-readable reason for the condition.
-        message:
-          type: string
-          description: Human-readable condition details.
-        lastTransitionTime:
-          type: string
-          format: date-time
-    HTTPRouteList:
-      type: object
-      description: A list of HTTPRoute resources.
-      required:
-      - items
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          const: HTTPRouteList
-        metadata:
-          $ref: '#/components/schemas/ListMeta'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/HTTPRoute'
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata.
-      properties:
-        name:
-          type: string
-          description: Name of the object.
-        namespace:
-          type: string
-          description: Namespace of the object.
-        uid:
-          type: string
-          description: Unique server-assigned identifier.
-        resourceVersion:
-          type: string
-          description: Internal version string.
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Creation timestamp.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Label key-value pairs.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Non-identifying metadata.
-    HTTPBackendRef:
-      type: object
-      description: Reference to a backend service in an HTTPRoute rule, with an optional traffic weight for proportional routing.
-      required:
-      - name
-      - port
-      properties:
-        name:
-          type: string
-          description: Name of the referenced Service.
-        namespace:
-          type: string
-          description: Namespace of the Service. Defaults to the HTTPRoute's namespace.
-        port:
-          type: integer
-          minimum: 1
-          maximum: 65535
-          description: Port number on the referenced Service.
-        weight:
-          type: integer
-          minimum: 0
-          maximum: 1000000
-          description: Relative weight for traffic distribution. Requests are proportioned by weight across backendRefs in the same rule.
-    Status:
-      type: object
-      description: Error or result status.
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        reason:
-          type: string
-        status:
-          type: string
-          enum:
-          - Success
-          - Failure
-  parameters:
-    DryRun:
-      name: dryRun
-      in: query
-      description: If 'All', validates without persisting.
-      schema:
-        type: string
-        enum:
-        - All
-    NamespaceParam:
-      name: namespace
-      in: path
-      required: true
-      description: Namespace name to scope the request.
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      description: Label selector to filter resources.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        minimum: 1
-    NameParam:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource.
-      schema:
-        type: string
-    Watch:
-      name: watch
-      in: query
-      description: If true, stream watch events.
-      schema:
-        type: boolean
   responses:
     NotFound:
       description: Not found

@@ -132,17 +132,74 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    DryRun:
+      name: dryRun
+      in: query
+      description: If 'All', validates without persisting.
+      schema:
+        type: string
+        enum:
+        - All
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource.
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    Watch:
+      name: watch
+      in: query
+      description: If true, stream watch events.
+      schema:
+        type: boolean
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
+    NamespaceParam:
+      name: namespace
+      in: path
+      required: true
+      description: Namespace name to scope the request.
+      schema:
+        type: string
   schemas:
-    ListMeta:
+    Condition:
       type: object
-      description: Metadata for list responses.
+      description: A condition expressing an aspect of current resource state.
+      required:
+      - type
+      - status
       properties:
-        resourceVersion:
+        type:
           type: string
-        continue:
+          description: Type of condition.
+        status:
           type: string
-        remainingItemCount:
-          type: integer
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+        reason:
+          type: string
+          description: Machine-readable reason for the condition.
+        message:
+          type: string
+          description: Human-readable condition details.
+        lastTransitionTime:
+          type: string
+          format: date-time
     Gateway:
       type: object
       description: A Gateway represents an instance of traffic-handling infrastructure, such as a cloud load balancer or in-cluster proxy. It listens on one or more ports and delegates routing decisions to attached Route resources.
@@ -192,61 +249,23 @@ components:
                     - Hostname
                   value:
                     type: string
-    Condition:
+    GatewayList:
       type: object
-      description: A condition expressing an aspect of current resource state.
+      description: A list of Gateway resources.
       required:
-      - type
-      - status
+      - items
       properties:
-        type:
+        apiVersion:
           type: string
-          description: Type of condition.
-        status:
+        kind:
           type: string
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-        reason:
-          type: string
-          description: Machine-readable reason for the condition.
-        message:
-          type: string
-          description: Human-readable condition details.
-        lastTransitionTime:
-          type: string
-          format: date-time
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata.
-      properties:
-        name:
-          type: string
-          description: Name of the object.
-        namespace:
-          type: string
-          description: Namespace of the object.
-        uid:
-          type: string
-          description: Unique server-assigned identifier.
-        resourceVersion:
-          type: string
-          description: Internal version string.
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Creation timestamp.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Label key-value pairs.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Non-identifying metadata.
+          const: GatewayList
+        metadata:
+          $ref: '#/components/schemas/ListMeta'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gateway'
     GatewayListener:
       type: object
       description: A listener on a Gateway defining the protocol, port, optional hostname, and which routes are allowed to attach.
@@ -309,6 +328,36 @@ components:
                   - Same
                   - Selector
                   description: Namespaces from which routes may attach. Same means only the Gateway's namespace; All means any namespace.
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the object.
+        namespace:
+          type: string
+          description: Namespace of the object.
+        uid:
+          type: string
+          description: Unique server-assigned identifier.
+        resourceVersion:
+          type: string
+          description: Internal version string.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Label key-value pairs.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata.
     Status:
       type: object
       description: Error or result status.
@@ -324,65 +373,16 @@ components:
           enum:
           - Success
           - Failure
-    GatewayList:
+    ListMeta:
       type: object
-      description: A list of Gateway resources.
-      required:
-      - items
+      description: Metadata for list responses.
       properties:
-        apiVersion:
+        resourceVersion:
           type: string
-        kind:
+        continue:
           type: string
-          const: GatewayList
-        metadata:
-          $ref: '#/components/schemas/ListMeta'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Gateway'
-  parameters:
-    NamespaceParam:
-      name: namespace
-      in: path
-      required: true
-      description: Namespace name to scope the request.
-      schema:
-        type: string
-    DryRun:
-      name: dryRun
-      in: query
-      description: If 'All', validates without persisting.
-      schema:
-        type: string
-        enum:
-        - All
-    LabelSelector:
-      name: labelSelector
-      in: query
-      description: Label selector to filter resources.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        minimum: 1
-    NameParam:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource.
-      schema:
-        type: string
-    Watch:
-      name: watch
-      in: query
-      description: If true, stream watch events.
-      schema:
-        type: boolean
+        remainingItemCount:
+          type: integer
   responses:
     NotFound:
       description: Not found

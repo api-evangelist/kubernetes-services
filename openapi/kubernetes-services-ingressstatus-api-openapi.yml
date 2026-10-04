@@ -65,7 +65,86 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource.
+      schema:
+        type: string
+    NamespaceParam:
+      name: namespace
+      in: path
+      required: true
+      description: Namespace name to scope the request.
+      schema:
+        type: string
   schemas:
+    IngressStatus:
+      type: object
+      description: Most recently observed status of an Ingress, reporting the load balancer IPs or hostnames assigned by the ingress controller.
+      properties:
+        loadBalancer:
+          type: object
+          description: LoadBalancer status for the ingress.
+          properties:
+            ingress:
+              type: array
+              description: List of load balancer ingress points.
+              items:
+                type: object
+                properties:
+                  ip:
+                    type: string
+                    description: IP address assigned to this ingress point.
+                  hostname:
+                    type: string
+                    description: Hostname assigned to this ingress point.
+                  ports:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        port:
+                          type: integer
+                        protocol:
+                          type: string
+                        error:
+                          type: string
+    HTTPIngressPath:
+      type: object
+      description: A mapping of an HTTP path to a backend service. Used within Ingress rules to route specific paths to different services.
+      required:
+      - pathType
+      - backend
+      properties:
+        path:
+          type: string
+          description: URL path to match. Must begin with '/'. Required for Exact and Prefix pathTypes.
+          pattern: ^/
+        pathType:
+          type: string
+          enum:
+          - Exact
+          - Prefix
+          - ImplementationSpecific
+          description: How the path is matched. Exact requires a case-sensitive exact match; Prefix matches paths sharing a '/' delimited prefix; ImplementationSpecific defers to the IngressClass controller.
+        backend:
+          $ref: '#/components/schemas/IngressBackend'
     IngressBackend:
       type: object
       description: Reference to the backend service or resource that an Ingress routing rule should forward traffic to.
@@ -105,26 +184,6 @@ components:
             name:
               type: string
               description: Name of the referenced resource.
-    HTTPIngressPath:
-      type: object
-      description: A mapping of an HTTP path to a backend service. Used within Ingress rules to route specific paths to different services.
-      required:
-      - pathType
-      - backend
-      properties:
-        path:
-          type: string
-          description: URL path to match. Must begin with '/'. Required for Exact and Prefix pathTypes.
-          pattern: ^/
-        pathType:
-          type: string
-          enum:
-          - Exact
-          - Prefix
-          - ImplementationSpecific
-          description: How the path is matched. Exact requires a case-sensitive exact match; Prefix matches paths sharing a '/' delimited prefix; ImplementationSpecific defers to the IngressClass controller.
-        backend:
-          $ref: '#/components/schemas/IngressBackend'
     Ingress:
       type: object
       description: An Ingress manages external access to the services in a cluster, typically HTTP/HTTPS. It provides load balancing, SSL termination, and name-based virtual hosting based on routing rules.
@@ -141,6 +200,25 @@ components:
           $ref: '#/components/schemas/IngressSpec'
         status:
           $ref: '#/components/schemas/IngressStatus'
+    IngressSpec:
+      type: object
+      description: Specification of the desired behavior of an Ingress, including the routing rules, TLS configuration, default backend, and reference to the ingress controller via the IngressClass.
+      properties:
+        ingressClassName:
+          type: string
+          description: Name of the IngressClass cluster resource that selects which ingress controller handles this Ingress.
+        defaultBackend:
+          $ref: '#/components/schemas/IngressBackend'
+        tls:
+          type: array
+          description: TLS configuration for HTTPS termination.
+          items:
+            $ref: '#/components/schemas/IngressTLS'
+        rules:
+          type: array
+          description: List of host rules for HTTP traffic routing. If no rules match a request, the defaultBackend is used.
+          items:
+            $ref: '#/components/schemas/IngressRule'
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -171,75 +249,6 @@ components:
           additionalProperties:
             type: string
           description: Non-identifying metadata.
-    IngressStatus:
-      type: object
-      description: Most recently observed status of an Ingress, reporting the load balancer IPs or hostnames assigned by the ingress controller.
-      properties:
-        loadBalancer:
-          type: object
-          description: LoadBalancer status for the ingress.
-          properties:
-            ingress:
-              type: array
-              description: List of load balancer ingress points.
-              items:
-                type: object
-                properties:
-                  ip:
-                    type: string
-                    description: IP address assigned to this ingress point.
-                  hostname:
-                    type: string
-                    description: Hostname assigned to this ingress point.
-                  ports:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        port:
-                          type: integer
-                        protocol:
-                          type: string
-                        error:
-                          type: string
-    IngressSpec:
-      type: object
-      description: Specification of the desired behavior of an Ingress, including the routing rules, TLS configuration, default backend, and reference to the ingress controller via the IngressClass.
-      properties:
-        ingressClassName:
-          type: string
-          description: Name of the IngressClass cluster resource that selects which ingress controller handles this Ingress.
-        defaultBackend:
-          $ref: '#/components/schemas/IngressBackend'
-        tls:
-          type: array
-          description: TLS configuration for HTTPS termination.
-          items:
-            $ref: '#/components/schemas/IngressTLS'
-        rules:
-          type: array
-          description: List of host rules for HTTP traffic routing. If no rules match a request, the defaultBackend is used.
-          items:
-            $ref: '#/components/schemas/IngressRule'
-    IngressRule:
-      type: object
-      description: A host-based routing rule mapping HTTP requests to backend services based on hostname and path prefix matching.
-      properties:
-        host:
-          type: string
-          description: Fully-qualified domain name to match. Wildcard prefixes like *.example.com are supported. If unspecified, all hosts match.
-        http:
-          type: object
-          description: HTTP-specific routing configuration for this rule.
-          required:
-          - paths
-          properties:
-            paths:
-              type: array
-              description: List of path-to-backend mappings for this rule. At least one path must be specified.
-              minItems: 1
-              items:
-                $ref: '#/components/schemas/HTTPIngressPath'
     Status:
       type: object
       description: Error or result status returned by the API.
@@ -267,34 +276,25 @@ components:
         secretName:
           type: string
           description: Name of the Secret in the same namespace containing the TLS certificate (tls.crt) and key (tls.key).
-  parameters:
-    NamespaceParam:
-      name: namespace
-      in: path
-      required: true
-      description: Namespace name to scope the request.
-      schema:
-        type: string
-    NameParam:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource.
-      schema:
-        type: string
-  responses:
-    NotFound:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
+    IngressRule:
+      type: object
+      description: A host-based routing rule mapping HTTP requests to backend services based on hostname and path prefix matching.
+      properties:
+        host:
+          type: string
+          description: Fully-qualified domain name to match. Wildcard prefixes like *.example.com are supported. If unspecified, all hosts match.
+        http:
+          type: object
+          description: HTTP-specific routing configuration for this rule.
+          required:
+          - paths
+          properties:
+            paths:
+              type: array
+              description: List of path-to-backend mappings for this rule. At least one path must be specified.
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/HTTPIngressPath'
   securitySchemes:
     bearerAuth:
       type: http

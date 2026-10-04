@@ -118,16 +118,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GatewayClass'
-    ListMeta:
-      type: object
-      description: Metadata for list responses.
-      properties:
-        resourceVersion:
-          type: string
-        continue:
-          type: string
-        remainingItemCount:
-          type: integer
     Condition:
       type: object
       description: A condition expressing an aspect of current resource state.
@@ -239,6 +229,16 @@ components:
           enum:
           - Success
           - Failure
+    ListMeta:
+      type: object
+      description: Metadata for list responses.
+      properties:
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
+          type: integer
   responses:
     NotFound:
       description: Not found
@@ -259,24 +259,17 @@ components:
           schema:
             $ref: '#/components/schemas/Status'
   parameters:
-    LabelSelector:
-      name: labelSelector
-      in: query
-      description: Label selector to filter resources.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        minimum: 1
     NameParam:
       name: name
       in: path
       required: true
       description: Name of the resource.
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
       schema:
         type: string
     Watch:
@@ -285,6 +278,13 @@ components:
       description: If true, stream watch events.
       schema:
         type: boolean
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
   securitySchemes:
     bearerAuth:
       type: http
