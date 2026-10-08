@@ -451,6 +451,12 @@ apis:
   - type: Reference
     url: https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/
 common:
+- type: Plans
+  url: plans/kubernetes-services-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/kubernetes-services-rate-limits.yml
+- type: FinOps
+  url: finops/kubernetes-services-finops.yml
 - type: CapabilityMap
   url: capabilities/kubernetes-services-capability-edges.yml
   name: Kubernetes Services Business Capability Map
