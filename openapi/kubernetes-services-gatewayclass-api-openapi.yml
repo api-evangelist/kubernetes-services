@@ -101,6 +101,36 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the object.
+        namespace:
+          type: string
+          description: Namespace of the object.
+        uid:
+          type: string
+          description: Unique server-assigned identifier.
+        resourceVersion:
+          type: string
+          description: Internal version string.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Label key-value pairs.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Non-identifying metadata.
     GatewayClassList:
       type: object
       description: A list of GatewayClass resources.
@@ -118,31 +148,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GatewayClass'
-    Condition:
-      type: object
-      description: A condition expressing an aspect of current resource state.
-      required:
-      - type
-      - status
-      properties:
-        type:
-          type: string
-          description: Type of condition.
-        status:
-          type: string
-          enum:
-          - 'True'
-          - 'False'
-          - Unknown
-        reason:
-          type: string
-          description: Machine-readable reason for the condition.
-        message:
-          type: string
-          description: Human-readable condition details.
-        lastTransitionTime:
-          type: string
-          format: date-time
     GatewayClass:
       type: object
       description: A GatewayClass is a cluster-scoped resource that defines a class of gateway implementations, linking to a specific gateway controller via the controllerName field. Infrastructure providers create GatewayClasses when deploying their gateway controller.
@@ -184,36 +189,41 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Condition'
-    ObjectMeta:
+    Condition:
       type: object
-      description: Standard Kubernetes object metadata.
+      description: A condition expressing an aspect of current resource state.
+      required:
+      - type
+      - status
       properties:
-        name:
+        type:
           type: string
-          description: Name of the object.
-        namespace:
+          description: Type of condition.
+        status:
           type: string
-          description: Namespace of the object.
-        uid:
+          enum:
+          - 'True'
+          - 'False'
+          - Unknown
+        reason:
           type: string
-          description: Unique server-assigned identifier.
-        resourceVersion:
+          description: Machine-readable reason for the condition.
+        message:
           type: string
-          description: Internal version string.
-        creationTimestamp:
+          description: Human-readable condition details.
+        lastTransitionTime:
           type: string
           format: date-time
-          description: Creation timestamp.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Label key-value pairs.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Non-identifying metadata.
+    ListMeta:
+      type: object
+      description: Metadata for list responses.
+      properties:
+        resourceVersion:
+          type: string
+        continue:
+          type: string
+        remainingItemCount:
+          type: integer
     Status:
       type: object
       description: Error or result status.
@@ -229,25 +239,36 @@ components:
           enum:
           - Success
           - Failure
-    ListMeta:
-      type: object
-      description: Metadata for list responses.
-      properties:
-        resourceVersion:
-          type: string
-        continue:
-          type: string
-        remainingItemCount:
-          type: integer
+  parameters:
+    LabelSelector:
+      name: labelSelector
+      in: query
+      description: Label selector to filter resources.
+      schema:
+        type: string
+    NameParam:
+      name: name
+      in: path
+      required: true
+      description: Name of the resource.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        minimum: 1
+    Watch:
+      name: watch
+      in: query
+      description: If true, stream watch events.
+      schema:
+        type: boolean
   responses:
     NotFound:
       description: Not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    Unauthorized:
-      description: Unauthorized
       content:
         application/json:
           schema:
@@ -258,33 +279,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
-  parameters:
-    NameParam:
-      name: name
-      in: path
-      required: true
-      description: Name of the resource.
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      description: Label selector to filter resources.
-      schema:
-        type: string
-    Watch:
-      name: watch
-      in: query
-      description: If true, stream watch events.
-      schema:
-        type: boolean
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        minimum: 1
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   securitySchemes:
     bearerAuth:
       type: http
