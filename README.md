@@ -1,4 +1,4 @@
-# Kubernetes Services (kubernetes-services)
+# Kubernetes Services
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,175 +66,222 @@
 
 Kubernetes Services provide an abstract way to expose an application running on a set of Pods as a network service. They provide stable networking endpoints and load balancing across pod replicas in a Kubernetes cluster.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/kubernetes-services/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/kubernetes-services/refs/heads/main/apis.yml)
+**Areas:** Container Orchestration · Kubernetes · Load Balancing · Networking · Service Discovery
 
-## Scope
+## Kubernetes Services on APIs.io
 
-- **Type:** Index
+Everything profiled for Kubernetes Services is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/kubernetes-services/](https://apis.io/providers/kubernetes-services/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (13)
 
-- Container Orchestration
-- Kubernetes
-- Load Balancing
-- Networking
-- Service Discovery
+- [Kubernetes DNS for Services and Pods](https://apis.io/apis/kubernetes-services/kubernetes-dns/) — Kubernetes provides DNS-based service discovery for Services and Pods within a cluster. DNS records are automatically created for Services, allowing…
+- [Kubernetes Services EndpointSlices API](https://apis.io/apis/kubernetes-services/kubernetes-services-endpointslices-api/) — EndpointSlice resources tracking IP addresses, ports, and readiness of pods backing a Service, with topology-aware routing support.
+- [Kubernetes Services Gateway API](https://apis.io/apis/kubernetes-services/kubernetes-services-gateway-api/) — Gateway resources instantiating traffic-handling infrastructure such as cloud load balancers or in-cluster proxies, with listeners for each protocol.
+- [Kubernetes Services GatewayClass API](https://apis.io/apis/kubernetes-services/kubernetes-services-gatewayclass-api/) — GatewayClass resources defining a class of gateway implementations. Cluster-scoped resources that link to a specific ingress or mesh controller.
+- [Kubernetes Services GRPCRoute API](https://apis.io/apis/kubernetes-services/kubernetes-services-grpcroute-api/) — GRPCRoute resources defining gRPC routing rules from Gateway listeners to backend services with service and method name matching.
+- [Kubernetes Services HTTPRoute API](https://apis.io/apis/kubernetes-services/kubernetes-services-httproute-api/) — HTTPRoute resources defining HTTP and HTTPS routing rules from Gateway listeners to backend services with support for path, header, and query parameter…
+- [Kubernetes Services Ingress API](https://apis.io/apis/kubernetes-services/kubernetes-services-ingress-api/) — Ingress resources defining HTTP and HTTPS routing rules from external traffic to cluster services, with TLS termination support.
+- [Kubernetes Services IngressClass API](https://apis.io/apis/kubernetes-services/kubernetes-services-ingressclass-api/) — IngressClass resources identifying which ingress controller should fulfill an Ingress resource.
+- [Kubernetes Services IngressStatus API](https://apis.io/apis/kubernetes-services/kubernetes-services-ingressstatus-api/) — Status subresource for Ingress objects, reporting load balancer IP or hostname assignments from the ingress controller.
+- [Kubernetes Services Namespaces API](https://apis.io/apis/kubernetes-services/kubernetes-services-namespaces-api/) — The Namespaces API from Kubernetes Services — 2 operation(s) for namespaces.
+- [Kubernetes Services API](https://apis.io/apis/kubernetes-services/kubernetes-services-services-api/) — The Services API from Kubernetes Services — 1 operation(s) for services.
+- [Kubernetes Services Network Policy API](https://apis.io/apis/kubernetes-services/kubernetes-services-network-policy-api/) — NetworkPolicy resources controlling Pod-level traffic ingress and egress based on label selectors, namespace selectors, and IP CIDR blocks.
+- [Kubernetes Services Service Status API](https://apis.io/apis/kubernetes-services/kubernetes-services-service-status-api/) — Status subresource operations for Services, used to update load balancer provisioning state and conditions.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-01-01
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### Kubernetes Services
+Event-driven and webhook contracts.
 
-The Kubernetes Services API provides an abstraction for exposing groups of Pods over a network with a stable virtual IP address and DNS name. It supports ClusterIP, NodePort, LoadBalancer, and ExternalName service types for internal and external connectivity within Kubernetes clusters.
+- [Kubernetes Services Watch Events](https://apis.io/asyncapis/kubernetes-services/kubernetes-services-watch-asyncapi/)
 
-- **Human URL:** [https://kubernetes.io/docs/concepts/services-networking/service/](https://kubernetes.io/docs/concepts/services-networking/service/)
+#### Event channels (7)
 
-#### Tags
+Individual events and webhooks the provider emits.
 
-- Kubernetes
-- Load Balancing
-- Networking
-- Service Discovery
+- [/api/v1/namespaces/{namespace}/services](https://apis.io/channels/kubernetes-services/api-v1-namespaces-namespace-services/)
+- [/api/v1/services](https://apis.io/channels/kubernetes-services/api-v1-services/)
+- [/apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices](https://apis.io/channels/kubernetes-services/apis-discovery-k8s-io-v1-namespaces-namespace-endpointslices/)
+- [/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/gateways](https://apis.io/channels/kubernetes-services/apis-gateway-networking-k8s-io-v1-namespaces-namespace-gateways/)
+- [/apis/gateway.networking.k8s.io/v1/namespaces/{namespace}/httproutes](https://apis.io/channels/kubernetes-services/apis-gateway-networking-k8s-io-v1-namespaces-namespace-httproutes/)
+- [/apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses](https://apis.io/channels/kubernetes-services/apis-networking-k8s-io-v1-namespaces-namespace-ingresses/)
+- [/apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies](https://apis.io/channels/kubernetes-services/apis-networking-k8s-io-v1-namespaces-namespace-networkpolicies/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://kubernetes.io/docs/concepts/services-networking/service/)
-- [Reference](https://kubernetes.io/docs/reference/kubernetes-api/service-resources/service-v1/)
-- [OpenAPI](openapi/kubernetes-services-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kubernetes-services.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kubernetes-services.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [AsyncAPI](asyncapi/kubernetes-services-watch-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [JSON Schema](json-schema/kubernetes-services-schema.json) — [JSON Schema](https://json-schema.org/specification)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Kubernetes Ingress
+- [Kubernetes Services Agentic Access](https://apis.io/agentic-access/kubernetes-services/kubernetes-services-agentic-access/)
 
-The Kubernetes Ingress API manages external HTTP and HTTPS access to services within a cluster, providing load balancing, SSL termination, and name-based virtual hosting. Traffic routing is controlled by rules defined on the Ingress resource and fulfilled by an Ingress controller.
+#### JSON Schema (47)
 
-- **Human URL:** [https://kubernetes.io/docs/concepts/services-networking/ingress/](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+The data models the API reads and writes.
 
-#### Tags
+- [Kubernetes Services Resource](https://apis.io/schemas/kubernetes-services/kubernetes-services/)
+- [Condition](https://apis.io/schemas/kubernetes-services/kubernetes-services-condition/)
+- [Endpoint](https://apis.io/schemas/kubernetes-services/kubernetes-services-endpoint/)
+- [EndpointConditions](https://apis.io/schemas/kubernetes-services/kubernetes-services-endpointconditions/)
+- [EndpointHints](https://apis.io/schemas/kubernetes-services/kubernetes-services-endpointhints/)
+- [EndpointPort](https://apis.io/schemas/kubernetes-services/kubernetes-services-endpointport/)
+- [EndpointSlice](https://apis.io/schemas/kubernetes-services/kubernetes-services-endpointslice/)
+- [EndpointSliceList](https://apis.io/schemas/kubernetes-services/kubernetes-services-endpointslicelist/)
+- [Gateway](https://apis.io/schemas/kubernetes-services/kubernetes-services-gateway/)
+- [GatewayClass](https://apis.io/schemas/kubernetes-services/kubernetes-services-gatewayclass/)
+- [GatewayClassList](https://apis.io/schemas/kubernetes-services/kubernetes-services-gatewayclasslist/)
+- [GatewayList](https://apis.io/schemas/kubernetes-services/kubernetes-services-gatewaylist/)
+- [GatewayListener](https://apis.io/schemas/kubernetes-services/kubernetes-services-gatewaylistener/)
+- [GRPCRoute](https://apis.io/schemas/kubernetes-services/kubernetes-services-grpcroute/)
+- [GRPCRouteList](https://apis.io/schemas/kubernetes-services/kubernetes-services-grpcroutelist/)
+- [HTTPBackendRef](https://apis.io/schemas/kubernetes-services/kubernetes-services-httpbackendref/)
+- [HTTPIngressPath](https://apis.io/schemas/kubernetes-services/kubernetes-services-httpingresspath/)
+- [HTTPRoute](https://apis.io/schemas/kubernetes-services/kubernetes-services-httproute/)
+- [HTTPRouteList](https://apis.io/schemas/kubernetes-services/kubernetes-services-httproutelist/)
+- [HTTPRouteMatch](https://apis.io/schemas/kubernetes-services/kubernetes-services-httproutematch/)
+- [Ingress](https://apis.io/schemas/kubernetes-services/kubernetes-services-ingress/)
+- [IngressBackend](https://apis.io/schemas/kubernetes-services/kubernetes-services-ingressbackend/)
+- [IngressClass](https://apis.io/schemas/kubernetes-services/kubernetes-services-ingressclass/)
+- [IngressClassList](https://apis.io/schemas/kubernetes-services/kubernetes-services-ingressclasslist/)
+- [IngressList](https://apis.io/schemas/kubernetes-services/kubernetes-services-ingresslist/)
+- …and 22 more published on APIs.io
 
-- HTTP
-- Kubernetes
-- Load Balancing
-- Networking
+#### JSON Structure (1)
 
-#### Properties
+Data models expressed in JSON Structure.
 
-- [Documentation](https://kubernetes.io/docs/concepts/services-networking/ingress/)
-- [Reference](https://kubernetes.io/docs/reference/kubernetes-api/service-resources/ingress-v1/)
-- [OpenAPI](openapi/kubernetes-ingress-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kubernetes-ingress.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kubernetes-ingress.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Kubernetes Services Structure](https://apis.io/json-structure/kubernetes-services/kubernetes-services-structure/)
 
-### Kubernetes Gateway API
+#### JSON-LD (1)
 
-The Kubernetes Gateway API is a role-oriented, extensible API for managing ingress and mesh traffic routing in Kubernetes. It supports advanced traffic management including header-based matching, traffic weighting, and multi-protocol routing as a successor to the Ingress API.
+Linked-data contexts for the provider's vocabulary.
 
-- **Human URL:** [https://kubernetes.io/docs/concepts/services-networking/gateway/](https://kubernetes.io/docs/concepts/services-networking/gateway/)
+- [Kubernetes Services Context](https://apis.io/jsonld/kubernetes-services/kubernetes-services-context/)
 
-#### Tags
+#### Vocabulary (1)
 
-- Gateway
-- Kubernetes
-- Networking
-- Traffic Management
+The provider's domain terms, defined.
 
-#### Properties
+- [Kubernetes Services Domain Vocabulary](https://apis.io/vocabularies/kubernetes-services/kubernetes-services-vocabulary/)
 
-- [Documentation](https://kubernetes.io/docs/concepts/services-networking/gateway/)
-- [OpenAPI](openapi/kubernetes-gateway-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kubernetes-gateway-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kubernetes-gateway-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Collections (17)
 
-### Kubernetes EndpointSlices
+Postman and Open Collection request collections.
 
-The Kubernetes EndpointSlices API tracks IP addresses, ports, readiness, and topology information for Pods backing a Service. EndpointSlices replaced the older Endpoints API to improve scalability for large clusters and enable topology-aware routing.
+- [Kubernetes Services Kubernetes EndpointSlices API](https://apis.io/collections/kubernetes-services/open-kubernetes-endpoint-slices/)
+- [Kubernetes Services Kubernetes Gateway API](https://apis.io/collections/kubernetes-services/open-kubernetes-gateway-api/)
+- [Kubernetes Services Kubernetes Ingress API](https://apis.io/collections/kubernetes-services/open-kubernetes-ingress/)
+- [Kubernetes Services Kubernetes Network Policies API](https://apis.io/collections/kubernetes-services/open-kubernetes-network-policies/)
+- [Kubernetes Services API](https://apis.io/collections/kubernetes-services/open-kubernetes-services/)
+- [Kubernetes Services Kubernetes EndpointSlices API](https://apis.io/collections/kubernetes-services/open-kubernetes-services-endpointslices-api/)
+- [Kubernetes Services Kubernetes EndpointSlices Gateway API](https://apis.io/collections/kubernetes-services/open-kubernetes-services-gateway-api/)
+- [Kubernetes Services Kubernetes EndpointSlices GatewayClass API](https://apis.io/collections/kubernetes-services/open-kubernetes-services-gatewayclass-api/)
+- [Kubernetes Services Kubernetes EndpointSlices GRPCRoute API](https://apis.io/collections/kubernetes-services/open-kubernetes-services-grpcroute-api/)
+- [Kubernetes Services Kubernetes EndpointSlices HTTPRoute API](https://apis.io/collections/kubernetes-services/open-kubernetes-services-httproute-api/)
+- [Kubernetes Services Kubernetes EndpointSlices Ingress API](https://apis.io/collections/kubernetes-services/open-kubernetes-services-ingress-api/)
+- [Kubernetes Services Kubernetes EndpointSlices IngressClass API](https://apis.io/collections/kubernetes-services/open-kubernetes-services-ingressclass-api/)
+- [Kubernetes Services Kubernetes EndpointSlices IngressStatus API](https://apis.io/collections/kubernetes-services/open-kubernetes-services-ingressstatus-api/)
+- [Kubernetes Services Kubernetes EndpointSlices Namespaces API](https://apis.io/collections/kubernetes-services/open-kubernetes-services-namespaces-api/)
+- [Kubernetes Services Kubernetes EndpointSlices NetworkPolicy API](https://apis.io/collections/kubernetes-services/open-kubernetes-services-networkpolicy-api/)
+- [Kubernetes Kubernetes EndpointSlices Services API](https://apis.io/collections/kubernetes-services/open-kubernetes-services-services-api/)
+- [Kubernetes Services Kubernetes EndpointSlices ServiceStatus API](https://apis.io/collections/kubernetes-services/open-kubernetes-services-servicestatus-api/)
 
-- **Human URL:** [https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/)
+#### Governance rules (2)
 
-#### Tags
+Spectral rulesets for the provider's contracts.
 
-- Kubernetes
-- Networking
-- Service Discovery
-- Topology
+- [Kubernetes Services — asyncapi rules](https://apis.io/rules/kubernetes-services/kubernetes-services-asyncapi-spectral-rules/)
+- [Kubernetes Services — jsonschema rules](https://apis.io/rules/kubernetes-services/kubernetes-services-jsonschema-spectral-rules/)
 
-#### Properties
+#### Security (3)
 
-- [Documentation](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/)
-- [Reference](https://kubernetes.io/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)
-- [OpenAPI](openapi/kubernetes-endpoint-slices-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kubernetes-endpoint-slices.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kubernetes-endpoint-slices.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Kubernetes Network Policies
+- [Kubernetes Services Authentication](https://apis.io/security/kubernetes-services/kubernetes-services-authentication/)
+- [Kubernetes Services Domain Security](https://apis.io/security/kubernetes-services/kubernetes-services-domain-security/)
+- [Kubernetes Services Vulnerability Disclosure](https://apis.io/security/kubernetes-services/kubernetes-services-vulnerability-disclosure/)
 
-The Kubernetes NetworkPolicy API controls how groups of Pods communicate with each other and with external network endpoints. Policies define ingress and egress rules based on Pod selectors, namespace selectors, and IP blocks to implement network segmentation.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://kubernetes.io/docs/concepts/services-networking/network-policies/](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+Published plans, tiers and prices.
 
-#### Tags
+- [Kubernetes Services Plans Pricing](https://apis.io/plans/kubernetes-services/kubernetes-services-plans-pricing/)
 
-- Kubernetes
-- Networking
-- Policy
-- Security
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [Documentation](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
-- [Reference](https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/network-policy-v1/)
-- [OpenAPI](openapi/kubernetes-network-policies-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kubernetes-network-policies.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kubernetes-network-policies.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Kubernetes Services Rate Limits](https://apis.io/rate-limits/kubernetes-services/kubernetes-services-rate-limits/)
 
-### Kubernetes DNS for Services and Pods
+#### FinOps (1)
 
-Kubernetes provides DNS-based service discovery for Services and Pods within a cluster. DNS records are automatically created for Services, allowing workloads to locate services by name rather than by IP address.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
+- [Kubernetes Services Finops](https://apis.io/finops/kubernetes-services/kubernetes-services-finops/)
 
-#### Tags
+## Where to find this API
 
-- DNS
-- Kubernetes
-- Networking
-- Service Discovery
-
-#### Properties
-
-- [Documentation](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
-- [Postman Collection](collections/kubernetes-endpoint-slices.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kubernetes-endpoint-slices.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/kubernetes-gateway-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kubernetes-gateway-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/kubernetes-ingress.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kubernetes-ingress.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/kubernetes-network-policies.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kubernetes-network-policies.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/kubernetes-services.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kubernetes-services.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://kubernetes.io)
 - [Documentation](https://kubernetes.io/docs/concepts/services-networking/)
-- [Getting Started](https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/)
-- [Reference](https://kubernetes.io/docs/reference/kubernetes-api/service-resources/)
-- [GitHub Organization](https://github.com/kubernetes)
-- [GitHub Repository](https://github.com/kubernetes/kubernetes)
-- [Blog](https://kubernetes.io/blog/)
-- [Community](https://kubernetes.io/community/)
+- [Getting started](https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/)
 - [Changelog](https://kubernetes.io/releases/)
-- [JSON Schema](json-schema/kubernetes-services-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/kubernetes-services-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Blog](https://kubernetes.io/blog/)
+- [GitHub](https://github.com/kubernetes)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 41.6** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 66.6 |
+| Contract governance | 13.6 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 45.2 |
+| Access clarity | 5.3 |
+
+**Agent readiness 30.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bound |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | yes |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 22.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/kubernetes-services/](https://apis.io/providers/kubernetes-services/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Kubernetes Services: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/kubernetes-services/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
